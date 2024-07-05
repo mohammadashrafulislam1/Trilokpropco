@@ -1,12 +1,10 @@
 import multer from 'multer';
 
 const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'Trilokpropco-images'); // Set your desired destination folder
-    },
-    filename: function (req, file, cb) {
-        cb(null, file.originalname);
-    }
+  
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  }
 });
 
 const upload = multer({ storage: storage });

@@ -1,7 +1,7 @@
 import express from "express";
-import { upload } from "../MiddleWare/multer";
-import { addStatus } from "../Controllers/StatusController";
+import { upload } from "../MiddleWare/multer.js";
+import { addStatus } from "../Controllers/StatusController.js";
 
 export const statusRouter = express.Router();
 
-statusRouter('/', upload.single('image'), addStatus)
+statusRouter.post('/', upload.single('image'), addStatus)

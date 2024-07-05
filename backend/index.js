@@ -2,12 +2,20 @@ import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import { statusRouter } from "./Routers/status.js";
+import { typeRouter } from "./Routers/type.js";
+import { amenitiesRouter } from "./Routers/amenities.js";
+import { developerRouter } from "./Routers/developer.js";
 
 const app = express();
 const PORT = 5000;
 dotenv.config()
 app.use(cors())
 app.use(express.json())
+app.use('/status', statusRouter)
+app.use('/type', typeRouter)
+app.use('/amenity', amenitiesRouter)
+app.use('/developer', developerRouter)
 
 const dbName = "Trilokpropco"
 const dbUser = process.env.DBUSER

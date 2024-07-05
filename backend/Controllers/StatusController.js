@@ -1,5 +1,5 @@
-import { StatusModel } from "../Models/StatusModel";
-import { cloudinary } from "../utils/cloudinary";
+import { StatusModel } from "../Models/StatusModel.js";
+import { cloudinary } from "../utils/cloudinary.js";
 
 export const addStatus = async(req, res)=>{
     try{
