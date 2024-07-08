@@ -1,0 +1,28 @@
+.drawer {
+    display: flex;
+    height: 100vh;
+  }
+  
+  .drawer-toggle {
+    display: none;
+  }
+  
+  .drawer-content {
+    flex: 1;
+    transition: margin-left 0.3s;
+  }
+  
+  .drawer-side {
+    width: 0;
+    transition: width 0.3s;
+    overflow: hidden;
+  }
+  
+  .drawer-toggle:checked ~ .drawer-side {
+    width: 20rem; /* Adjust the width as needed */
+  }
+  
+  .drawer-toggle:checked ~ .drawer-content {
+    margin-left: 20rem; /* Same as the drawer width */
+  }
+  
