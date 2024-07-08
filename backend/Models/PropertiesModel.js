@@ -3,16 +3,16 @@ import mongoose from "mongoose";
 
 const propertySchema = new mongoose.Schema({
     name: { type: String, required: true },
-    types: [{
+    type: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Types'
-    }],
+    },
     developer: {type: mongoose.Schema.Types.ObjectId, ref: 'Developer' },
     location: { type: String, required: true },
-    statuses: [{
+    status: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Status'
-    }],
+    },
     priceRange: { type: String, required: true },
     configuration: { type: String, required: true },
     galleryImages: { type: [String], required: true },
@@ -30,20 +30,18 @@ const propertySchema = new mongoose.Schema({
     description: { type: String, required: true },
     priceDetails: {
       type: [{
-        configuration: String,
-        price: String,
-        size: String
-      }],
-      required: true
+        configuration: { type: String},
+        price: { type: String},
+        size: { type: String}
+      }]
     },
     plans: {
       type: [{
-        planType: String,
-        image: String,
-        size: String,
-        price: String
+        planType: { type: String},
+        image: { type: String},
+        size: { type: String},
+        price: { type: String}
       }],
-      required: true
     },
     pdfDownload: { type: String, required: true },
     amenities: [{
@@ -56,4 +54,4 @@ const propertySchema = new mongoose.Schema({
     video: { type: String, required: true }
   });
 
-export const PropertyMode = mongoose.model('Property', propertySchema);
+export const PropertyModel = mongoose.model('Property', propertySchema);

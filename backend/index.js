@@ -6,6 +6,7 @@ import { statusRouter } from "./Routers/status.js";
 import { typeRouter } from "./Routers/type.js";
 import { amenitiesRouter } from "./Routers/amenities.js";
 import { developerRouter } from "./Routers/developer.js";
+import { propertyRouter } from "./Routers/property.js";
 
 const app = express();
 const PORT = 5000;
@@ -16,6 +17,7 @@ app.use('/status', statusRouter)
 app.use('/type', typeRouter)
 app.use('/amenity', amenitiesRouter)
 app.use('/developer', developerRouter)
+app.use('/property', propertyRouter)
 
 const dbName = "Trilokpropco"
 const dbUser = process.env.DBUSER
