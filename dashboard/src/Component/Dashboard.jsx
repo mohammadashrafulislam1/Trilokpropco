@@ -2,8 +2,9 @@ import { useState } from "react";
 import "./Dashboard.css";
 import { CiMenuFries } from "react-icons/ci";
 import { RxCross1 } from "react-icons/rx";
-import { FaBell } from "react-icons/fa";
+import { FaBell, FaDashcube } from "react-icons/fa";
 import { Link, Outlet } from "react-router-dom";
+import { MdOutlineLibraryAdd } from "react-icons/md";
 
 const Dashboard = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -12,9 +13,10 @@ const Dashboard = () => {
     setIsDrawerOpen(!isDrawerOpen);
   };
   const dashNav = (
-    <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4 gap-2">
-      <Link to={'/'} className="btn"><li>DashBoard</li></Link>
-      <Link to={'/add'} className="btn"><li>Add Property</li></Link>
+    <ul className="menu bg-[#fff] text-base-content min-h-full w-full p-4 gap-2 align-middle">
+      <img src="https://i.ibb.co/55MrgtV/18a006575c097b8b99494b75da063caf.jpg" className="w-1/2"/>
+      <Link to={'/'} className="mt-6 p-3 bg-[#7e7e7e1a] rounded flex items-center gap-2 text-[18px]"><FaDashcube />Dashboard</Link>
+      <Link to={'/add'} className="p-3 bg-[#7e7e7e1a] rounded flex items-center gap-2 text-[18px]"><MdOutlineLibraryAdd/>Add Property</Link>
     </ul>
   );
   return (
@@ -86,7 +88,7 @@ const Dashboard = () => {
           </div>
         </nav>
         {/* Your page content */}
-        <Outlet />
+        <div className="overflow-auto"><Outlet /></div>
       </div>
       <div className="drawer-side">
         <label
