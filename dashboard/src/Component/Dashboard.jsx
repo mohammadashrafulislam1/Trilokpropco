@@ -28,7 +28,7 @@ const Dashboard = () => {
         checked={isDrawerOpen}
         onChange={handleDrawerToggle}
       />
-      <div className="drawer-content">
+      <div className="drawer-content overflow-x-auto">
         {/* Page content here */}
         <nav className="navbar bg-[#fff] justify-between">
           <label
@@ -88,7 +88,7 @@ const Dashboard = () => {
           </div>
         </nav>
         {/* Your page content */}
-        <div className="overflow-auto"><Outlet /></div>
+        <Outlet />
       </div>
       <div className="drawer-side">
         <label

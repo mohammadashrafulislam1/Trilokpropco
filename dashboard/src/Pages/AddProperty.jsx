@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import { FaTrash } from "react-icons/fa";
 
 const AddProperty = () => {
   const [formData, setFormData] = useState({
@@ -100,6 +101,26 @@ const AddProperty = () => {
     }));
   };
 
+  const handleRemovePlan = (index) => {
+    setFormData(prevState => {
+      const newPlans = prevState.plans.filter((_, i) => i !== index);
+      return {
+        ...prevState,
+        plans: newPlans
+      };
+    });
+  };
+
+  const handleRemovePriceDetail = (index) => {
+    setFormData(prevState => {
+      const newPriceDetails = prevState.priceDetails.filter((_, i) => i !== index);
+      return {
+        ...prevState,
+        priceDetails: newPriceDetails
+      };
+    });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle form submission logic here
@@ -108,8 +129,8 @@ const AddProperty = () => {
 
   return (
     <div className="w-full flex flex-col justify-center items-center">
-      {/* add Property Form */}
-      <form onSubmit={handleSubmit} className="space-y-4 p-4 w-1/2 bg-white mt-10">
+      {/* Add Property Form */}
+      <form onSubmit={handleSubmit} className="space-y-4 p-4 w-1/2 bg-white rounded mt-10">
         <div className="form-control">
           <label className="label">
             <span className="label-text">Name</span>
@@ -163,7 +184,7 @@ const AddProperty = () => {
           <label className="label">
             <span className="label-text">Gallery Images</span>
           </label>
-          <input type="file" name="galleryImages" className="input input-bordered" required />
+          <input type="file" name="galleryImages" className="file-input w-full max-w-xs" required />
         </div>
 
         {/* Nested Fields for Project Overview */}
@@ -182,13 +203,14 @@ const AddProperty = () => {
             <span className="label-text">Price Details</span>
           </label>
           {formData.priceDetails.map((priceDetail, index) => (
-            <div key={index}>
+            <div key={index} className="flex items-center space-x-2 flex-wrap gap-2">
               <input type="text" name="configuration" value={priceDetail.configuration} onChange={(e) => handleNestedChange(e, ['priceDetails', index])} className="input input-bordered" placeholder="Configuration" />
               <input type="text" name="price" value={priceDetail.price} onChange={(e) => handleNestedChange(e, ['priceDetails', index])} className="input input-bordered" placeholder="Price" />
               <input type="text" name="size" value={priceDetail.size} onChange={(e) => handleNestedChange(e, ['priceDetails', index])} className="input input-bordered" placeholder="Size" />
+              <button type="button" onClick={() => handleRemovePriceDetail(index)} className="text-[#fc0000]"><FaTrash /></button>
             </div>
           ))}
-          <button type="button" onClick={handleAddPriceDetail} className="btn btn-secondary mt-2">Add More Price Details</button>
+          <button type="button" onClick={handleAddPriceDetail} className="cursor-pointer mt-2 text-green-600">Add More Price Details +</button>
         </div>
 
         {/* Nested Fields for Plans */}
@@ -197,14 +219,15 @@ const AddProperty = () => {
             <span className="label-text">Plans</span>
           </label>
           {formData.plans.map((plan, index) => (
-            <div key={index}>
+            <div key={index} className="flex items-center space-x-2 flex-wrap gap-2">
               <input type="text" name="planType" value={plan.planType} onChange={(e) => handleNestedChange(e, ['plans', index])} className="input input-bordered" placeholder="Plan Type" />
-              <input type="file" name="image" onChange={(e) => handleFileChange(e, ['plans', index])} className="input input-bordered" placeholder="Image" />
+              <input type="file" name="image" onChange={(e) => handleFileChange(e, ['plans', index])} className="file-input w-full max-w-xs" placeholder="Image" />
               <input type="text" name="size" value={plan.size} onChange={(e) => handleNestedChange(e, ['plans', index])} className="input input-bordered" placeholder="Size" />
               <input type="text" name="price" value={plan.price} onChange={(e) => handleNestedChange(e, ['plans', index])} className="input input-bordered" placeholder="Price" />
+              <button type="button" onClick={() => handleRemovePlan(index)}  className="text-[#fc0000]"><FaTrash /></button>
             </div>
           ))}
-          <button type="button" onClick={handleAddPlan} className="btn btn-secondary mt-2">Add More Plans</button>
+          <button type="button" onClick={handleAddPlan} className="cursor-pointer mt-2 text-green-600">Add More Plans +</button>
         </div>
 
         <div className="form-control">
@@ -249,4 +272,3 @@ const AddProperty = () => {
 };
 
 export default AddProperty;
-

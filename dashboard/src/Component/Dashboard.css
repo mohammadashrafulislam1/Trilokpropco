@@ -1,29 +1,36 @@
+/* Dashboard.css */
 .drawer {
-    display: flex;
-  }
-  
-  .drawer-toggle {
-    display: none;
-  }
-  
-  .drawer-content {
-    flex: 1;
-    min-height: 100vh;
-    transition: margin-left 0.3s;
-  }
-  
-  .drawer-side {
-    width: 0;
-    transition: width 0.3s;
-    height: 100vh;
-    overflow-y: auto;
-  }
-  
-  .drawer-toggle:checked ~ .drawer-side {
-    width: 20rem; /* Adjust the width as needed */
-  }
-  
-  .drawer-toggle:checked ~ .drawer-content {
-    margin-left: 20rem; /* Same as the drawer width */
-  }
-  
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.drawer-toggle {
+  display: none;
+}
+
+.drawer-content {
+  flex: 1;
+  transition: margin-left 0.3s;
+  margin-bottom: 100px;
+}
+
+.drawer-side {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 0;
+  transition: width 0.3s;
+  overflow-y: auto;
+  background: #fff; /* Adjust as needed */
+  z-index: 100;
+}
+
+.drawer-toggle:checked ~ .drawer-side {
+  width: 20rem; /* Adjust the width as needed */
+}
+
+.drawer-toggle:checked ~ .drawer-content {
+  margin-left: 20rem; /* Same as the drawer width */
+}
