@@ -13,3 +13,13 @@ export const addDeveloper = async(req, res)=>{
         res.status(500).json({message: "Internal Serval Error."})
     }
 }
+
+export const getDeveloper = async (req, res) =>{
+    try{
+      const developers = await DeveloperModel.find();
+      res.status(200).json(developers)
+    }catch (e) {
+        console.log(e.message);
+        res.status(500).json({ message: "Internal Server Error."});
+
+}}
