@@ -1,6 +1,7 @@
 import { AmenitiesModel } from "../Models/AmenitiesModel.js";
 import { cloudinary } from "../utils/cloudinary.js";
 
+// add Amenities controller:
 export const addAmenities = async(req, res)=>{
     try{
         const imageResult = await cloudinary.uploader.upload(req.file.path);
@@ -13,7 +14,7 @@ export const addAmenities = async(req, res)=>{
         res.status(500).json({message: "Internal Serval Error."})
     }
 }
-
+// get Amenities controller:
 export const getAmenities = async (req, res) =>{
     try{
       const amenities = await AmenitiesModel.find();
