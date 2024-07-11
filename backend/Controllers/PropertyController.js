@@ -9,14 +9,14 @@ export const addProperty = async (req, res) => {
         if (existingProject) {
             return res.status(400).json({ message: "Project already exists." });
         }
-
+      console.log(req.files, req.file, req.body.galleryImages)
         const galleryImages = await Promise.all(
             req.files.map(async file => {
                 const result = await cloudinary.uploader.upload(file.path);
                 return result.secure_url;
             })
         );
-
+        
         const propertyData = {
             ...req.body,
             galleryImages,
@@ -31,3 +31,14 @@ export const addProperty = async (req, res) => {
         res.status(500).json({ message: "Internal Server Error." });
     }
 };
+
+// get properties:
+export const getProperty = async (req, res) =>{
+    try{
+      const propeties = await PropertyModel.find();
+      res.status(200).json(propeties)
+    }catch (e) {
+        console.log(e.message);
+        res.status(500).json({ message: "Internal Server Error."});
+
+}}
