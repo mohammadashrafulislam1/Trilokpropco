@@ -1,6 +1,7 @@
 import { DeveloperModel } from "../Models/DeveloperModel.js";
 import { cloudinary } from "../utils/cloudinary.js";
 
+// add Developers controller:
 export const addDeveloper = async(req, res)=>{
     try{
         const imageResult = await cloudinary.uploader.upload(req.file.path);
@@ -14,6 +15,7 @@ export const addDeveloper = async(req, res)=>{
     }
 }
 
+// get Developers controller:
 export const getDeveloper = async (req, res) =>{
     try{
       const developers = await DeveloperModel.find();
