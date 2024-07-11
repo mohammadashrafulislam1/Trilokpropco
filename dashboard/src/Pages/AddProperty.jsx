@@ -1,6 +1,8 @@
 import { useState } from "react";
 import axios from "axios";
 import { FaTrash } from "react-icons/fa";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AddProperty = () => {
   const [formData, setFormData] = useState({
@@ -64,25 +66,48 @@ const AddProperty = () => {
     });
   };
 
-  const handleFileChange = (e, path, index) => {
+  const handleFileChange = (e, path) => {
+    const files = Array.from(e.target.files);
+    const fileNames = files.map(file => file.name);
+
+    setFormData(prevState => ({
+      ...prevState,
+      [path]: [...prevState[path], ...fileNames]
+    }));
+
+    toast.success("File paths successfully added.", {
+      position: "top-center"
+    });
+  };
+
+  const handleRemoveImage = (index) => {
+    setFormData(prevState => {
+      const newImages = prevState.galleryImages.filter((_, i) => i !== index);
+      return { ...prevState, galleryImages: newImages };
+    });
+  };
+
+  const handlePlanFileChange = (e, index) => {
     const file = e.target.files[0];
     const formData = new FormData();
     formData.append("image", file);
 
-    axios.post('https://api.imgbb.com/1/upload?key=YOUR_IMGBB_API_KEY', formData)
+    axios.post(`https://api.imgbb.com/1/upload?key=a5de5e1a0be6a54f959c5e75e6dad25d`, formData)
       .then(response => {
         const imageUrl = response.data.data.url;
+        toast.success("Image Successfully hosted.", {
+          position: "top-center"
+        });
         setFormData(prevState => {
           const newState = { ...prevState };
-          let currentLevel = newState;
-          for (let i = 0; i < path.length - 1; i++) {
-            currentLevel = currentLevel[path[i]];
-          }
-          currentLevel[path[path.length - 1]].image = imageUrl;
+          newState.plans[index].image = imageUrl;
           return newState;
         });
       })
       .catch(error => {
+        toast.error(`${error.response.data.error.message}`, {
+          position: "top-left"
+        });
         console.error("Error uploading image:", error);
       });
   };
@@ -125,10 +150,11 @@ const AddProperty = () => {
     e.preventDefault();
     // Handle form submission logic here
     console.log(formData);
+    axiox.post('')
   };
-
   return (
     <div className="w-full flex flex-col justify-center items-center">
+      <ToastContainer />
       {/* Add Property Form */}
       <form onSubmit={handleSubmit} className="space-y-4 p-4 w-1/2 bg-white rounded mt-10">
         <div className="form-control">
@@ -180,11 +206,21 @@ const AddProperty = () => {
           <input type="text" name="configuration" value={formData.configuration} onChange={handleChange} className="input input-bordered" required />
         </div>
 
-        <div className="form-control">
+         <div className="form-control">
           <label className="label">
             <span className="label-text">Gallery Images</span>
           </label>
-          <input type="file" name="galleryImages" className="file-input w-full max-w-xs" required />
+          <input type="file" name="galleryImages" onChange={(e) => handleFileChange(e, 'galleryImages')} className="file-input w-full max-w-xs" required multiple />
+          <div className="flex flex-wrap mt-2 gap-0">
+            {formData.galleryImages.map((image, index) => (
+              <div key={index} className="relative h-24 m-2 ">
+                <p className="text-center">{image}</p>
+                <button type="button" onClick={() => handleRemoveImage(index)} className="absolute top-0 right-0 p-1 bg-red-600 text-white rounded-full">
+                  <FaTrash />
+                </button>
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* Nested Fields for Project Overview */}
@@ -193,7 +229,7 @@ const AddProperty = () => {
             <span className="label-text">Project Overview</span>
           </label>
           <input type="text" name="possessionStart" value={formData.projectOverview.possessionStart} onChange={(e) => handleNestedChange(e, ['projectOverview'])} className="input input-bordered" placeholder="Possession Start" />
-          <input type="text" name="landArea" value={formData.projectOverview.landArea} onChange={(e) => handleNestedChange(e, ['projectOverview'])} className="input input-bordered" placeholder="Land Area" />
+          <input type="text" name="landArea" value={formData.projectOverview.landArea} onChange={(e) => handleNestedChange(e, ['projectOverview'])} className="input input-bordered mt-2" placeholder="Land Area" />
           {/* Add other fields of projectOverview similarly */}
         </div>
 
@@ -203,7 +239,7 @@ const AddProperty = () => {
             <span className="label-text">Price Details</span>
           </label>
           {formData.priceDetails.map((priceDetail, index) => (
-            <div key={index} className="flex items-center space-x-2 flex-wrap gap-2">
+            <div key={index} className="flex items-center space-x-2 flex-wrap gap-2 mt-4 border-b-2 pb-4">
               <input type="text" name="configuration" value={priceDetail.configuration} onChange={(e) => handleNestedChange(e, ['priceDetails', index])} className="input input-bordered" placeholder="Configuration" />
               <input type="text" name="price" value={priceDetail.price} onChange={(e) => handleNestedChange(e, ['priceDetails', index])} className="input input-bordered" placeholder="Price" />
               <input type="text" name="size" value={priceDetail.size} onChange={(e) => handleNestedChange(e, ['priceDetails', index])} className="input input-bordered" placeholder="Size" />
@@ -219,12 +255,12 @@ const AddProperty = () => {
             <span className="label-text">Plans</span>
           </label>
           {formData.plans.map((plan, index) => (
-            <div key={index} className="flex items-center space-x-2 flex-wrap gap-2">
+            <div key={index} className="flex items-center space-x-2 flex-wrap gap-2 mt-4 border-b-2 pb-4">
               <input type="text" name="planType" value={plan.planType} onChange={(e) => handleNestedChange(e, ['plans', index])} className="input input-bordered" placeholder="Plan Type" />
-              <input type="file" name="image" onChange={(e) => handleFileChange(e, ['plans', index])} className="file-input w-full max-w-xs" placeholder="Image" />
+              <input type="file" name="image" onChange={(e) => handlePlanFileChange(e, index)} className="file-input w-full max-w-xs" placeholder="Image" />
               <input type="text" name="size" value={plan.size} onChange={(e) => handleNestedChange(e, ['plans', index])} className="input input-bordered" placeholder="Size" />
               <input type="text" name="price" value={plan.price} onChange={(e) => handleNestedChange(e, ['plans', index])} className="input input-bordered" placeholder="Price" />
-              <button type="button" onClick={() => handleRemovePlan(index)}  className="text-[#fc0000]"><FaTrash /></button>
+              <button type="button" onClick={() => handleRemovePlan(index)} className="text-[#fc0000]"><FaTrash /></button>
             </div>
           ))}
           <button type="button" onClick={handleAddPlan} className="cursor-pointer mt-2 text-green-600">Add More Plans +</button>
