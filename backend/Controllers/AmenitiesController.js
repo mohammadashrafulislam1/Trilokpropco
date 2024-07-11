@@ -13,3 +13,13 @@ export const addAmenities = async(req, res)=>{
         res.status(500).json({message: "Internal Serval Error."})
     }
 }
+
+export const getAmenities = async (req, res) =>{
+    try{
+      const amenities = await AmenitiesModel.find();
+      res.status(200).json(amenities)
+    }catch (e) {
+        console.log(e.message);
+        res.status(500).json({ message: "Internal Server Error."});
+
+}}
