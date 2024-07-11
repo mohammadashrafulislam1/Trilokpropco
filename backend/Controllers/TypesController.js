@@ -1,6 +1,7 @@
 import { TypesModel } from "../Models/TypesModel.js";
 import { cloudinary } from "../utils/cloudinary.js";
 
+// add Types controller:
 export const addType = async(req, res)=>{
     try{
         const imageResult = await cloudinary.uploader.upload(req.file.path);
@@ -14,6 +15,7 @@ export const addType = async(req, res)=>{
     }
 }
 
+// get Types controller:
 export const getTypes = async (req, res) =>{
     try{
       const types = await TypesModel.find();
