@@ -1,6 +1,7 @@
 import { PropertyModel } from "../Models/PropertiesModel.js";
 import { cloudinary } from "../utils/cloudinary.js";
 
+// post property controller:
 export const addProperty = async (req, res) => {
     try {
         const { name } = req.body;
@@ -32,7 +33,7 @@ export const addProperty = async (req, res) => {
     }
 };
 
-// get properties:
+// get properties controller:
 export const getProperty = async (req, res) =>{
     try{
       const propeties = await PropertyModel.find();
