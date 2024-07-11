@@ -1,6 +1,7 @@
 import { StatusModel } from "../Models/StatusModel.js";
 import { cloudinary } from "../utils/cloudinary.js";
 
+// add status controller:
 export const addStatus = async(req, res)=>{
     try{
         const imageResult = await cloudinary.uploader.upload(req.file.path);
@@ -14,6 +15,7 @@ export const addStatus = async(req, res)=>{
     }
 }
 
+// get status controller:
 export const getStatus = async (req, res) =>{
     try{
       const statuses = await StatusModel.find();
