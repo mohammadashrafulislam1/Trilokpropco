@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { endPoint } from "../../forAll/forAll";
 import { CustomSelectType } from "../Component/CustomSelect/CustomSelectType";
 import { CustomSelectDeveloper } from "../Component/CustomSelect/CustomSelectDeveloper";
+import { CustomSelectStatus } from "../Component/CustomSelect/CustomSelectStatus";
 
 const AddProperty = () => {
   const [formData, setFormData] = useState({
@@ -51,7 +52,7 @@ const AddProperty = () => {
     specifications: "",
     video: "",
   });
-  
+
   const [typeData, setTypeData] = useState(null);
   const [statusData, setStatusData] = useState(null);
   const [developerData, setDeveloperData] = useState(null);
@@ -236,10 +237,12 @@ const AddProperty = () => {
             <span className="label-text">Type</span>
           </label>
           <CustomSelectType
-  options={typeData}
-  selectedValue={formData.type}
-  onSelect={(option) => setFormData((prev) => ({ ...prev, type: option }))}
-/>
+            options={typeData}
+            selectedValue={formData.type}
+            onSelect={(option) =>
+              setFormData((prev) => ({ ...prev, type: option }))
+            }
+          />
         </div>
 
         <div className="form-control">
@@ -247,10 +250,12 @@ const AddProperty = () => {
             <span className="label-text">Developer</span>
           </label>
           <CustomSelectDeveloper
-  options={developerData}
-  selectedValue={formData.developer}
-  onSelect={(option) => setFormData((prev) => ({ ...prev, developer: option }))}
-/>
+            options={developerData}
+            selectedValue={formData.developer}
+            onSelect={(option) =>
+              setFormData((prev) => ({ ...prev, developer: option }))
+            }
+          />
         </div>
 
         <div className="form-control">
@@ -271,12 +276,12 @@ const AddProperty = () => {
           <label className="label">
             <span className="label-text">Status</span>
           </label>
-          <input
-            type="text"
-            name="status"
-            value={formData.status}
-            onChange={handleChange}
-            className="input input-bordered"
+          <CustomSelectStatus
+            options={statusData}
+            selectedValue={formData.status}
+            onSelect={(option) =>
+              setFormData((prev) => ({ ...prev, status: option }))
+            }
           />
         </div>
 
