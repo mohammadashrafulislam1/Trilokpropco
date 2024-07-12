@@ -12,7 +12,7 @@
 .drawer-content {
   flex: 1;
   transition: margin-left 0.3s;
-  margin-bottom: 100px;
+  padding-bottom: 100px;
 }
 
 .drawer-side {
@@ -33,4 +33,7 @@
 
 .drawer-toggle:checked ~ .drawer-content {
   margin-left: 20rem; /* Same as the drawer width */
+}
+html:has(.drawer-toggle:checked) {
+  scrollbar-gutter: inherit !important;
 }
