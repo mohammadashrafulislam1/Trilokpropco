@@ -5,6 +5,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { endPoint } from "../../forAll/forAll";
 import { CustomSelectType } from "../Component/CustomSelect/CustomSelectType";
+import { CustomSelectDeveloper } from "../Component/CustomSelect/CustomSelectDeveloper";
 
 const AddProperty = () => {
   const [formData, setFormData] = useState({
@@ -236,8 +237,8 @@ const AddProperty = () => {
           </label>
           <CustomSelectType
   options={typeData}
-  selectedValue={formData.type} // Ensure selectedValue matches your formData structure
-  onSelect={(option) => setFormData((prev) => ({ ...prev, type: option }))} // Update formData with selected option
+  selectedValue={formData.type}
+  onSelect={(option) => setFormData((prev) => ({ ...prev, type: option }))}
 />
         </div>
 
@@ -245,13 +246,11 @@ const AddProperty = () => {
           <label className="label">
             <span className="label-text">Developer</span>
           </label>
-          <input
-            type="text"
-            name="developer"
-            value={formData.developer}
-            onChange={handleChange}
-            className="input input-bordered"
-          />
+          <CustomSelectDeveloper
+  options={developerData}
+  selectedValue={formData.developer}
+  onSelect={(option) => setFormData((prev) => ({ ...prev, developer: option }))}
+/>
         </div>
 
         <div className="form-control">

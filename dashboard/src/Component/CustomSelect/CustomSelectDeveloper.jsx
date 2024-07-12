@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export const CustomSelectType = ({ options, selectedValue, onSelect }) => {
+export const CustomSelectDeveloper = ({ options, selectedValue, onSelect }) => {
   const [open, setOpen] = useState(false);
 
   const toggleDropdown = () => {
@@ -16,7 +16,7 @@ export const CustomSelectType = ({ options, selectedValue, onSelect }) => {
     return <div>Loading...</div>; // Handle loading state if options are null or undefined
   }
   const filteredOptions = options.filter((option) => option._id == selectedValue);
-  console.log(filteredOptions[0]?.type)
+  console.log(filteredOptions[0]?.name)
   return (
     <div className="relative">
       <button
@@ -28,11 +28,11 @@ export const CustomSelectType = ({ options, selectedValue, onSelect }) => {
         {/* Render selectedValue */}
         <div className="flex items-center">
           <img
-            src={filteredOptions[0]?.logo} // Render the selected type's logo
-            alt={filteredOptions[0]?.type}
+            src={filteredOptions[0]?.image} 
+            alt={filteredOptions[0]?.name}
             className="h-6 w-6 rounded-full mr-2"
           />
-          <span>{filteredOptions[0]?.type}</span> {/* Render the selected type's name */}
+          <span>{filteredOptions[0]?.name}</span> 
         </div>
         <svg
           className="-mr-1 ml-2 h-5 w-5"
@@ -68,8 +68,8 @@ export const CustomSelectType = ({ options, selectedValue, onSelect }) => {
   >
     <div className="flex items-center">
       <img
-        src={option.logo}
-        alt={option.type}
+        src={option.image}
+        alt={option.name}
         className="h-6 w-6 rounded-full mr-2"
       />
       <span
@@ -77,7 +77,7 @@ export const CustomSelectType = ({ options, selectedValue, onSelect }) => {
           option._id === selectedValue._id ? 'font-semibold' : 'font-normal'
         } block truncate`}
       >
-        {option.type}
+        {option.name}
       </span>
     </div>
     {option._id === selectedValue._id && (
