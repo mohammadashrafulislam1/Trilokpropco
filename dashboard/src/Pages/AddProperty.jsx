@@ -108,27 +108,32 @@ const AddProperty = () => {
   const handleFileChange = async (event) => {
     const files = event.target.files;
     const uploadPromises = [];
-  
+
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
       const formData = new FormData();
-      formData.append('image', file);
-  
+      formData.append("image", file);
+
       // Push each upload promise to the array
       uploadPromises.push(
-        axios.post('https://api.imgbb.com/1/upload?key=d7c44914803981db7f95f8b645b0959a', formData)
+        axios.post(
+          "https://api.imgbb.com/1/upload?key=d7c44914803981db7f95f8b645b0959a",
+          formData
+        )
       );
     }
-  
+
     try {
       // Wait for all upload promises to resolve
       const responses = await Promise.all(uploadPromises);
-      console.log(responses)
+      console.log(responses);
       // Extract the image URLs from responses
-      const uploadedImages = responses.map(response => response.data.data.display_url);
-      console.log(uploadedImages)
+      const uploadedImages = responses.map(
+        (response) => response.data.data.display_url
+      );
+      console.log(uploadedImages);
       // Update galleryImages in formData state
-      setFormData(prevState => ({
+      setFormData((prevState) => ({
         ...prevState,
         galleryImages: [...prevState.galleryImages, ...uploadedImages],
       }));
@@ -136,19 +141,18 @@ const AddProperty = () => {
         position: "top-center",
       });
     } catch (error) {
-      console.error('Error uploading images:', error);
+      console.error("Error uploading images:", error);
       toast.error("Failed to upload images. Please try again.", {
         position: "top-center",
       });
     }
   };
-  
 
   const handlePlanFileChange = (e, index) => {
     const file = e.target.files[0];
     const formData = new FormData();
     formData.append("image", file);
-    
+
     axios
       .post(
         `https://api.imgbb.com/1/upload?key=a5de5e1a0be6a54f959c5e75e6dad25d`,
@@ -237,9 +241,13 @@ const AddProperty = () => {
       });
     } catch (error) {
       console.error("Error submitting form:", error.response.data, error);
-      toast.error(error.response.data.message || "Failed to add property. Please try again.", {
-        position: "top-center",
-      });
+      toast.error(
+        error.response.data.message ||
+          "Failed to add property. Please try again.",
+        {
+          position: "top-center",
+        }
+      );
     }
   };
   const handleAmenitySelect = (amenity) => {
@@ -259,36 +267,36 @@ const AddProperty = () => {
     );
   };
   AddProperty.modules = {
-  toolbar: [
-    [{ header: "1" }, { header: "2" }, { font: [] }],
-    [{ size: [] }],
-    ["bold", "italic", "underline", "strike", "blockquote"],
-    [{ list: "ordered" }, { list: "bullet" }],
-    [{ indent: "-1" }, { indent: "+1" }],
-    ["link", "image", "video"],
-    ["clean"],
-  ],
-  clipboard: {
-    matchVisual: false,
-  },
-};
+    toolbar: [
+      [{ header: "1" }, { header: "2" }, { font: [] }],
+      [{ size: [] }],
+      ["bold", "italic", "underline", "strike", "blockquote"],
+      [{ list: "ordered" }, { list: "bullet" }],
+      [{ indent: "-1" }, { indent: "+1" }],
+      ["link", "image", "video"],
+      ["clean"],
+    ],
+    clipboard: {
+      matchVisual: false,
+    },
+  };
 
-AddProperty.formats = [
-  "header",
-  "font",
-  "size",
-  "bold",
-  "italic",
-  "underline",
-  "strike",
-  "blockquote",
-  "list",
-  "bullet",
-  "indent",
-  "link",
-  "image",
-  "video",
-];
+  AddProperty.formats = [
+    "header",
+    "font",
+    "size",
+    "bold",
+    "italic",
+    "underline",
+    "strike",
+    "blockquote",
+    "list",
+    "bullet",
+    "indent",
+    "link",
+    "image",
+    "video",
+  ];
 
   return (
     <div className="w-full flex flex-col justify-center items-center">
@@ -311,20 +319,22 @@ AddProperty.formats = [
             required
           />
         </div>
-        
+
         <div className="form-control">
-  <label className="label">
-    <span className="label-text">Description</span>
-  </label>
-  <ReactQuill
-    value={formData.description}
-    onChange={(value) => setFormData({ ...formData, description: value })}
-    className="quill-editor" // Add your own class for styling
-    modules={AddProperty.modules}
-    formats={AddProperty.formats}
-    required
-  />
-</div>
+          <label className="label">
+            <span className="label-text">Description</span>
+          </label>
+          <ReactQuill
+            value={formData.description}
+            onChange={(value) =>
+              setFormData({ ...formData, description: value })
+            }
+            className="quill-editor" // Add your own class for styling
+            modules={AddProperty.modules}
+            formats={AddProperty.formats}
+            required
+          />
+        </div>
 
         <div className="form-control">
           <label className="label">
@@ -474,7 +484,6 @@ AddProperty.formats = [
             required
             multiple
           />
-          
         </div>
 
         {/* Nested Fields for Project Overview */}
@@ -658,12 +667,14 @@ AddProperty.formats = [
           <label className="label">
             <span className="label-text">Specifications</span>
           </label>
-          <textarea
-            type="text"
-            name="specifications"
+          <ReactQuill
             value={formData.specifications}
-            onChange={handleChange}
-            className="textarea textarea-bordered textarea-lg w-full"
+            onChange={(value) =>
+              setFormData({ ...formData, specifications: value })
+            }
+            className="quill-editor h-200px" 
+            modules={AddProperty.modules}
+            formats={AddProperty.formats}
             required
           />
         </div>
