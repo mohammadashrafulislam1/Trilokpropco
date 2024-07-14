@@ -56,7 +56,7 @@ export const CustomSelectStatus = ({ options, selectedValue, onSelect }) => {
             aria-activedescendant="listbox-option-0"
             className="max-h-56 rounded-md py-1 text-base leading-6 shadow-xs overflow-auto focus:outline-none sm:text-sm sm:leading-5"
           >
-          {options.map((option) => (
+          {options?.map((option) => (
   <li
     key={option._id}
     onClick={() => handleSelect(option)}

@@ -7,7 +7,8 @@ import { endPoint } from "../../forAll/forAll";
 import { CustomSelectType } from "../Component/CustomSelect/CustomSelectType";
 import { CustomSelectDeveloper } from "../Component/CustomSelect/CustomSelectDeveloper";
 import { CustomSelectStatus } from "../Component/CustomSelect/CustomSelectStatus";
-
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css"; // Import Quill styles
 const AddProperty = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -46,34 +47,35 @@ const AddProperty = () => {
       },
     ],
     pdfDownload: "",
-    amenities: [""],
+    amenities: [],
     nearbyFacilities: "",
     locationMap: "",
     specifications: "",
     video: "",
   });
-
+  const [selectedAmenities, setSelectedAmenities] = useState([]);
   const [typeData, setTypeData] = useState(null);
+  const [amenitiesData, setAmenities] = useState([]);
   const [statusData, setStatusData] = useState(null);
   const [developerData, setDeveloperData] = useState(null);
-  console.log(typeData, statusData, developerData);
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [typeResponse, statusResponse, developerResponse] =
-          await Promise.all([
-            axios.get(`${endPoint}/type`),
-            axios.get(`${endPoint}/status`),
-            axios.get(`${endPoint}/developer`),
-          ]);
-
-        console.log(typeResponse.data);
-        console.log(statusResponse.data);
-        console.log(developerResponse.data);
-
+        const [
+          typeResponse,
+          statusResponse,
+          developerResponse,
+          amenityResponse,
+        ] = await Promise.all([
+          axios.get(`${endPoint}/type`),
+          axios.get(`${endPoint}/status`),
+          axios.get(`${endPoint}/developer`),
+          axios.get(`${endPoint}/amenity`),
+        ]);
         setTypeData(typeResponse.data);
         setStatusData(statusResponse.data);
         setDeveloperData(developerResponse.data);
+        setAmenities(amenityResponse.data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -103,29 +105,50 @@ const AddProperty = () => {
     });
   };
 
-  const handleFileChange = (e, path) => {
-    const files = Array.from(e.target.files);
-    setFormData((prevState) => ({
-      ...prevState,
-      [path]: files, // Store File objects directly in formData
-    }));
-
-    toast.success("Gallery images successfully added.", {
-      position: "top-center",
-    });
+  const handleFileChange = async (event) => {
+    const files = event.target.files;
+    const uploadPromises = [];
+  
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      const formData = new FormData();
+      formData.append('image', file);
+  
+      // Push each upload promise to the array
+      uploadPromises.push(
+        axios.post('https://api.imgbb.com/1/upload?key=d7c44914803981db7f95f8b645b0959a', formData)
+      );
+    }
+  
+    try {
+      // Wait for all upload promises to resolve
+      const responses = await Promise.all(uploadPromises);
+      console.log(responses)
+      // Extract the image URLs from responses
+      const uploadedImages = responses.map(response => response.data.data.display_url);
+      console.log(uploadedImages)
+      // Update galleryImages in formData state
+      setFormData(prevState => ({
+        ...prevState,
+        galleryImages: [...prevState.galleryImages, ...uploadedImages],
+      }));
+      toast.success("Images uploaded successfully.", {
+        position: "top-center",
+      });
+    } catch (error) {
+      console.error('Error uploading images:', error);
+      toast.error("Failed to upload images. Please try again.", {
+        position: "top-center",
+      });
+    }
   };
-  const handleRemoveImage = (index) => {
-    setFormData((prevState) => {
-      const newImages = prevState.galleryImages.filter((_, i) => i !== index);
-      return { ...prevState, galleryImages: newImages };
-    });
-  };
+  
 
   const handlePlanFileChange = (e, index) => {
     const file = e.target.files[0];
     const formData = new FormData();
     formData.append("image", file);
-
+    
     axios
       .post(
         `https://api.imgbb.com/1/upload?key=a5de5e1a0be6a54f959c5e75e6dad25d`,
@@ -194,21 +217,78 @@ const AddProperty = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission logic here
-    console.log(formData);
+
+    // Include selected amenities IDs in formData
+    const updatedFormData = {
+      ...formData,
+      amenities: selectedAmenities.map((amenity) => amenity._id),
+    };
+
+    console.log(updatedFormData);
+
     try {
-      const response = await axios.post(`${endPoint}/property`, formData);
+      const response = await axios.post(
+        `${endPoint}/property`,
+        updatedFormData
+      );
       console.log(response.data);
       toast.success("Property successfully added!", {
         position: "top-center",
       });
     } catch (error) {
-      console.error("Error submitting form:", error);
-      toast.error("Failed to add property. Please try again.", {
+      console.error("Error submitting form:", error.response.data, error);
+      toast.error(error.response.data.message || "Failed to add property. Please try again.", {
         position: "top-center",
       });
     }
   };
+  const handleAmenitySelect = (amenity) => {
+    if (!selectedAmenities.find((a) => a._id === amenity._id)) {
+      setSelectedAmenities((prevSelectedAmenities) => [
+        ...prevSelectedAmenities,
+        amenity,
+      ]);
+    } else {
+      toast.error("Amenity already added!");
+    }
+  };
+
+  const handleRemoveAmenity = (amenityId) => {
+    setSelectedAmenities((prevSelectedAmenities) =>
+      prevSelectedAmenities.filter((amenity) => amenity._id !== amenityId)
+    );
+  };
+  AddProperty.modules = {
+  toolbar: [
+    [{ header: "1" }, { header: "2" }, { font: [] }],
+    [{ size: [] }],
+    ["bold", "italic", "underline", "strike", "blockquote"],
+    [{ list: "ordered" }, { list: "bullet" }],
+    [{ indent: "-1" }, { indent: "+1" }],
+    ["link", "image", "video"],
+    ["clean"],
+  ],
+  clipboard: {
+    matchVisual: false,
+  },
+};
+
+AddProperty.formats = [
+  "header",
+  "font",
+  "size",
+  "bold",
+  "italic",
+  "underline",
+  "strike",
+  "blockquote",
+  "list",
+  "bullet",
+  "indent",
+  "link",
+  "image",
+  "video",
+];
 
   return (
     <div className="w-full flex flex-col justify-center items-center">
@@ -231,6 +311,20 @@ const AddProperty = () => {
             required
           />
         </div>
+        
+        <div className="form-control">
+  <label className="label">
+    <span className="label-text">Description</span>
+  </label>
+  <ReactQuill
+    value={formData.description}
+    onChange={(value) => setFormData({ ...formData, description: value })}
+    className="quill-editor" // Add your own class for styling
+    modules={AddProperty.modules}
+    formats={AddProperty.formats}
+    required
+  />
+</div>
 
         <div className="form-control">
           <label className="label">
@@ -312,7 +406,62 @@ const AddProperty = () => {
             required
           />
         </div>
-
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text">Amenities</span>
+          </label>
+          <div className="grid lg:grid-cols-3 gap-2 sm:grid-cols-1 md:grid-cols-2">
+            {amenitiesData.map((amenity) => (
+              <div
+                key={amenity._id}
+                className="flex items-center space-x-2 border p-2 rounded"
+              >
+                <img
+                  src={amenity?.logo}
+                  alt={amenity.name}
+                  className="w-10 h-10 object-cover"
+                />
+                <span>{amenity.name}</span>
+                <button
+                  type="button"
+                  onClick={() => handleAmenitySelect(amenity)}
+                  className="ml-auto btn btn-sm btn-outline"
+                >
+                  Add
+                </button>
+              </div>
+            ))}
+          </div>
+          <div>
+            <h3 className="text-2xl mt-10">Selected Amenities:</h3>
+            <div className="mt-2 flex flex-wrap gap-1">
+              {selectedAmenities.length === 0 ? (
+                <p>No amenity selected.</p>
+              ) : (
+                selectedAmenities.map((amenity) => (
+                  <div
+                    key={amenity?._id}
+                    className="flex items-center space-x-2 border p-2 rounded"
+                  >
+                    <img
+                      src={amenity?.logo}
+                      alt={amenity?.name}
+                      className="w-10 h-10 object-cover"
+                    />
+                    <span>{amenity?.name}</span>
+                    <button
+                      type="button"
+                      onClick={() => handleRemoveAmenity(amenity?._id)}
+                      className="ml-auto text-[#fc0000]"
+                    >
+                      <FaTrash />
+                    </button>
+                  </div>
+                ))
+              )}
+            </div>
+          </div>
+        </div>
         <div className="form-control">
           <label className="label">
             <span className="label-text">Gallery Images</span>
@@ -325,20 +474,7 @@ const AddProperty = () => {
             required
             multiple
           />
-          <div className="flex flex-wrap mt-2 gap-2">
-            {formData.galleryImages.map((file, index) => (
-              <div key={index} className="relative h-24 m-2">
-                <p className="text-center">{file.name}</p>
-                <button
-                  type="button"
-                  onClick={() => handleRemoveImage(index)}
-                  className="absolute top-0 right-0 p-1 bg-red-600 text-white rounded-full"
-                >
-                  <FaTrash />
-                </button>
-              </div>
-            ))}
-          </div>
+          
         </div>
 
         {/* Nested Fields for Project Overview */}
@@ -494,12 +630,12 @@ const AddProperty = () => {
           <label className="label">
             <span className="label-text">Nearby Facilities</span>
           </label>
-          <input
+          <textarea
             type="text"
             name="nearbyFacilities"
             value={formData.nearbyFacilities}
             onChange={handleChange}
-            className="input input-bordered"
+            className="textarea textarea-bordered textarea-lg w-full"
             required
           />
         </div>
@@ -522,12 +658,12 @@ const AddProperty = () => {
           <label className="label">
             <span className="label-text">Specifications</span>
           </label>
-          <input
+          <textarea
             type="text"
             name="specifications"
             value={formData.specifications}
             onChange={handleChange}
-            className="input input-bordered"
+            className="textarea textarea-bordered textarea-lg w-full"
             required
           />
         </div>
@@ -547,7 +683,7 @@ const AddProperty = () => {
         </div>
 
         <button type="submit" className="btn btn-primary">
-          Submit
+          Add Property
         </button>
       </form>
     </div>

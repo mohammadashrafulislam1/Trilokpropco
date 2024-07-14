@@ -48,7 +48,7 @@ export const CustomSelectType = ({ options, selectedValue, onSelect }) => {
         </svg>
       </button>
       {open && (
-        <div className="absolute mt-1 w-full rounded-md bg-white shadow-lg">
+        <div className="absolute mt-1 w-full rounded-md bg-white shadow-lg z-10">
           <ul
             tabIndex="-1"
             role="listbox"
