@@ -18,7 +18,9 @@ const AddProperty = () => {
     status: "",
     priceRange: "",
     configuration: "",
+    size: "",
     galleryImages: [],
+    bankImages: [],
     projectOverview: {
       possessionStart: "",
       landArea: "",
@@ -136,6 +138,49 @@ const AddProperty = () => {
       setFormData((prevState) => ({
         ...prevState,
         galleryImages: [...prevState.galleryImages, ...uploadedImages],
+      }));
+      toast.success("Images uploaded successfully.", {
+        position: "top-center",
+      });
+    } catch (error) {
+      console.error("Error uploading images:", error);
+      toast.error("Failed to upload images. Please try again.", {
+        position: "top-center",
+      });
+    }
+  };
+
+  const handleFileChangeBank = async (event) => {
+    const files = event.target.files;
+    const uploadPromises = [];
+
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      const formData = new FormData();
+      formData.append("image", file);
+
+      // Push each upload promise to the array
+      uploadPromises.push(
+        axios.post(
+          "https://api.imgbb.com/1/upload?key=d7c44914803981db7f95f8b645b0959a",
+          formData
+        )
+      );
+    }
+
+    try {
+      // Wait for all upload promises to resolve
+      const responses = await Promise.all(uploadPromises);
+      console.log(responses);
+      // Extract the image URLs from responses
+      const uploadedImages = responses.map(
+        (response) => response.data.data.display_url
+      );
+      console.log(uploadedImages);
+      // Update bankImages in formData state
+      setFormData((prevState) => ({
+        ...prevState,
+        bankImages: [...prevState.bankImages, ...uploadedImages],
       }));
       toast.success("Images uploaded successfully.", {
         position: "top-center",
@@ -299,12 +344,12 @@ const AddProperty = () => {
   ];
 
   return (
-    <div className="w-full flex flex-col justify-center items-center">
+    <div className="w-full flex flex-col justify-center items-center  md:p-5 p-5 lg:p-5">
       <ToastContainer />
       {/* Add Property Form */}
       <form
         onSubmit={handleSubmit}
-        className="space-y-4 p-4 w-1/2 bg-white rounded mt-10"
+        className="space-y-4 p-6 lg:w-3/4 w-full bg-white rounded-lg mt-10"
       >
         <div className="form-control">
           <label className="label">
@@ -329,7 +374,7 @@ const AddProperty = () => {
             onChange={(value) =>
               setFormData({ ...formData, description: value })
             }
-            className="quill-editor" // Add your own class for styling
+            className="quill-editor h-20 mb-20 rounded-lg" // Add your own class for styling
             modules={AddProperty.modules}
             formats={AddProperty.formats}
             required
@@ -405,6 +450,20 @@ const AddProperty = () => {
 
         <div className="form-control">
           <label className="label">
+            <span className="label-text">Size</span>
+          </label>
+          <input
+            type="text"
+            name="size"
+            value={formData.size}
+            onChange={handleChange}
+            className="input input-bordered"
+            required
+          />
+        </div>
+
+        <div className="form-control">
+          <label className="label">
             <span className="label-text">Configuration</span>
           </label>
           <input
@@ -420,11 +479,11 @@ const AddProperty = () => {
           <label className="label">
             <span className="label-text">Amenities</span>
           </label>
-          <div className="grid lg:grid-cols-3 gap-2 sm:grid-cols-1 md:grid-cols-2">
+          <div className="grid lg:grid-cols-3 gap-5 sm:grid-cols-1 md:grid-cols-3">
             {amenitiesData.map((amenity) => (
               <div
                 key={amenity._id}
-                className="flex items-center space-x-2 border p-2 rounded"
+                className="flex items-center border p-2 rounded w-max gap-2"
               >
                 <img
                   src={amenity?.logo}
@@ -435,7 +494,7 @@ const AddProperty = () => {
                 <button
                   type="button"
                   onClick={() => handleAmenitySelect(amenity)}
-                  className="ml-auto btn btn-sm btn-outline"
+                  className="btn btn-sm btn-outline"
                 >
                   Add
                 </button>
@@ -506,6 +565,62 @@ const AddProperty = () => {
             onChange={(e) => handleNestedChange(e, ["projectOverview"])}
             className="input input-bordered mt-2"
             placeholder="Land Area"
+          />
+          <input
+            type="text"
+            name="configuration"
+            value={formData.projectOverview.configuration}
+            onChange={(e) => handleNestedChange(e, ["projectOverview"])}
+            className="input input-bordered mt-2"
+            placeholder="Configuration"
+          />
+          <input
+            type="text"
+            name="flatArea"
+            value={formData.projectOverview.flatArea}
+            onChange={(e) => handleNestedChange(e, ["projectOverview"])}
+            className="input input-bordered mt-2"
+            placeholder="Flat Area"
+          />
+          <input
+            type="text"
+            name="priceRange"
+            value={formData.projectOverview.priceRange}
+            onChange={(e) => handleNestedChange(e, ["projectOverview"])}
+            className="input input-bordered mt-2"
+            placeholder="Price Range"
+          />
+          <input
+            type="text"
+            name="numberOfBlocks"
+            value={formData.projectOverview.numberOfBlocks}
+            onChange={(e) => handleNestedChange(e, ["projectOverview"])}
+            className="input input-bordered mt-2"
+            placeholder="Number Of Blocks"
+          />
+          <input
+            type="text"
+            name="elevation"
+            value={formData.projectOverview.elevation}
+            onChange={(e) => handleNestedChange(e, ["projectOverview"])}
+            className="input input-bordered mt-2"
+            placeholder="Elevation"
+          />
+          <input
+            type="text"
+            name="numberOfUnits"
+            value={formData.projectOverview.numberOfUnits}
+            onChange={(e) => handleNestedChange(e, ["projectOverview"])}
+            className="input input-bordered mt-2"
+            placeholder="Number Of Units"
+          />
+          <input
+            type="text"
+            name="RegistrationNo"
+            value={formData.projectOverview.RegistrationNo}
+            onChange={(e) => handleNestedChange(e, ["projectOverview"])}
+            className="input input-bordered mt-2"
+            placeholder="Registration Number"
           />
           {/* Add other fields of projectOverview similarly */}
         </div>
@@ -644,7 +759,7 @@ const AddProperty = () => {
             onChange={(value) =>
               setFormData({ ...formData, nearbyFacilities: value })
             }
-            className="quill-editor h-200px" 
+            className="quill-editor h-20 mb-20 rounded-lg" 
             modules={AddProperty.modules}
             formats={AddProperty.formats}
             required
@@ -674,7 +789,7 @@ const AddProperty = () => {
             onChange={(value) =>
               setFormData({ ...formData, specifications: value })
             }
-            className="quill-editor h-200px" 
+            className="quill-editor h-20 mb-20 rounded-lg" 
             modules={AddProperty.modules}
             formats={AddProperty.formats}
             required
@@ -692,6 +807,20 @@ const AddProperty = () => {
             onChange={handleChange}
             className="input input-bordered"
             required
+          />
+        </div>
+
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text">Bank Images</span>
+          </label>
+          <input
+            type="file"
+            name="bankImages"
+            onChange={(e) => handleFileChangeBank(e, "bankImages")}
+            className="file-input w-full max-w-xs"
+            required
+            multiple
           />
         </div>
 

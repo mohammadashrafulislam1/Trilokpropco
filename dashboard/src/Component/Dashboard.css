@@ -28,11 +28,11 @@
 }
 
 .drawer-toggle:checked ~ .drawer-side {
-  width: 20rem; /* Adjust the width as needed */
+  width: 16rem; /* Adjust the width as needed */
 }
 
 .drawer-toggle:checked ~ .drawer-content {
-  margin-left: 20rem; /* Same as the drawer width */
+  margin-left: 16rem; /* Same as the drawer width */
 }
 html:has(.drawer-toggle:checked) {
   scrollbar-gutter: inherit !important;
