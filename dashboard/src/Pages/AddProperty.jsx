@@ -639,12 +639,14 @@ const AddProperty = () => {
           <label className="label">
             <span className="label-text">Nearby Facilities</span>
           </label>
-          <textarea
-            type="text"
-            name="nearbyFacilities"
+          <ReactQuill
             value={formData.nearbyFacilities}
-            onChange={handleChange}
-            className="textarea textarea-bordered textarea-lg w-full"
+            onChange={(value) =>
+              setFormData({ ...formData, nearbyFacilities: value })
+            }
+            className="quill-editor h-200px" 
+            modules={AddProperty.modules}
+            formats={AddProperty.formats}
             required
           />
         </div>
