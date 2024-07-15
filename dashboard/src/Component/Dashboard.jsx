@@ -2,9 +2,10 @@ import { useState } from "react";
 import "./Dashboard.css";
 import { CiMenuFries } from "react-icons/ci";
 import { RxCross1 } from "react-icons/rx";
-import { FaBell, FaDashcube } from "react-icons/fa";
+import { FaBell, FaDashcube, FaDev } from "react-icons/fa";
 import { Link, Outlet } from "react-router-dom";
 import { MdOutlineLibraryAdd } from "react-icons/md";
+import { LuTableProperties } from "react-icons/lu";
 
 const Dashboard = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -14,9 +15,14 @@ const Dashboard = () => {
   };
   const dashNav = (
     <ul className="menu bg-[#fff] text-base-content min-h-full w-full p-4 gap-2 align-middle">
-      <img src="https://i.ibb.co/55MrgtV/18a006575c097b8b99494b75da063caf.jpg" className="w-1/2"/>
-      <Link to={'/'} className="mt-6 p-3 bg-[#7e7e7e1a] rounded flex items-center gap-2 text-[18px]"><FaDashcube />Dashboard</Link>
-      <Link to={'/add'} className="p-3 bg-[#7e7e7e1a] rounded flex items-center gap-2 text-[18px]"><MdOutlineLibraryAdd/>Add Property</Link>
+      <li><img src="https://i.ibb.co/55MrgtV/18a006575c097b8b99494b75da063caf.jpg" className="w-1/2"/></li>
+      <li><Link to={'/'} className="mt-6 p-3 bg-[#7e7e7e1a] rounded flex items-center gap-2 text-[18px]"><FaDashcube />Dashboard</Link></li>
+      <li><Link to={'/properties'} className="p-3 bg-[#7e7e7e1a] rounded flex items-center gap-2 text-[18px]"><LuTableProperties />
+      Properties</Link>
+      <ul>
+        <li><Link to={'/add'} className="p-3 bg-[#7e7e7e1a] rounded flex items-center gap-2 text-[18px] mt-2"><MdOutlineLibraryAdd/>Add Property</Link></li>
+        <li><Link to={'/developer'} className="p-3 bg-[#7e7e7e1a] rounded flex items-center gap-2 text-[18px] mt-2"><FaDev/>Developer</Link></li>
+        </ul></li>
     </ul>
   );
   return (
