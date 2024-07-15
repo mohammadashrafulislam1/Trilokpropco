@@ -646,19 +646,19 @@ const AddProperty = () => {
               />
               <input
                 type="text"
-                name="price"
-                value={priceDetail.price}
-                onChange={(e) => handleNestedChange(e, ["priceDetails", index])}
-                className="input input-bordered"
-                placeholder="Price"
-              />
-              <input
-                type="text"
                 name="size"
                 value={priceDetail.size}
                 onChange={(e) => handleNestedChange(e, ["priceDetails", index])}
                 className="input input-bordered"
                 placeholder="Size"
+              />
+              <input
+                type="text"
+                name="price"
+                value={priceDetail.price}
+                onChange={(e) => handleNestedChange(e, ["priceDetails", index])}
+                className="input input-bordered"
+                placeholder="Price"
               />
               <button
                 type="button"
