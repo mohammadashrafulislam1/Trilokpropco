@@ -2,10 +2,11 @@ import { useState } from "react";
 import "./Dashboard.css";
 import { CiMenuFries } from "react-icons/ci";
 import { RxCross1 } from "react-icons/rx";
-import { FaBell, FaDashcube, FaDev } from "react-icons/fa";
+import { FaBell, FaCity, FaDashcube, FaDev } from "react-icons/fa";
 import { Link, Outlet } from "react-router-dom";
-import { MdOutlineLibraryAdd } from "react-icons/md";
+import { MdOutlineLibraryAdd, MdOutlineRealEstateAgent } from "react-icons/md";
 import { LuTableProperties } from "react-icons/lu";
+import { GiConvergenceTarget } from "react-icons/gi";
 
 const Dashboard = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -22,6 +23,12 @@ const Dashboard = () => {
       <ul>
         <li><Link to={'/add'} className="p-3 bg-[#7e7e7e1a] rounded flex items-center gap-2 text-[18px] mt-2"><MdOutlineLibraryAdd/>Add Property</Link></li>
         <li><Link to={'/developer'} className="p-3 bg-[#7e7e7e1a] rounded flex items-center gap-2 text-[18px] mt-2"><FaDev/>Developer</Link></li>
+        <li><Link to={'/type'} className="p-3 bg-[#7e7e7e1a] rounded flex items-center gap-2 text-[18px] mt-2"><GiConvergenceTarget/>
+        Type</Link></li>
+        <li><Link to={'/status'} className="p-3 bg-[#7e7e7e1a] rounded flex items-center gap-2 text-[18px] mt-2"><MdOutlineRealEstateAgent/>
+        Status</Link></li>
+        <li><Link to={'/amenities'} className="p-3 bg-[#7e7e7e1a] rounded flex items-center gap-2 text-[18px] mt-2"><FaCity />
+        Amenities</Link></li>
         </ul></li>
     </ul>
   );

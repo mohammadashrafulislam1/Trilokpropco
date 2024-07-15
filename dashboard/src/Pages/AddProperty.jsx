@@ -93,6 +93,7 @@ const AddProperty = () => {
       [name]: value,
     });
   };
+  
 
   const handleNestedChange = (e, path) => {
     const { name, value } = e.target;
@@ -349,7 +350,7 @@ const AddProperty = () => {
       {/* Add Property Form */}
       <form
         onSubmit={handleSubmit}
-        className="space-y-4 p-6 lg:w-3/4 w-full bg-white rounded-lg mt-10"
+        className="space-y-4 p-6 lg:w-3/4 w-full bg-white rounded-2xl mt-10"
       >
         <div className="form-control">
           <label className="label">

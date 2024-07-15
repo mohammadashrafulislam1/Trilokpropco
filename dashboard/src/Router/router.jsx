@@ -4,6 +4,9 @@ import AddProperty from "../Pages/AddProperty";
 import Root from "../Pages/Root";
 import Properties from "../Pages/Properties";
 import Developer from "../Pages/Developer";
+import Type from "../Pages/Type";
+import Status from "../Pages/Status";
+import Amenities from "../Pages/Amenities";
 
 
 export const router = createBrowserRouter([
@@ -28,6 +31,18 @@ export const router = createBrowserRouter([
             {
                 path:'developer',
                 element:<Developer />
+            },
+            {
+                path:'type',
+                element:<Type />
+            },
+            {
+                path:'status',
+                element:<Status />
+            },
+            {
+                path:'amenities',
+                element:<Amenities />
             }
         ]
     }

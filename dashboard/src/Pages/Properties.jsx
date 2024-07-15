@@ -33,7 +33,7 @@ const truncateText = (str, numWords) => {
     
     return (
     <div>
-      <div className="overflow-x-auto ml-10">
+      <div className="overflow-x-auto mx-10 rounded-2xl bg-white mt-10">
   <table className="table">
     {/* head */}
     <thead>
@@ -70,7 +70,7 @@ const truncateText = (str, numWords) => {
           <button className="btn btn-error btn-xs text-white">delete</button>
         </th>
       </tr>
-      ) :<p>No Property is available.</p>}
+      ) :<p className="p-5">No Property is available.</p>}
       
       </tbody></table></div>      
     </div>
