@@ -32,7 +32,7 @@ export const deleteBlogCategory = async(req, res)=>{
     if(!category){
         req.status(404).json({message: "Category not found"})
     }
-    res.status(500).json({message: "deleted category"})
+    res.json({message: "deleted category"})
     }catch (e) {
         console.log(e.message);
         res.status(500).json({ message: "Internal Server Error."});
