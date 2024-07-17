@@ -10,19 +10,9 @@ export const addProperty = async (req, res) => {
         if (existingProject) {
             return res.status(400).json({ message: "Project already exists." });
         }
-      console.log(req.files, req.file, req.body.galleryImages)
-        const galleryImages = await Promise.all(
-            req.files.map(async file => {
-                const result = await cloudinary.uploader.upload(file.path);
-                return result.secure_url;
-            })
-        );
         
-        const propertyData = {
-            ...req.body,
-            galleryImages,
-            // location, video, and pdfDownload are expected to be provided directly from the frontend
-        };
+        
+        const propertyData = req.body;
 
         const property = new PropertyModel(propertyData);
         const savedProperty = await property.save();

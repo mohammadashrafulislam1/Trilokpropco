@@ -16,6 +16,7 @@ const propertySchema = new mongoose.Schema({
     priceRange: { type: String, required: true },
     configuration: { type: String, required: true },
     galleryImages: { type: [String], required: true },
+    bankImages: { type: [String], required: true },
     projectOverview: {
         possessionStart: { type: String},
         landArea: { type: String},
@@ -27,7 +28,8 @@ const propertySchema = new mongoose.Schema({
         numberOfUnits: { type: Number},
         RegistrationNo: { type: String},
     },
-    description: { type: String, required: true },
+    description: { type: String },
+    size: { type: String },
     priceDetails: {
       type: [{
         configuration: { type: String},
