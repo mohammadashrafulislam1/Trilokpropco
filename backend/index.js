@@ -7,6 +7,8 @@ import { typeRouter } from "./Routers/type.js";
 import { amenitiesRouter } from "./Routers/amenities.js";
 import { developerRouter } from "./Routers/developer.js";
 import { propertyRouter } from "./Routers/property.js";
+import { blogCategoryRouter } from "./Routers/blogCategory.js";
+import { blogRouter } from "./Routers/blog.js";
 
 const app = express();
 const PORT = 5000;
@@ -19,6 +21,7 @@ app.use('/amenity', amenitiesRouter)
 app.use('/developer', developerRouter)
 app.use('/property', propertyRouter)
 app.use('/blogCategory', blogCategoryRouter)
+app.use('/blog', blogRouter)
 
 const dbName = "Trilokpropco"
 const dbUser = process.env.DBUSER
