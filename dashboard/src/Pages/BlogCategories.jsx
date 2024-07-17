@@ -52,6 +52,26 @@ const BlogCategories = () => {
           );
         }
       };
+      const handleDelete = async (id) => {
+        if (window.confirm("Are you sure you want to delete this category?")) {
+          try {
+            await axios.delete(`${endPoint}/blogCategory/${id}`);
+            setCategories(categories.filter(category => category._id !== id));
+            toast.success("Category successfully deleted!", {
+              position: "top-center",
+            });
+          } catch (error) {
+            console.error("Error deleting category:", error.response.data, error);
+            toast.error(
+              error.response.data.message ||
+                "Failed to delete category. Please try again.",
+              {
+                position: "top-center",
+              }
+            );
+          }
+        }
+      };
     return (
         <div className="flex items-center justify-center flex-col gap-12">
         <ToastContainer />
@@ -100,7 +120,7 @@ const BlogCategories = () => {
                   </td>
                   <th className="flex gap-2">
                     <button className="btn btn-success text-white btn-xs">Update</button>
-                    <button className="btn btn-error btn-xs text-white">Delete</button>
+                    <button className="btn btn-error btn-xs text-white" onClick={() =>handleDelete(category._id)}>Delete</button>
                   </th>
                 </tr>
               )) : <tr><td colSpan="3" className="p-5 text-center">No category is available.</td></tr>}
