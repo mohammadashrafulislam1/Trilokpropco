@@ -1,5 +1,5 @@
-import { blogModel } from "../Models/BlogModel";
-import { cloudinary } from "../utils/cloudinary";
+import { blogModel } from "../Models/BlogModel.js";
+import { cloudinary } from "../utils/cloudinary.js";
 
 // add Blog controller:
 export const addBlog = async(req, res)=>{

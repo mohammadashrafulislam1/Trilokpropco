@@ -1,6 +1,6 @@
 import express from 'express';
-import { addBlog, getBlogs } from '../Controllers/BlogController';
-import { upload } from '../MiddleWare/multer';
+import { addBlog, getBlogs } from '../Controllers/BlogController.js';
+import { upload } from '../MiddleWare/multer.js';
 
 export const blogRouter = express.Router();
 
