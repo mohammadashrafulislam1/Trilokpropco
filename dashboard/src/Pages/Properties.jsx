@@ -33,7 +33,7 @@ const truncateText = (str, numWords) => {
     
     return (
     <div>
-      <div className="overflow-x-auto mx-10 rounded-2xl bg-white mt-10">
+      <div className="overflow-x-auto lg:mx-10 rounded-lg bg-white mt-10 mx-2">
   <table className="table">
     {/* head */}
     <thead>

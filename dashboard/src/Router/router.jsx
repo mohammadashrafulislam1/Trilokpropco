@@ -7,6 +7,7 @@ import Developer from "../Pages/Developer";
 import Type from "../Pages/Type";
 import Status from "../Pages/Status";
 import Amenities from "../Pages/Amenities";
+import BlogCategories from "../Pages/BlogCategories";
 
 
 export const router = createBrowserRouter([
@@ -43,7 +44,19 @@ export const router = createBrowserRouter([
             {
                 path:'amenities',
                 element:<Amenities />
-            }
+            },
+            {
+                path:'addBlog',
+                element:<Status />
+            },
+            {
+                path:'blogs',
+                element:<Status />
+            },
+            {
+                path:'blogCategories',
+                element:<BlogCategories />
+            },
         ]
     }
 ])

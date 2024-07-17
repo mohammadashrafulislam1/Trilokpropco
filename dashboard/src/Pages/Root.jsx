@@ -29,8 +29,11 @@ const Root = () => {
 
     return (
     <div className="">
-        <h4 className="text-xl font-semibold px-10 pt-10 text-left">Overview</h4>
-        <div className="flex items-center justify-center flex-col gap-12 mt-6">
+        <div className="flex items-center justify-center flex-col gap-8 lg:gap-12 mt-6">
+        <div className="flex justify-between lg:gap-[55rem] gap-[16rem] dashboard-title items-center">
+        <h4 className="text-xl font-semibold">Overview</h4>
+        <p>Overview</p>
+        </div>
          <Stats propertiesData={propertiesData} developerData={developerData} />
    </div>
     </div>   

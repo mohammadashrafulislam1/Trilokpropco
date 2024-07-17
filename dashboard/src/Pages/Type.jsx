@@ -68,11 +68,11 @@ const Type = () => {
   };
 
   return (
-    <div className="flex items-center justify-center flex-col gap-12">
+    <div className="flex items-center justify-center flex-col gap-12 mx-1">
       <ToastContainer />
       <form
         onSubmit={handleSubmit}
-        className="space-y-4 p-6 lg:w-3/4 w-full bg-white rounded-2xl mt-10"
+        className="space-y-4 p-6 lg:w-3/4 w-full bg-white rounded-lg mt-10"
       >
         <div className="form-control">
           <label className="label">
@@ -105,7 +105,7 @@ const Type = () => {
         </button>
       </form>
 
-      <div className="overflow-x-auto ml-10 bg-white rounded-2xl pt-5">
+      <div className="overflow-x-auto bg-white rounded-lg pt-5 lg:w-3/4 w-full">
         <table className="table">
           <caption className="table-caption text-2xl font-bold mb-8">All Types</caption>
           <thead>

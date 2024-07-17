@@ -345,12 +345,12 @@ const AddProperty = () => {
   ];
 
   return (
-    <div className="w-full flex flex-col justify-center items-center  md:p-5 p-5 lg:p-5">
+    <div className="w-full flex flex-col justify-center items-center  md:p-5 p-2 lg:p-5">
       <ToastContainer />
       {/* Add Property Form */}
       <form
         onSubmit={handleSubmit}
-        className="space-y-4 p-6 lg:w-3/4 w-full bg-white rounded-2xl mt-10"
+        className="space-y-4 p-6 lg:w-3/4 w-full bg-white rounded-lg mt-10"
       >
         <div className="form-control">
           <label className="label">
@@ -375,7 +375,7 @@ const AddProperty = () => {
             onChange={(value) =>
               setFormData({ ...formData, description: value })
             }
-            className="quill-editor h-20 mb-20 rounded-lg" // Add your own class for styling
+            className="quill-editor h-20 md:mb-20 rounded-lg mb-32" // Add your own class for styling
             modules={AddProperty.modules}
             formats={AddProperty.formats}
             required
@@ -760,7 +760,7 @@ const AddProperty = () => {
             onChange={(value) =>
               setFormData({ ...formData, nearbyFacilities: value })
             }
-            className="quill-editor h-20 mb-20 rounded-lg" 
+            className="quill-editor h-20 mb-32 rounded-lg md:mb-20" 
             modules={AddProperty.modules}
             formats={AddProperty.formats}
             required
@@ -790,7 +790,7 @@ const AddProperty = () => {
             onChange={(value) =>
               setFormData({ ...formData, specifications: value })
             }
-            className="quill-editor h-20 mb-20 rounded-lg" 
+            className="quill-editor h-20 mb-32 rounded-lg md:mb-20" 
             modules={AddProperty.modules}
             formats={AddProperty.formats}
             required
