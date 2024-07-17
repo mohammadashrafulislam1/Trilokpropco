@@ -1,6 +1,7 @@
 import { blogModel } from "../Models/BlogModel";
 import { cloudinary } from "../utils/cloudinary";
 
+// add Blog controller:
 export const addBlog = async(req, res)=>{
     try{
         const imageResult = await cloudinary.uploader.upload(req.file.path);
@@ -20,3 +21,13 @@ export const addBlog = async(req, res)=>{
         res.status(500).json({message: "Internal Serval Error."})
     }
 }
+// get Blogs controller:
+export const getBlogs  = async (req, res) =>{
+    try{
+      const blogs = await blogModel.find();
+      res.status(200).json(blogs)
+    }catch (e) {
+        console.log(e.message);
+        res.status(500).json({ message: "Internal Server Error."});
+
+}}
