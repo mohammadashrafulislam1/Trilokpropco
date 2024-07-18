@@ -11,7 +11,6 @@ const AddBlog = () => {
     title: "",
     description: "",
     category: "",
-    date: "",
   });
   const [imageFile, setImageFile] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -49,10 +48,9 @@ const AddBlog = () => {
     e.preventDefault();
     setLoading(true)
     const data = new FormData();
-    data.append("title", formData.name);
+    data.append("title", formData.title);
     data.append("description", formData.description);
     data.append("category", formData.category);
-    data.append("date", formData.date);
     data.append("image", imageFile);
     console.log(data)
     try {
@@ -132,16 +130,22 @@ const AddBlog = () => {
           <label className="label">
             <span className="label-text">Blog Categroy</span>
           </label>
-          <select className="select select-bordered w-full max-w-xs">
-            <option disabled selected>
-              Select category
-            </option>
-            {
-                categories?.map((category, index) =>(
-                    <option key={index} value={formData.category}>{category.category}</option>
-                ))
-            }
-          </select>
+          <select
+  className="select select-bordered w-full max-w-xs"
+  name="category"
+  value={formData.category}
+  onChange={handleChange}
+>
+  <option disabled value="">
+    Select category
+  </option>
+  {categories?.map((category) => (
+    <option key={category._id} value={category._id}>
+      {category.category}
+    </option>
+  ))}
+</select>
+
         </div>
         
         <div className="form-control">
