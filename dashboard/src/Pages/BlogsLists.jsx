@@ -5,7 +5,21 @@ import { useEffect, useState } from "react";
 
 const BlogsLists = () => {
     const [blogs, setBlogs] = useState();
+    const [currentPage, setCurrentPage] = useState(1);
+  const blogsPerPage = 5; // Adjust as needed
 
+  const getVisibleBlogs = () => {
+    const startIndex = (currentPage - 1) * blogsPerPage;
+    const endIndex = Math.min(startIndex + blogsPerPage, blogs?.length || 0);
+    return blogs?.slice(startIndex, endIndex);
+  };
+
+  const handlePageChange = (pageNumber) => {
+    if (pageNumber <= 0 || pageNumber > Math.ceil(blogs?.length / blogsPerPage)) {
+      return;
+    }
+    setCurrentPage(pageNumber);
+  };
     useEffect(() => {
         const fetchData = async () => {
           try {
@@ -19,6 +33,7 @@ const BlogsLists = () => {
         fetchData();
       }, []);
     return (
+      <div>
         <div className="flex items-center justify-center flex-col gap-12 my-10">
         <div className="overflow-x-auto bg-white rounded-lg pt-5 lg:w-[90%] w-full lg:mx-32">
         <table className="table">
@@ -32,7 +47,8 @@ const BlogsLists = () => {
             </tr>
           </thead>
           <tbody>
-            {blogs?.length ? blogs.map((blog, index) => (
+          {blogs?.length ? (
+              getVisibleBlogs().map((blog, index) => (
               <tr key={index}>
                 <td>{index + 1}</td>
                 <td>
@@ -55,11 +71,30 @@ const BlogsLists = () => {
                   <button className="btn btn-error btn-xs text-white">Delete</button>
                 </th>
               </tr>
-            )) : <tr><td colSpan="3" className="p-5 text-center">No blog is available.</td></tr>}
+            ))) : <tr><td colSpan="3" className="p-5 text-center">No blog is available.</td></tr>}
           </tbody>
         </table>
-      </div></div>
-    );
-};
-
+      </div> 
+      </div>;
+    {/* Pagination */}
+    {blogs?.length > blogsPerPage && (
+      <div className="join mt-5 flex items-center justify-center my-10">
+        <button
+          className="join-item btn disabled:opacity-50"
+          onClick={() => handlePageChange(currentPage - 1)}
+          disabled={currentPage === 1}
+        >
+          «
+        </button>
+        <button className="join-item btn">{currentPage}</button>
+        <button
+          className="join-item btn disabled:opacity-50"
+          onClick={() => handlePageChange(currentPage + 1)}
+          disabled={currentPage === Math.ceil(blogs?.length / blogsPerPage)}
+        >
+          »
+        </button>
+      </div>
+    )}
+      </div>)};
 export default BlogsLists;
