@@ -183,7 +183,7 @@ const AddBlog = () => {
             onChange={(value) =>
               setFormData({ ...formData, description: value })
             }
-            className="quill-editor h-20 md:mb-20 rounded-lg mb-32" // Add your own class for styling
+            className="quill-editor h-20 md:mb-20 rounded-lg mb-32 text-xl" // Add your own class for styling
             modules={AddBlog.modules}
             formats={AddBlog.formats}
             required
