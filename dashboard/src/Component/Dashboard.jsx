@@ -7,6 +7,9 @@ import { Link, Outlet } from "react-router-dom";
 import { MdOutlineLibraryAdd, MdOutlineRealEstateAgent } from "react-icons/md";
 import { LuTableProperties } from "react-icons/lu";
 import { GiConvergenceTarget } from "react-icons/gi";
+import { RiBloggerLine, RiGridLine } from "react-icons/ri";
+import { IoAddCircleOutline } from "react-icons/io5";
+import { BiCategory } from "react-icons/bi";
 
 const Dashboard = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -30,7 +33,7 @@ const Dashboard = () => {
 
   const dashNav = (
     <ul className="menu bg-[#fff] text-base-content min-h-full w-full md:p-4 gap-2 align-middle">
-      <li><img src="https://i.ibb.co/55MrgtV/18a006575c097b8b99494b75da063caf.jpg" className="w-full"/></li>
+      <li><img src="https://i.ibb.co/55MrgtV/18a006575c097b8b99494b75da063caf.jpg" className="w-1/2"/></li>
       <li><Link to={'/'} className="mt-6 p-3 bg-[#7e7e7e1a] rounded flex items-center gap-2 side-li "><FaDashcube /><span className="sidebar-text">Dashboard</span></Link></li>
       <li>
         <a className="p-3 bg-[#7e7e7e1a] rounded flex items-center gap-2 side-li cursor-pointer justify-center" onClick={handlePropertiesSubMenuToggle}>
@@ -52,15 +55,16 @@ const Dashboard = () => {
 
       <li>
         <a className="p-3 bg-[#7e7e7e1a] rounded flex items-center gap-2 side-li cursor-pointer justify-center" onClick={handleBlogsSubMenuToggle}>
-          <LuTableProperties />
+        <RiBloggerLine/>
           <span className="sidebar-text">Blogs</span>
           <span className="ml-auto">{isBlogsSubMenuOpen ? <span className="text-[5px]">▲</span> : <span className="text-[5px]">▼</span>}</span>
         </a>
         {isBlogsSubMenuOpen && (
           <ul>
-            <li><Link to={'/addBlog'} className="p-3 bg-[#7e7e7e1a] rounded flex items-center gap-2 side-li mt-2 "><MdOutlineLibraryAdd/><span className="sidebar-text">Add Blog</span></Link></li>
-            <li><Link to={'/blogs'} className="p-3 bg-[#7e7e7e1a] rounded flex items-center gap-2 side-li mt-2"><LuTableProperties /><span className="sidebar-text">Manage Blogs</span></Link></li>
-            <li><Link to={'/blogCategories'} className="p-3 bg-[#7e7e7e1a] rounded flex items-center gap-2 side-li mt-2 "><MdOutlineLibraryAdd/><span className="sidebar-text">Blog Categories</span></Link></li>
+            <li><Link to={'/addBlog'} className="p-3 bg-[#7e7e7e1a] rounded flex items-center gap-2 side-li mt-2 "><IoAddCircleOutline /><span className="sidebar-text">Add Blog</span></Link></li>
+            <li><Link to={'/blogs'} className="p-3 bg-[#7e7e7e1a] rounded flex items-center gap-2 side-li mt-2"><RiGridLine /><span className="sidebar-text">Manage Blogs</span></Link></li>
+            <li><Link to={'/blogCategories'} className="p-3 bg-[#7e7e7e1a] rounded flex items-center gap-2 side-li mt-2 "><BiCategory />
+            <span className="sidebar-text">Blog Categories</span></Link></li>
           </ul>
         )}
       </li>
