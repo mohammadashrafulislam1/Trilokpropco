@@ -6,18 +6,22 @@ import Stats from "../Component/Stats/Stats";
 const Root = () => {
     const [propertiesData, setPropertiesData] = useState(null);
     const [developerData, setDeveloperData] = useState(null);
+    const [blogData, setBlogData] = useState(null);
     useEffect(() => {
       const fetchData = async () => {
         try {
           const [
             developerResponse,
             propertiesResponse,
+            blogsResponse,
           ] = await Promise.all([
             axios.get(`${endPoint}/developer`),
             axios.get(`${endPoint}/property`),
+            axios.get(`${endPoint}/blog`),
           ]);
           setDeveloperData(developerResponse.data);
           setPropertiesData(propertiesResponse.data);
+          setBlogData(blogsResponse.data);
         } catch (error) {
           console.error("Error fetching data:", error);
         }
@@ -34,7 +38,7 @@ const Root = () => {
         <h4 className="text-xl font-semibold">Overview</h4>
         <p>Overview</p>
         </div>
-         <Stats propertiesData={propertiesData} developerData={developerData} />
+         <Stats propertiesData={propertiesData} developerData={developerData} blogData={blogData}/>
    </div>
     </div>   
     );

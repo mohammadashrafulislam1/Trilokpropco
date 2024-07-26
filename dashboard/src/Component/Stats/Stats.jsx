@@ -2,7 +2,7 @@ import { FaConnectdevelop } from "react-icons/fa";
 import { LuTableProperties } from "react-icons/lu";
 import { RiBloggerLine, RiContactsLine } from "react-icons/ri";
 
-const Stats = ({propertiesData, developerData}) => {
+const Stats = ({propertiesData, developerData, blogData}) => {
     console.log(propertiesData?.length, developerData?.length)
     return (
     <div className="grid lg:grid-cols-4 gap-3 md:grid-cols-2">
@@ -45,7 +45,7 @@ const Stats = ({propertiesData, developerData}) => {
                 <div className="bg-[#d8d8d8] p-2 rounded-lg"><RiBloggerLine/></div>
             </div>
             <div>
-                <h2 className="text-3xl font-bold">0</h2>
+                <h2 className="text-3xl font-bold">{blogData?.length|| 0}</h2>
                 <p><span className="text-green-600">total</span> posted blogs.</p>
             </div>
         </div>  

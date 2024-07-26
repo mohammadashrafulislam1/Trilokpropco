@@ -48,6 +48,10 @@ export const router = createBrowserRouter([
                 element:<Amenities />
             },
             {
+                path:'cities',
+                element:<Amenities />
+            },
+            {
                 path:'addBlog',
                 element:<AddBlog />
             },

@@ -1,6 +1,5 @@
 import axios from "axios";
 import { endPoint } from "../../forAll/forAll";
-import { toast, ToastContainer } from "react-toastify";
 import { useEffect, useState } from "react";
 
 const BlogsLists = () => {

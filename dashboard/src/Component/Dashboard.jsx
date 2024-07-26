@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./Dashboard.css";
 import { CiMenuFries } from "react-icons/ci";
 import { RxCross1 } from "react-icons/rx";
-import { FaBell, FaCity, FaDashcube, FaDev } from "react-icons/fa";
+import { FaBell, FaCity, FaDashcube, FaDev, FaLocationArrow } from "react-icons/fa";
 import { Link, Outlet } from "react-router-dom";
 import { MdOutlineLibraryAdd, MdOutlineRealEstateAgent } from "react-icons/md";
 import { LuTableProperties } from "react-icons/lu";
@@ -15,7 +15,6 @@ const Dashboard = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isPropertiesSubMenuOpen, setIsPropertiesSubMenuOpen] = useState(false);
   const [isBlogsSubMenuOpen, setIsBlogsSubMenuOpen] = useState(false);
-
 
   const handleDrawerToggle = () => {
     setIsDrawerOpen(!isDrawerOpen);
@@ -33,38 +32,149 @@ const Dashboard = () => {
 
   const dashNav = (
     <ul className="menu bg-[#fff] text-base-content min-h-full w-full md:p-4 gap-2 align-middle">
-      <li><img src="https://i.ibb.co/55MrgtV/18a006575c097b8b99494b75da063caf.jpg" className="w-1/2"/></li>
-      <li><Link to={'/'} className="mt-6 p-3 bg-[#7e7e7e1a] rounded flex items-center gap-2 side-li "><FaDashcube /><span className="sidebar-text">Dashboard</span></Link></li>
       <li>
-        <a className="p-3 bg-[#7e7e7e1a] rounded flex items-center gap-2 side-li cursor-pointer justify-center" onClick={handlePropertiesSubMenuToggle}>
+        <img
+          src="https://i.ibb.co/55MrgtV/18a006575c097b8b99494b75da063caf.jpg"
+          className="w-1/2"
+        />
+      </li>
+      <li>
+        <Link
+          to={"/"}
+          className="mt-6 p-3 bg-[#7e7e7e1a] rounded flex items-center gap-2 side-li "
+        >
+          <FaDashcube />
+          <span className="sidebar-text">Dashboard</span>
+        </Link>
+      </li>
+      <li>
+        <a
+          className="p-3 bg-[#7e7e7e1a] rounded flex items-center gap-2 side-li cursor-pointer justify-center"
+          onClick={handlePropertiesSubMenuToggle}
+        >
           <LuTableProperties />
           <span className="sidebar-text">Properties</span>
-          <span className="ml-auto">{isPropertiesSubMenuOpen ? <span className="text-[5px]">▲</span> : <span className="text-[5px]">▼</span>}</span>
+          <span className="ml-auto">
+            {isPropertiesSubMenuOpen ? (
+              <span className="text-[5px]">▲</span>
+            ) : (
+              <span className="text-[5px]">▼</span>
+            )}
+          </span>
         </a>
         {isPropertiesSubMenuOpen && (
           <ul>
-            <li><Link to={'/add'} className="p-3 bg-[#7e7e7e1a] rounded flex items-center gap-2 side-li mt-2 "><MdOutlineLibraryAdd/><span className="sidebar-text">Add Property</span></Link></li>
-            <li><Link to={'/properties'} className="p-3 bg-[#7e7e7e1a] rounded flex items-center gap-2 side-li mt-2"><LuTableProperties /><span className="sidebar-text">Manage Properties</span></Link></li>
+            <li>
+              <Link
+                to={"/add"}
+                className="p-3 bg-[#7e7e7e1a] rounded flex items-center gap-2 side-li mt-2 "
+              >
+                <MdOutlineLibraryAdd />
+                <span className="sidebar-text">Add Property</span>
+              </Link>
+            </li>
+            <li>
+              <Link
+                to={"/properties"}
+                className="p-3 bg-[#7e7e7e1a] rounded flex items-center gap-2 side-li mt-2"
+              >
+                <LuTableProperties />
+                <span className="sidebar-text">Manage Properties</span>
+              </Link>
+            </li>
+            <li>
+              <Link
+                to={"/developer"}
+                className="p-3 bg-[#7e7e7e1a] rounded flex items-center gap-2 side-li mt-2 "
+              >
+                <FaDev />
+                <span className="sidebar-text">Developer</span>
+              </Link>
+            </li>
+            <li>
+              <Link
+                to={"/type"}
+                className="p-3 bg-[#7e7e7e1a] rounded flex items-center gap-2 side-li mt-2 "
+              >
+                <GiConvergenceTarget />
+                <span className="sidebar-text">Property Type</span>
+              </Link>
+            </li>
+            <li>
+              <Link
+                to={"/status"}
+                className="p-3 bg-[#7e7e7e1a] rounded flex items-center gap-2 side-li mt-2 "
+              >
+                <MdOutlineRealEstateAgent />
+                <span className="sidebar-text">Status</span>
+              </Link>
+            </li>
+            <li>
+              <Link
+                to={"/amenities"}
+                className="p-3 bg-[#7e7e7e1a] rounded flex items-center gap-2 side-li mt-2 "
+              >
+                <FaCity />
+                <span className="sidebar-text">Amenities</span>
+              </Link>
+            </li>
+            <li>
+              <Link
+                to={"/cities"}
+                className="p-3 bg-[#7e7e7e1a] rounded flex items-center gap-2 side-li mt-2 "
+              >
+                <FaLocationArrow />
+                <span className="sidebar-text">Cities</span>
+              </Link>
+            </li>
           </ul>
         )}
       </li>
-      <li><Link to={'/developer'} className="p-3 bg-[#7e7e7e1a] rounded flex items-center gap-2 side-li mt-2 "><FaDev/><span className="sidebar-text">Developer</span></Link></li>
-      <li><Link to={'/type'} className="p-3 bg-[#7e7e7e1a] rounded flex items-center gap-2 side-li mt-2 "><GiConvergenceTarget/><span className="sidebar-text">Property Type</span></Link></li>
-      <li><Link to={'/status'} className="p-3 bg-[#7e7e7e1a] rounded flex items-center gap-2 side-li mt-2 "><MdOutlineRealEstateAgent/><span className="sidebar-text">Status</span></Link></li>
-      <li><Link to={'/amenities'} className="p-3 bg-[#7e7e7e1a] rounded flex items-center gap-2 side-li mt-2 "><FaCity /><span className="sidebar-text">Amenities</span></Link></li>
 
       <li>
-        <a className="p-3 bg-[#7e7e7e1a] rounded flex items-center gap-2 side-li cursor-pointer justify-center" onClick={handleBlogsSubMenuToggle}>
-        <RiBloggerLine/>
+        <a
+          className="p-3 bg-[#7e7e7e1a] rounded flex items-center gap-2 side-li cursor-pointer justify-center"
+          onClick={handleBlogsSubMenuToggle}
+        >
+          <RiBloggerLine />
           <span className="sidebar-text">Blogs</span>
-          <span className="ml-auto">{isBlogsSubMenuOpen ? <span className="text-[5px]">▲</span> : <span className="text-[5px]">▼</span>}</span>
+          <span className="ml-auto">
+            {isBlogsSubMenuOpen ? (
+              <span className="text-[5px]">▲</span>
+            ) : (
+              <span className="text-[5px]">▼</span>
+            )}
+          </span>
         </a>
         {isBlogsSubMenuOpen && (
           <ul>
-            <li><Link to={'/addBlog'} className="p-3 bg-[#7e7e7e1a] rounded flex items-center gap-2 side-li mt-2 "><IoAddCircleOutline /><span className="sidebar-text">Add Blog</span></Link></li>
-            <li><Link to={'/blogs'} className="p-3 bg-[#7e7e7e1a] rounded flex items-center gap-2 side-li mt-2"><RiGridLine /><span className="sidebar-text">Manage Blogs</span></Link></li>
-            <li><Link to={'/blogCategories'} className="p-3 bg-[#7e7e7e1a] rounded flex items-center gap-2 side-li mt-2 "><BiCategory />
-            <span className="sidebar-text">Blog Categories</span></Link></li>
+            <li>
+              <Link
+                to={"/addBlog"}
+                className="p-3 bg-[#7e7e7e1a] rounded flex items-center gap-2 side-li mt-2 "
+              >
+                <IoAddCircleOutline />
+                <span className="sidebar-text">Add Blog</span>
+              </Link>
+            </li>
+            <li>
+              <Link
+                to={"/blogs"}
+                className="p-3 bg-[#7e7e7e1a] rounded flex items-center gap-2 side-li mt-2"
+              >
+                <RiGridLine />
+                <span className="sidebar-text">Manage Blogs</span>
+              </Link>
+            </li>
+            <li>
+              <Link
+                to={"/blogCategories"}
+                className="p-3 bg-[#7e7e7e1a] rounded flex items-center gap-2 side-li mt-2 "
+              >
+                <BiCategory />
+                <span className="sidebar-text">Blog Categories</span>
+              </Link>
+            </li>
           </ul>
         )}
       </li>
@@ -96,7 +206,10 @@ const Dashboard = () => {
                 className="input input-bordered w-24 md:w-auto"
               />
             </div>
-            <div tabIndex={1} className="text-xl dropdown dropdown-end cursor-pointer" >
+            <div
+              tabIndex={1}
+              className="text-xl dropdown dropdown-end cursor-pointer"
+            >
               <FaBell />
               <ul
                 tabIndex={1}
