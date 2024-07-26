@@ -10,6 +10,7 @@ import Amenities from "../Pages/Amenities";
 import BlogCategories from "../Pages/BlogCategories";
 import AddBlog from "../Pages/AddBlog";
 import BlogsLists from "../Pages/BlogsLists";
+import Cities from "../Pages/City";
 
 
 export const router = createBrowserRouter([
@@ -49,7 +50,7 @@ export const router = createBrowserRouter([
             },
             {
                 path:'cities',
-                element:<Amenities />
+                element:<Cities />
             },
             {
                 path:'addBlog',
