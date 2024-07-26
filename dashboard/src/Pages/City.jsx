@@ -4,6 +4,7 @@ import { toast, ToastContainer } from "react-toastify";
 import { useEffect, useState } from "react";
 
 const Cities = () => {
+
   const [cities, setCities] = useState([]);
   const [formData, setFormData] = useState({
     name: "",
@@ -63,7 +64,7 @@ const Cities = () => {
   };
 
   return (
-    <div className="flex items-center justify-center flex-col gap-12">
+    <div className="flex items-center justify-center flex-col gap-12 mb-10">
        <ToastContainer />
       <form
         onSubmit={handleSubmit}

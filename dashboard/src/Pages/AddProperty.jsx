@@ -60,6 +60,7 @@ const AddProperty = () => {
   const [amenitiesData, setAmenities] = useState([]);
   const [statusData, setStatusData] = useState(null);
   const [developerData, setDeveloperData] = useState(null);
+  const [cityData, setCityData] = useState(null);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -68,16 +69,19 @@ const AddProperty = () => {
           statusResponse,
           developerResponse,
           amenityResponse,
+          cityResponse,
         ] = await Promise.all([
           axios.get(`${endPoint}/type`),
           axios.get(`${endPoint}/status`),
           axios.get(`${endPoint}/developer`),
           axios.get(`${endPoint}/amenity`),
+          axios.get(`${endPoint}/city`),
         ]);
         setTypeData(typeResponse.data);
         setStatusData(statusResponse.data);
         setDeveloperData(developerResponse.data);
         setAmenities(amenityResponse.data);
+        setCityData(cityResponse.data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -343,7 +347,13 @@ const AddProperty = () => {
     "image",
     "video",
   ];
-
+ const handleLocationChange = (e)=>{
+  const selectedCityId = e.target.value;
+  setFormData({
+    ...formData,
+    location: selectedCityId,
+  })
+ }
   return (
     <div className="w-full flex flex-col justify-center items-center  md:p-5 p-2 lg:p-5">
       <ToastContainer />
@@ -412,14 +422,14 @@ const AddProperty = () => {
           <label className="label">
             <span className="label-text">Location</span>
           </label>
-          <input
-            type="text"
-            name="location"
+          <select className="border p-4 rounded-lg" 
             value={formData.location}
-            onChange={handleChange}
-            className="input input-bordered"
-            required
-          />
+            name="location"
+            onChange={handleLocationChange}
+            required>
+            <option >Select a Location</option>
+            {cityData?.map((city, index) => (<option key={index} value={city?._id}>{city?.name}</option>))}
+          </select>
         </div>
 
         <div className="form-control">
