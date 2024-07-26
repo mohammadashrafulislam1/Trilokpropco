@@ -22,6 +22,7 @@ app.use('/developer', developerRouter)
 app.use('/property', propertyRouter)
 app.use('/blogCategory', blogCategoryRouter)
 app.use('/blog', blogRouter)
+app.use('/city', cityRouter)
 
 const dbName = "Trilokpropco"
 const dbUser = process.env.DBUSER
