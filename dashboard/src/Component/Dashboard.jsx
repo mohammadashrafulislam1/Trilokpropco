@@ -2,19 +2,21 @@ import { useState } from "react";
 import "./Dashboard.css";
 import { CiMenuFries } from "react-icons/ci";
 import { RxCross1 } from "react-icons/rx";
-import { FaBell, FaCity, FaDashcube, FaDev, FaLocationArrow } from "react-icons/fa";
+import { FaBell, FaCity, FaDashcube, FaDev, FaHome, FaLocationArrow } from "react-icons/fa";
 import { Link, Outlet } from "react-router-dom";
-import { MdOutlineLibraryAdd, MdOutlineRealEstateAgent } from "react-icons/md";
+import { MdOutlineHandshake, MdOutlineLibraryAdd, MdOutlineRealEstateAgent, MdReviews } from "react-icons/md";
 import { LuTableProperties } from "react-icons/lu";
 import { GiConvergenceTarget } from "react-icons/gi";
 import { RiBloggerLine, RiGridLine } from "react-icons/ri";
 import { IoAddCircleOutline } from "react-icons/io5";
 import { BiCategory } from "react-icons/bi";
+import { TbLayoutBottombar, TbLayoutNavbar } from "react-icons/tb";
 
 const Dashboard = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isPropertiesSubMenuOpen, setIsPropertiesSubMenuOpen] = useState(false);
   const [isBlogsSubMenuOpen, setIsBlogsSubMenuOpen] = useState(false);
+  const [isHomeSubMenuOpen, setIsHomeSubMenuOpen] = useState(false);
 
   const handleDrawerToggle = () => {
     setIsDrawerOpen(!isDrawerOpen);
@@ -23,11 +25,17 @@ const Dashboard = () => {
   const handlePropertiesSubMenuToggle = () => {
     setIsPropertiesSubMenuOpen(!isPropertiesSubMenuOpen);
     if (isBlogsSubMenuOpen) setIsBlogsSubMenuOpen(false);
+    if (isHomeSubMenuOpen) setIsHomeSubMenuOpen(false);
   };
 
   const handleBlogsSubMenuToggle = () => {
     setIsBlogsSubMenuOpen(!isBlogsSubMenuOpen);
+    if (isHomeSubMenuOpen) setIsHomeSubMenuOpen(false);
     if (isPropertiesSubMenuOpen) setIsPropertiesSubMenuOpen(false);
+  };
+  const handleHomeSubMenuToggle = () => {
+    setIsHomeSubMenuOpen(!isHomeSubMenuOpen);
+    if (isPropertiesSubMenuOpen) setIsPropertiesSubMenuOpen(false);if (isBlogsSubMenuOpen) setIsBlogsSubMenuOpen(false);
   };
 
   const dashNav = (
@@ -173,6 +181,55 @@ const Dashboard = () => {
               >
                 <BiCategory />
                 <span className="sidebar-text">Blog Categories</span>
+              </Link>
+            </li>
+          </ul>
+        )}
+      </li>
+
+      <li>
+        <a
+          className="p-3 bg-[#7e7e7e1a] rounded flex items-center gap-2 side-li cursor-pointer justify-center"
+          onClick={handleHomeSubMenuToggle}
+        >
+          <FaHome />
+          <span className="sidebar-text">Home</span>
+          <span className="ml-auto">
+            {isHomeSubMenuOpen ? (
+              <span className="text-[5px]">▲</span>
+            ) : (
+              <span className="text-[5px]">▼</span>
+            )}
+          </span>
+        </a>
+        {isHomeSubMenuOpen && (
+          <ul>
+            <li>
+              <Link
+                to={"/testimonials"}
+                className="p-3 bg-[#7e7e7e1a] rounded flex items-center gap-2 side-li mt-2 "
+              >
+                <MdReviews />
+                <span className="sidebar-text">Testimonials</span>
+              </Link>
+            </li>
+            <li>
+              <Link
+                to={"/partners"}
+                className="p-3 bg-[#7e7e7e1a] rounded flex items-center gap-2 side-li mt-2"
+              >
+                <MdOutlineHandshake />
+                <span className="sidebar-text">Partners</span>
+              </Link>
+            </li>
+            <li>
+              <Link
+                to={"/footer"}
+                className="p-3 bg-[#7e7e7e1a] rounded flex items-center gap-2 side-li mt-2 "
+              >
+                <TbLayoutBottombar />
+
+                <span className="sidebar-text">Footer</span>
               </Link>
             </li>
           </ul>
