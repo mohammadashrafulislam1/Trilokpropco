@@ -56,7 +56,8 @@ const propertySchema = new mongoose.Schema({
     nearbyFacilities: { type: String, required: true },
     locationMap: { type: String, required: true },
     specifications: { type: String, required: true },
-    video: { type: String, required: true }
+    video: { type: String, required: true },
+    isFeatured: { type: Boolean, default: false },
   });
 
 export const PropertyModel = mongoose.model('Property', propertySchema);
