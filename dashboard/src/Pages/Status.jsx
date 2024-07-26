@@ -9,7 +9,7 @@ const Status = () => {
       status: '',
     });
     const [imageFile, setImageFile] = useState(null);
-
+    const [loading, setLoading] = useState(false);
     useEffect(() => {
       const fetchData = async () => {
         try {
@@ -37,6 +37,7 @@ const Status = () => {
 
     const handleSubmit = async (e) => {
       e.preventDefault();
+      setLoading(true)
       const data = new FormData();
       data.append('status', formData.status);
       data.append('image', imageFile);
@@ -52,11 +53,13 @@ const Status = () => {
           }
         );
         setStatuses([...statuses, response.data]);
+        setLoading(false)
         toast.success("Status successfully added!", {
           position: "top-center",
         });
       } catch (error) {
         console.error("Error submitting form:", error.response.data, error);
+        setLoading(false)
         toast.error(
           error.response.data.message ||
             "Failed to add status. Please try again.",
@@ -68,7 +71,16 @@ const Status = () => {
     };
 
     return (
-        <div className="flex items-center justify-center flex-col gap-12">
+        <div className="flex items-center justify-center flex-col gap-12 mx-1 relative overflow-hidden">
+        { loading &&
+          <div className="bg-[#0000003e] absolute w-full h-full z-10 md:py-52 lg:px-96 py-36 md:px-32">
+              <div className="modal-box" >
+              <h3 className="font-bold text-lg flex gap-5">Loading.. 
+              <span className="loading loading-ring loading-lg"></span></h3>
+            <p className="py-4">Please wait untill it loaded.</p>
+          </div>
+          </div>
+        }
             <ToastContainer />
             <form
               onSubmit={handleSubmit}

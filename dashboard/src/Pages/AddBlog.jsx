@@ -13,7 +13,7 @@ const AddBlog = () => {
     category: "",
   });
   const [imageFile, setImageFile] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   
 
@@ -117,7 +117,8 @@ const AddBlog = () => {
       { loading &&
         <div className="bg-[#0000003e] absolute w-full h-full z-10 md:py-52 lg:px-96 py-36 md:px-32">
             <div className="modal-box" >
-          <h3 className="font-bold text-lg">Loading..</h3>
+            <h3 className="font-bold text-lg flex gap-5">Loading.. 
+            <span className="loading loading-ring loading-lg"></span></h3>
           <p className="py-4">Please wait untill it loaded.</p>
         </div>
         </div>
