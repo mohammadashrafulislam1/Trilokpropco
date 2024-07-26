@@ -10,6 +10,7 @@ const Developer = () => {
     details: '',
   });
   const [imageFile, setImageFile] = useState(null);
+  const [loading, setLoading] = useState(false);
 
 
   useEffect(() => {
@@ -40,6 +41,7 @@ const Developer = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true)
     const data = new FormData();
     data.append('name', formData.name);
     data.append('details', formData.details);
@@ -56,11 +58,13 @@ const Developer = () => {
         }
       );
       console.log(response.data);
+      setLoading(false)
       toast.success("Developer successfully added!", {
         position: "top-center",
       });
     } catch (error) {
       console.error("Error submitting form:", error.response.data, error);
+      setLoading(false)
       toast.error(
         error.response.data.message ||
           "Failed to add developer. Please try again.",
@@ -72,8 +76,17 @@ const Developer = () => {
   };
 
   return (
-    <div className="flex items-center justify-center flex-col gap-12 mx-1">
-      <ToastContainer />
+    <div className="flex items-center justify-center flex-col gap-12 mx-1 relative overflow-hidden mb-10">
+      <ToastContainer /> 
+      { loading &&
+        <div className="bg-[#0000003e] absolute w-full h-full z-10 md:py-52 lg:px-96 py-36 md:px-32">
+            <div className="modal-box" >
+            <h3 className="font-bold text-lg flex gap-5">Loading.. 
+            <span className="loading loading-ring loading-lg"></span></h3>
+          <p className="py-4">Please wait untill it loaded.</p>
+        </div>
+        </div>
+      }
       <form
         onSubmit={handleSubmit}
         className="space-y-4 p-6 lg:w-3/4 w-full bg-white rounded-lg mt-10"

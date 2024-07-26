@@ -61,6 +61,8 @@ const AddProperty = () => {
   const [statusData, setStatusData] = useState(null);
   const [developerData, setDeveloperData] = useState(null);
   const [cityData, setCityData] = useState(null);
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -271,7 +273,7 @@ const AddProperty = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setLoading(true)
     // Include selected amenities IDs in formData
     const updatedFormData = {
       ...formData,
@@ -286,11 +288,13 @@ const AddProperty = () => {
         updatedFormData
       );
       console.log(response.data);
+      setLoading(false)
       toast.success("Property successfully added!", {
         position: "top-center",
       });
     } catch (error) {
       console.error("Error submitting form:", error.response.data, error);
+      setLoading(false)
       toast.error(
         error.response.data.message ||
           "Failed to add property. Please try again.",
@@ -355,8 +359,17 @@ const AddProperty = () => {
   })
  }
   return (
-    <div className="w-full flex flex-col justify-center items-center  md:p-5 p-2 lg:p-5">
+    <div className="flex items-center justify-center flex-col gap-12 mx-1 relative overflow-hidden mb-10  md:p-5 p-2 lg:p-5">
       <ToastContainer />
+      { loading &&
+        <div className="bg-[#0000003e] absolute w-full h-full z-10 md:py-52 lg:px-96 py-36 md:px-32">
+            <div className="modal-box" >
+            <h3 className="font-bold text-lg flex gap-5">Loading.. 
+            <span className="loading loading-ring loading-lg"></span></h3>
+          <p className="py-4">Please wait untill it loaded.</p>
+        </div>
+        </div>
+      }
       {/* Add Property Form */}
       <form
         onSubmit={handleSubmit}

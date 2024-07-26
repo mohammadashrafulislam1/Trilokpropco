@@ -72,7 +72,7 @@ const Type = () => {
   };
 
   return (
-    <div className="flex items-center justify-center flex-col gap-12 mx-1 relative overflow-hidden">
+    <div className="flex items-center justify-center flex-col gap-12 mx-1 relative overflow-hidden mb-10">
       <ToastContainer />
       { loading &&
         <div className="bg-[#0000003e] absolute w-full h-full z-10 md:py-52 lg:px-96 py-36 md:px-32">
