@@ -54,6 +54,7 @@ const AddProperty = () => {
     locationMap: "",
     specifications: "",
     video: "",
+    isFeatured:false
   });
   const [selectedAmenities, setSelectedAmenities] = useState([]);
   const [typeData, setTypeData] = useState(null);
@@ -375,6 +376,24 @@ const AddProperty = () => {
         onSubmit={handleSubmit}
         className="space-y-4 p-6 lg:w-3/4 w-full bg-white rounded-lg mt-10"
       >
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text">Featured</span>
+          </label>
+          <input
+            type="checkbox"
+            name="isFeatured"
+            checked={formData.isFeatured}
+            onChange={(e) => 
+              setFormData((prevState) =>({
+                ...prevState,
+                isFeatured: e.target.checked
+              }))
+            }
+            className="toggle toggle-primary"
+          />
+        </div>
+
         <div className="form-control">
           <label className="label">
             <span className="label-text">Name</span>

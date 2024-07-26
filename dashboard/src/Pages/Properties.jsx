@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 const Properties = () => {
   const [properties, setProperties] = useState([]);
+  console.log(properties)
   const [currentPage, setCurrentPage] = useState(1);
   const propertiesPerPage = 12;
   const truncateText = (str, numWords) => {
