@@ -9,6 +9,8 @@ const BlogCategories = () => {
     const [formData, setFormData] = useState({
         category: '',
     });
+  const [loading, setLoading] = useState(false);
+
     useEffect(() => {
         const fetchData = async () => {
           try {
@@ -31,6 +33,7 @@ const BlogCategories = () => {
 
       const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true)
   
         try {
           const response = await axios.post(
@@ -38,11 +41,13 @@ const BlogCategories = () => {
             formData
           );
           setCategories([...categories, response.data]);
+          setLoading(false)
           toast.success("category successfully added!", {
             position: "top-center",
           });
         } catch (error) {
           console.error("Error submitting form:", error.response.data, error);
+          setLoading(false)
           toast.error(
             error.response.data.message ||
               "Failed to add category. Please try again.",
@@ -73,8 +78,17 @@ const BlogCategories = () => {
         }
       };
     return (
-        <div className="flex items-center justify-center flex-col gap-12">
+        <div className="flex items-center justify-center flex-col gap-12 mx-1 relative overflow-hidden mb-10">
         <ToastContainer />
+      { loading &&
+        <div className="bg-[#0000003e] absolute w-full h-full z-10 md:py-52 lg:px-96 py-36 md:px-32">
+            <div className="modal-box" >
+            <h3 className="font-bold text-lg flex gap-5">Loading.. 
+            <span className="loading loading-ring loading-lg"></span></h3>
+          <p className="py-4">Please wait untill it loaded.</p>
+        </div>
+        </div>
+      }
         <form
           onSubmit={handleSubmit}
           className="space-y-4 p-6 lg:w-3/4 w-full bg-white rounded-lg mt-10 mx-1"
