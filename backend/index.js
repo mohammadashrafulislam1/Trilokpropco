@@ -9,6 +9,7 @@ import { developerRouter } from "./Routers/developer.js";
 import { propertyRouter } from "./Routers/property.js";
 import { blogCategoryRouter } from "./Routers/blogCategory.js";
 import { blogRouter } from "./Routers/blog.js";
+import { cityRouter } from "./Routers/city.js";
 
 const app = express();
 const PORT = 5000;

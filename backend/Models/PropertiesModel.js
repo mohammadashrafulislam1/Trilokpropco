@@ -8,7 +8,10 @@ const propertySchema = new mongoose.Schema({
         ref: 'Types'
     },
     developer: {type: mongoose.Schema.Types.ObjectId, ref: 'Developer' },
-    location: { type: String, required: true },
+    location: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'city'
+  },
     status: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Status'
