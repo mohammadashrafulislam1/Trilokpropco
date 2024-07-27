@@ -11,6 +11,7 @@ import BlogCategories from "../Pages/BlogCategories";
 import AddBlog from "../Pages/AddBlog";
 import BlogsLists from "../Pages/BlogsLists";
 import Cities from "../Pages/City";
+import Testimonials from "../Pages/Testimonials";
 
 
 export const router = createBrowserRouter([
@@ -63,6 +64,10 @@ export const router = createBrowserRouter([
             {
                 path:'blogCategories',
                 element:<BlogCategories />
+            },
+            {
+                path:'testimonials',
+                element:<Testimonials />
             },
         ]
     }
