@@ -18,3 +18,13 @@ export const addTestimonial = async(req, res) =>{
         res.status(500).json({message: "Internal Serval Error."})
     }
 }
+
+export const getTestimonial = async (req, res) =>{
+    try{
+      const testimonial = await TestimonialModel.find();
+      res.status(200).json(testimonial)
+    }catch (e) {
+        console.log(e.message);
+        res.status(500).json({ message: "Internal Server Error."});
+
+}}
