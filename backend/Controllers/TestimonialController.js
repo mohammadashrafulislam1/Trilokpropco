@@ -1,6 +1,6 @@
 import { TestimonialModel } from "../Models/TestimonialModel";
 
-
+// Add testimonial controller
 export const addTestimonial = async(req, res) =>{
     try{
         const imageResult = await cloudinary.uploader.upload(req.file.path);
@@ -19,6 +19,7 @@ export const addTestimonial = async(req, res) =>{
     }
 }
 
+// get testimonial controller
 export const getTestimonial = async (req, res) =>{
     try{
       const testimonial = await TestimonialModel.find();
