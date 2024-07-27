@@ -10,6 +10,7 @@ import { propertyRouter } from "./Routers/property.js";
 import { blogCategoryRouter } from "./Routers/blogCategory.js";
 import { blogRouter } from "./Routers/blog.js";
 import { cityRouter } from "./Routers/city.js";
+import { testimonialRouter } from "./Routers/testimonial.js";
 
 const app = express();
 const PORT = 5000;
@@ -24,6 +25,7 @@ app.use('/property', propertyRouter)
 app.use('/blogCategory', blogCategoryRouter)
 app.use('/blog', blogRouter)
 app.use('/city', cityRouter)
+app.use('/testimonial', testimonialRouter)
 
 const dbName = "Trilokpropco"
 const dbUser = process.env.DBUSER
