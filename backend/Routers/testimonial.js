@@ -1,6 +1,6 @@
 import express from "express";
-import { addTestimonial, getTestimonial } from "../Controllers/TestimonialController";
-import { upload } from "../MiddleWare/multer";
+import { addTestimonial, deleteTestimonial, getTestimonial } from "../Controllers/TestimonialController.js";
+import { upload } from "../MiddleWare/multer.js";
 
 export const testimonialRouter = express.Router();
 
@@ -8,4 +8,7 @@ export const testimonialRouter = express.Router();
 testimonialRouter.post('/', upload.single('image'), addTestimonial)
 
 // GET Testimonial API:
-developerRouter.get('/', getTestimonial)
+testimonialRouter.get('/', getTestimonial)
+
+// DELETE Testimonial API:
+testimonialRouter.delete('/:id', deleteTestimonial)

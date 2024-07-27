@@ -10,7 +10,8 @@ export const addBlog = async(req, res)=>{
             title: req.body.title, 
             description: req.body.description, image:imageResult.secure_url,
             date: req.body.date, 
-            image:imageResult.secure_url
+            image:imageResult.secure_url,
+            imagePublicId: imageResult.public_id
         }
         const blog = new blogModel(allFields)
         const savedBlog = await blog.save();

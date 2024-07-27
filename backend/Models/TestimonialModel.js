@@ -5,7 +5,8 @@ const testimonialSchema = new mongoose.Schema({
     des: { type: String, required: true },
     details: { type: String, required: true },
     rating: { type: Number, required: true },
-    image: { type: String, required: true }
+    image: { type: String, required: true },
+    imagePublicId: { type: String, required: true }
 })
 
 export const TestimonialModel = mongoose.model('testimonials', testimonialSchema);

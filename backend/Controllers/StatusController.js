@@ -5,7 +5,10 @@ import { cloudinary } from "../utils/cloudinary.js";
 export const addStatus = async(req, res)=>{
     try{
         const imageResult = await cloudinary.uploader.upload(req.file.path);
-        const status = new StatusModel({status: req.body.status, image:imageResult.secure_url})
+        const status = new StatusModel({
+            status: req.body.status, 
+            image:imageResult.secure_url,
+            imagePublicId: imageResult.public_id})
         const savedStatus = await status.save();
         res.status(200).json(savedStatus)
     }

@@ -5,7 +5,10 @@ import { cloudinary } from "../utils/cloudinary.js";
 export const addAmenities = async(req, res)=>{
     try{
         const imageResult = await cloudinary.uploader.upload(req.file.path);
-        const amenities = new AmenitiesModel({name: req.body.name, logo:imageResult.secure_url})
+        const amenities = new AmenitiesModel({
+            name: req.body.name, 
+            logo:imageResult.secure_url,
+            imagePublicId: imageResult.public_id})
         const savedAmenities = await amenities.save();
         res.status(200).json(savedAmenities)
     }

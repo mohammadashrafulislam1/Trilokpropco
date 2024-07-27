@@ -18,6 +18,7 @@ const blogSchema = new mongoose.Schema({
             type: String,
             required: true
         },
+        imagePublicId: { type: String, required: true },
         date: {
             type: Date,
             default: Date.now

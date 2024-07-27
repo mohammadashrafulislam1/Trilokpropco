@@ -1,4 +1,5 @@
-import { TestimonialModel } from "../Models/TestimonialModel";
+import { TestimonialModel } from "../Models/TestimonialModel.js";
+import { cloudinary } from "../utils/cloudinary.js";
 
 // Add testimonial controller
 export const addTestimonial = async(req, res) =>{
@@ -9,7 +10,9 @@ export const addTestimonial = async(req, res) =>{
             des: req.body.des, 
             details: req.body.details, 
             rating: req.body.rating, 
-            image:imageResult.secure_url})
+            image:imageResult.secure_url,
+            imagePublicId: imageResult.public_id
+        })
         const savedTestimonial = await testimonial.save();
         res.status(200).json(savedTestimonial)
     }
@@ -29,3 +32,26 @@ export const getTestimonial = async (req, res) =>{
         res.status(500).json({ message: "Internal Server Error."});
 
 }}
+
+// delete testimonial controller
+export const deleteTestimonial = async (req, res) => {
+    const id = req.params.id;
+    try {
+        const testimonial = await TestimonialModel.findById(id);
+        if (!testimonial) {
+            return res.status(404).json({ message: "Testimonial not found." });
+        }
+
+        // Delete the image from Cloudinary
+        await cloudinary.uploader.destroy(testimonial.imagePublicId);
+
+        // Delete the testimonial from the database
+        await TestimonialModel.findByIdAndDelete(id);
+
+        res.status(200).json({ message: "Testimonial deleted successfully." });
+    } catch (e) {
+        console.log(e.message);
+        res.status(500).json({ message: "Internal Server Error." });
+    }
+};
+

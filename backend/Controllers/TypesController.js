@@ -11,7 +11,10 @@ export const addType = async(req, res)=>{
             return res.status(400).json({ message: "Type already exists." });
         }
         const imageResult = await cloudinary.uploader.upload(req.file.path);
-        const type = new TypesModel({type: req.body.type, logo:imageResult.secure_url})
+        const type = new TypesModel({
+            type: req.body.type, 
+            logo:imageResult.secure_url,
+            imagePublicId: imageResult.public_id})
         const savedType = await type.save();
         res.status(200).json(savedType)
     }

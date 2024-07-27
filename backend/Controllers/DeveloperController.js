@@ -5,7 +5,8 @@ import { cloudinary } from "../utils/cloudinary.js";
 export const addDeveloper = async(req, res)=>{
     try{
         const imageResult = await cloudinary.uploader.upload(req.file.path);
-        const developer = new DeveloperModel({name: req.body.name, details: req.body.details, image:imageResult.secure_url})
+        const developer = new DeveloperModel({name: req.body.name, details: req.body.details, image:imageResult.secure_url,
+            imagePublicId: imageResult.public_id})
         const savedDeveloper = await developer.save();
         res.status(200).json(savedDeveloper)
     }
