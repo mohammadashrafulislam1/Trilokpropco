@@ -1,3 +1,4 @@
+import { PartnerModel } from "../Models/PartnerModel";
 
 export const addPartner = async(req, res) =>{
   try{
