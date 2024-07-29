@@ -1,7 +1,6 @@
 import { FooterModel } from "../Models/FooterModel";
 import { cloudinary } from "../utils/cloudinary";
 
-// add Footer controller:
 // Add Footer controller
 export const addFooter = async (req, res) => {
     try {
@@ -41,8 +40,37 @@ export const getFooters = async (req, res) =>{
 // Update Footer controller
 export const updateFooter = async (req, res) => {
     try {
-      const { id } = req.params; 
-      const updatedFooter = await FooterModel.findByIdAndUpdate(id, req.body, { new: true });
+      const { id } = req.params;
+      
+      // Find the existing footer
+      const existingFooter = await FooterModel.findById(id);
+      if (!existingFooter) {
+        return res.status(404).json({ message: "Footer not found" });
+      }
+  
+      // Update fields conditionally
+      const updatedData = {
+        description: req.body.description || existingFooter.description,
+        facebook: req.body.facebook || existingFooter.facebook,
+        instagram: req.body.instagram || existingFooter.instagram,
+        youtube: req.body.youtube || existingFooter.youtube,
+        linkedin: req.body.linkedin || existingFooter.linkedin,
+        whatsapp: req.body.whatsapp || existingFooter.whatsapp,
+        twitter: req.body.twitter || existingFooter.twitter,
+        email: req.body.email || existingFooter.email,
+        contact: req.body.contact || existingFooter.contact,
+        location: req.body.location || existingFooter.location,
+      };
+  
+      // Handle image upload if a new image is provided
+      if (req.file) {
+        const imageResult = await cloudinary.uploader.upload(req.file.path);
+        updatedData.image = imageResult.secure_url;
+      } else {
+        updatedData.image = existingFooter.image;
+      }
+  
+      const updatedFooter = await FooterModel.findByIdAndUpdate(id, updatedData, { new: true });
       res.status(200).json(updatedFooter);
     } catch (e) {
       console.log(e.message);
