@@ -29,6 +29,7 @@ app.use('/city', cityRouter)
 app.use('/testimonial', testimonialRouter)
 app.use('/partner', partnerRouter)
 
+
 const dbName = "Trilokpropco"
 const dbUser = process.env.DBUSER
 const dbPassword = process.env.DBPASS
