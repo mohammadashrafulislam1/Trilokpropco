@@ -1,5 +1,5 @@
-import { FooterModel } from "../Models/FooterModel";
-import { cloudinary } from "../utils/cloudinary";
+import { FooterModel } from "../Models/FooterModel.js";
+import { cloudinary } from "../utils/cloudinary.js";
 
 // Add Footer controller
 export const addFooter = async (req, res) => {
@@ -41,7 +41,6 @@ export const getFooters = async (req, res) =>{
 export const updateFooter = async (req, res) => {
     try {
       const { id } = req.params;
-      
       // Find the existing footer
       const existingFooter = await FooterModel.findById(id);
       if (!existingFooter) {
