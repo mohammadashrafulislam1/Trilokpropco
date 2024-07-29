@@ -10,8 +10,7 @@ export const addTestimonial = async(req, res) =>{
             des: req.body.des, 
             details: req.body.details, 
             rating: req.body.rating, 
-            image:imageResult.secure_url,
-            imagePublicId: imageResult.public_id
+            image:imageResult.secure_url
         })
         const savedTestimonial = await testimonial.save();
         res.status(200).json(savedTestimonial)
@@ -41,9 +40,6 @@ export const deleteTestimonial = async (req, res) => {
         if (!testimonial) {
             return res.status(404).json({ message: "Testimonial not found." });
         }
-
-        // Delete the image from Cloudinary
-        await cloudinary.uploader.destroy(testimonial.imagePublicId);
 
         // Delete the testimonial from the database
         await TestimonialModel.findByIdAndDelete(id);
