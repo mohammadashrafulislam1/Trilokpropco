@@ -12,29 +12,25 @@ export const addFooter = async(req, res) =>{
         res.status(500).json({ message: "Internal Server Error." });
     }
 }
-// get Partners controller:
-export const getPartners = async (req, res) =>{
+// get Footers controller:
+export const getFooters = async (req, res) =>{
     try{
-      const partners = await PartnerModel.find();
-      res.status(200).json(partners)
+      const footers = await FooterModel.find();
+      res.status(200).json(footers)
     }catch (e) {
         console.log(e.message);
         res.status(500).json({ message: "Internal Server Error."});
 
 }}
 
-// Delete Partner Controller
-export const deletePartner = async (req, res) => {
-    const { id } = req.params;
+// Update Footer controller
+export const updateFooter = async (req, res) => {
     try {
-        const partner = await PartnerModel.findById(id);
-        if (!partner) {
-            return res.status(404).json({ message: 'Partner not found' });
-        }
-        // Delete partner from database
-        await PartnerModel.findByIdAndDelete(id);
-        res.status(200).json({ message: 'Partner deleted successfully' });
-    } catch (error) {
-        res.status(500).json({ message: 'Error deleting partner', error });
+      const { id } = req.params; 
+      const updatedFooter = await FooterModel.findByIdAndUpdate(id, req.body, { new: true });
+      res.status(200).json(updatedFooter);
+    } catch (e) {
+      console.log(e.message);
+      res.status(500).json({ message: "Internal Server Error." });
     }
-};
+  };
