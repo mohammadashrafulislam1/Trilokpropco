@@ -12,6 +12,8 @@ import AddBlog from "../Pages/AddBlog";
 import BlogsLists from "../Pages/BlogsLists";
 import Cities from "../Pages/City";
 import Testimonials from "../Pages/Testimonials";
+import Partners from "../Pages/Partners";
+import Footer from "../Pages/Footer";
 
 
 export const router = createBrowserRouter([
@@ -68,6 +70,14 @@ export const router = createBrowserRouter([
             {
                 path:'testimonials',
                 element:<Testimonials />
+            },
+            {
+                path:'partners',
+                element:<Partners />
+            },
+            {
+                path:'footer',
+                element:<Footer />
             },
         ]
     }

@@ -126,8 +126,7 @@ const AddProperty = () => {
 
       // Push each upload promise to the array
       uploadPromises.push(
-        axios.post(
-          "https://api.imgbb.com/1/upload?key=d7c44914803981db7f95f8b645b0959a",
+        axios.post(`https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_KEY}`,
           formData
         )
       );
@@ -208,7 +207,7 @@ const AddProperty = () => {
 
     axios
       .post(
-        `https://api.imgbb.com/1/upload?key=a5de5e1a0be6a54f959c5e75e6dad25d`,
+        `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_API_KEY}`,
         formData
       )
       .then((response) => {
