@@ -12,6 +12,7 @@ import { blogRouter } from "./Routers/blog.js";
 import { cityRouter } from "./Routers/city.js";
 import { testimonialRouter } from "./Routers/testimonial.js";
 import { partnerRouter } from "./Routers/partner.js";
+import { footerRouter } from "./Routers/footer.js";
 
 const app = express();
 const PORT = 5000;
@@ -28,6 +29,7 @@ app.use('/blog', blogRouter)
 app.use('/city', cityRouter)
 app.use('/testimonial', testimonialRouter)
 app.use('/partner', partnerRouter)
+app.use('/footer', footerRouter)
 
 
 const dbName = "Trilokpropco"
