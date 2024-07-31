@@ -30,5 +30,22 @@ export const getBlogs  = async (req, res) =>{
     }catch (e) {
         console.log(e.message);
         res.status(500).json({ message: "Internal Server Error."});
+    }
+}
 
-}}
+// delete blog controller:
+export const deleteBlog = async(req, res) =>{
+    const id = req.params.id;
+    console.log("Deleting blog with ID:", id); // Add this line
+    try{
+        const blog = await blogModel.findById(id);
+        if(!blog){
+            return res.status(404).json({ message: "Blog not found."})
+        }
+        await blogModel.findByIdAndDelete(id);
+        res.status(200).json({ message: "Blog successfully deleted."})
+    } catch (e) {
+        console.log(e.message);
+        res.status(500).json({ message: "Internal Server Error."});
+    }
+}

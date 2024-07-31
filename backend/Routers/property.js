@@ -1,5 +1,5 @@
 import express from "express";
-import { addProperty, getProperty } from "../Controllers/PropertyController.js";
+import { addProperty, deleteProperty, getProperty } from "../Controllers/PropertyController.js";
 
 export const propertyRouter = express.Router();
 
@@ -7,3 +7,5 @@ export const propertyRouter = express.Router();
 propertyRouter.post('/', addProperty);
 // GET Property:
 propertyRouter.get('/', getProperty)
+// delete Property:
+propertyRouter.delete('/:id', deleteProperty)
