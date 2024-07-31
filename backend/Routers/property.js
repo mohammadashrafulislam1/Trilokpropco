@@ -1,5 +1,5 @@
 import express from "express";
-import { addProperty, deleteProperty, getProperty, updateProperty } from "../Controllers/PropertyController.js";
+import { addProperty, deleteProperty, getProperty, updateProperty, deleteGalleryImage } from "../Controllers/PropertyController.js";
 
 export const propertyRouter = express.Router();
 
@@ -12,3 +12,5 @@ propertyRouter.get('/', getProperty)
 propertyRouter.put('/:id', updateProperty)
 // delete Property:
 propertyRouter.delete('/:id', deleteProperty)
+// delete Property:
+propertyRouter.delete('/:id/galleryImage', deleteGalleryImage)

@@ -1,5 +1,4 @@
 import { PropertyModel } from "../Models/PropertiesModel.js";
-import { cloudinary } from "../utils/cloudinary.js";
 
 // post property controller:
 export const addProperty = async (req, res) => {
@@ -27,7 +26,7 @@ export const updateProperty = async (req, res) => {
     const id =req.params.id;
     try{
     const findProperty = await PropertyModel.findById(id);
-    if (findProperty) {
+    if (!findProperty) {
         return res.status(400).json({ message: "Project not found." });
     }
     const propertyData = req.body;
@@ -65,3 +64,33 @@ export const deleteProperty = async(req, res) =>{
         res.status(500).json({ message: "Internal Server Error."});
     }
 }
+
+// Delete gallery image controller
+export const deleteGalleryImage = async (req, res) => {
+    const { id } = req.params;
+    const { imageUrl } = req.query; // Use query parameter for imageUrl
+
+    try {
+        // Find the property by id
+        const property = await PropertyModel.findById(id);
+        if (!property) {
+            return res.status(404).json({ message: "Property not found." });
+        }
+
+        // Check if the image exists in the galleryImages array
+        const imageIndex = property.galleryImages.indexOf(imageUrl);
+        if (imageIndex === -1) {
+            return res.status(404).json({ message: "Image not found in gallery." });
+        }
+
+        // Remove the image from the array
+        property.galleryImages.splice(imageIndex, 1);
+
+        // Save the updated property
+        const updatedProperty = await property.save();
+        res.status(200).json({ message: "Image successfully deleted.", updatedProperty });
+    } catch (e) {
+        console.log(e.message);
+        res.status(500).json({ message: "Internal Server Error." });
+    }
+};
