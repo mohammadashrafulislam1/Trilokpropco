@@ -2,10 +2,16 @@ import axios from "axios";
 import { endPoint } from "../../forAll/forAll";
 import { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const Properties = () => {
   const [properties, setProperties] = useState([]);
   console.log(properties)
+  const navigate = useNavigate();
+
+  const handleEdit = (property) => {
+    navigate("/add", { state: { property } });
+  };
   const [currentPage, setCurrentPage] = useState(1);
   const propertiesPerPage = 12;
   const truncateText = (str, numWords) => {
@@ -106,7 +112,7 @@ const Properties = () => {
                 <td>{truncateText(stripHtmlTags(property.description), 20)}</td>
                 <td>{property.priceRange}</td>
                 <th className="flex gap-2">
-                  <button className="btn btn-success text-white btn-xs">
+                  <button className="btn btn-success text-white btn-xs" onClick={() => handleEdit(property)}>
                     update
                   </button>
                   <button className="btn btn-error btn-xs text-white" onClick={() => handleDelete(property?._id)}>

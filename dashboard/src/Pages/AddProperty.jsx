@@ -9,7 +9,12 @@ import { CustomSelectDeveloper } from "../Component/CustomSelect/CustomSelectDev
 import { CustomSelectStatus } from "../Component/CustomSelect/CustomSelectStatus";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css"; // Import Quill styles
+import { useLocation, useNavigate } from "react-router-dom";
 const AddProperty = () => {
+  const navigate = useNavigate();
+  const { state } = useLocation();
+  const propertyToEdit = state?.property;
+  console.log(propertyToEdit)
   const [formData, setFormData] = useState({
     name: "",
     type: "",
@@ -57,12 +62,41 @@ const AddProperty = () => {
     isFeatured:false
   });
   const [selectedAmenities, setSelectedAmenities] = useState([]);
+  const [selectedType, setSelectedType] = useState(null);
+  const [selectedDeveloper, setSelectedDeveloper] = useState(null);
+  const [selectedStatus, setSelectedStatus] = useState(null);
+  const [selectedLocation, setSelectedLocation] = useState(null);
   const [typeData, setTypeData] = useState(null);
   const [amenitiesData, setAmenities] = useState([]);
   const [statusData, setStatusData] = useState(null);
   const [developerData, setDeveloperData] = useState(null);
   const [cityData, setCityData] = useState(null);
   const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    if (propertyToEdit) {
+      setFormData(propertyToEdit);
+
+      if (propertyToEdit.amenities && amenitiesData.length) {
+        const selectedAmenities = amenitiesData.filter(item => propertyToEdit.amenities.includes(item._id));
+        console.log("Selected Amenities:", selectedAmenities);
+        setSelectedAmenities(selectedAmenities);
+      }
+
+      const type = typeData?.find(item => item._id === propertyToEdit.typeId);
+      setSelectedType(type);
+
+      const developer = developerData?.find(item => item._id === propertyToEdit.developerId);
+      setSelectedDeveloper(developer);
+
+      const status = statusData?.find(item => item._id === propertyToEdit.statusId);
+      setSelectedStatus(status);
+
+      const location = cityData?.find(item => item._id === propertyToEdit.locationId);
+      setSelectedLocation(location);
+    }
+  }, [propertyToEdit, typeData, developerData, statusData, cityData, amenitiesData]);
+
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -92,6 +126,7 @@ const AddProperty = () => {
 
     fetchData();
   }, [endPoint]);
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -273,35 +308,78 @@ const AddProperty = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true)
-    // Include selected amenities IDs in formData
-    const updatedFormData = {
-      ...formData,
-      amenities: selectedAmenities.map((amenity) => amenity._id),
-    };
 
-    console.log(updatedFormData);
+    if (loading) {
+      return;
+    }
+
+    setLoading(true);
 
     try {
-      const response = await axios.post(
-        `${endPoint}/property`,
-        updatedFormData
-      );
-      console.log(response.data);
-      setLoading(false)
-      toast.success("Property successfully added!", {
-        position: "top-center",
-      });
-    } catch (error) {
-      console.error("Error submitting form:", error.response.data, error);
-      setLoading(false)
-      toast.error(
-        error.response.data.message ||
-          "Failed to add property. Please try again.",
-        {
+      const response = propertyToEdit
+        ? await axios.put(`${endPoint}/property/${propertyToEdit._id}`, formData)
+        : await axios.post(`${endPoint}/property`, formData);
+
+      if (response.status === 200) {
+        toast.success(`Property ${propertyToEdit ? "updated" : "added"} successfully!`, {
           position: "top-center",
-        }
-      );
+        });
+        setFormData({
+          name: "",
+          type: "",
+          developer: "",
+          location: "",
+          status: "",
+          priceRange: "",
+          configuration: "",
+          size: "",
+          galleryImages: [],
+          bankImages: [],
+          projectOverview: {
+            possessionStart: "",
+            landArea: "",
+            configuration: "",
+            flatArea: "",
+            priceRange: "",
+            numberOfBlocks: 0,
+            elevation: "",
+            numberOfUnits: 0,
+            RegistrationNo: "",
+          },
+          description: "",
+          priceDetails: [
+            {
+              configuration: "",
+              price: "",
+              size: "",
+            },
+          ],
+          plans: [
+            {
+              planType: "",
+              image: "",
+              size: "",
+              price: "",
+            },
+          ],
+          pdfDownload: "",
+          amenities: [],
+          nearbyFacilities: "",
+          locationMap: "",
+          specifications: "",
+          video: "",
+          isFeatured: false,
+        });
+        setSelectedAmenities([]);
+        navigate("/properties");
+      } else {
+        throw new Error("Failed to add/update property");
+      }
+    } catch (error) {
+      toast.error(error.message, { position: "top-center" });
+      console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
   const handleAmenitySelect = (amenity) => {
@@ -361,6 +439,9 @@ const AddProperty = () => {
   return (
     <div className="flex items-center justify-center flex-col gap-12 mx-1 relative overflow-hidden mb-10  md:p-5 p-2 lg:p-5">
       <ToastContainer />
+      <h1 className="text-2xl font-semibold mb-4">
+        {propertyToEdit ? "Update Property" : "Add Property"}
+      </h1>
       { loading &&
         <div className="bg-[#0000003e] absolute w-full h-full z-10 md:py-52 lg:px-96 py-36 md:px-32">
             <div className="modal-box" >
@@ -429,7 +510,7 @@ const AddProperty = () => {
           </label>
           <CustomSelectType
             options={typeData}
-            selectedValue={formData.type}
+            selectedValue={formData.type || selectedType}
             onSelect={(option) =>
               setFormData((prev) => ({ ...prev, type: option }))
             }
@@ -442,7 +523,7 @@ const AddProperty = () => {
           </label>
           <CustomSelectDeveloper
             options={developerData}
-            selectedValue={formData.developer}
+            selectedValue={formData.developer || selectedDeveloper}
             onSelect={(option) =>
               setFormData((prev) => ({ ...prev, developer: option }))
             }
@@ -454,7 +535,7 @@ const AddProperty = () => {
             <span className="label-text">Location</span>
           </label>
           <select className="border p-4 rounded-lg" 
-            value={formData.location}
+            value={formData.location || selectedLocation}
             name="location"
             onChange={handleLocationChange}
             required>
@@ -469,7 +550,7 @@ const AddProperty = () => {
           </label>
           <CustomSelectStatus
             options={statusData}
-            selectedValue={formData.status}
+            selectedValue={formData.status || selectedStatus}
             onSelect={(option) =>
               setFormData((prev) => ({ ...prev, status: option }))
             }
@@ -585,6 +666,11 @@ const AddProperty = () => {
             required
             multiple
           />
+          <div className="flex gap-2 my-5">
+          {
+           formData?.galleryImages?.map((img, index) => (<img className="w-[100px] h-[100px]" key={index} src={img} />))
+          }
+          </div>
         </div>
 
         {/* Nested Fields for Project Overview */}
@@ -760,7 +846,8 @@ const AddProperty = () => {
                 className="input input-bordered"
                 placeholder="Price"
               />
-              <button
+              <img src={plan.image} className="h-[100px]" />
+               <button
                 type="button"
                 onClick={() => handleRemovePlan(index)}
                 className="text-[#fc0000]"
@@ -864,11 +951,20 @@ const AddProperty = () => {
             required
             multiple
           />
+          <div className="flex gap-2 my-5">
+          {
+           formData?.galleryImages?.map((img, index) => (<img className="w-[100px] h-[100px]" key={index} src={img} />))
+          }
+          </div>
         </div>
 
-        <button type="submit" className="btn btn-primary">
-          Add Property
-        </button>
+        <button
+         type="submit"
+         disabled={loading}
+         className="px-4 py-2 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 disabled:bg-gray-400"
+       >
+     {loading ? "Saving..." : propertyToEdit ? "Update Property" : "Add Property"}
+    </button>
       </form>
     </div>
   );
