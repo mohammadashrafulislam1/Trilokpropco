@@ -1,6 +1,7 @@
 import axios from "axios";
 import { endPoint } from "../../forAll/forAll";
 import { useEffect, useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
 
 const BlogsLists = () => {
     const [blogs, setBlogs] = useState();
@@ -31,9 +32,32 @@ const BlogsLists = () => {
   
         fetchData();
       }, []);
+      const handleDelete = async (id) => {
+        console.log(id)
+        const confirmDelete = window.confirm("Are you sure you want to delete this blog?");
+        if (!confirmDelete) return;
+    
+        try {
+          const response = await axios.delete(`${endPoint}/blog/${id}`);
+          setBlogs(blogs.filter((blog) => blog._id !== id));
+          console.log(response);
+          toast.success("blog successfully deleted!", {
+            position: "top-center",
+          });
+        } catch (error) {
+          console.error("Error deleting blog:", error.response?.data, error);
+          toast.error(
+            error.response?.data?.message || "Failed to delete blog. Please try again.",
+            {
+              position: "top-center",
+            }
+          );
+        }
+      };
     return (
       <div>
         <div className="flex items-center justify-center flex-col gap-12 my-10">
+        <ToastContainer />
         <div className="overflow-x-auto bg-white rounded-lg pt-5 lg:w-[90%] w-full lg:mx-32">
         <table className="table">
           <caption className="table-caption text-2xl font-bold mb-8">All Blogs</caption>
@@ -67,7 +91,7 @@ const BlogsLists = () => {
                 </td>
                 <th className="flex gap-2">
                   <button className="btn btn-success text-white btn-xs">Update</button>
-                  <button className="btn btn-error btn-xs text-white">Delete</button>
+                  <button className="btn btn-error btn-xs text-white" onClick={() => handleDelete(blog?._id)}>Delete</button>
                 </th>
               </tr>
             ))) : <tr><td colSpan="3" className="p-5 text-center">No blog is available.</td></tr>}

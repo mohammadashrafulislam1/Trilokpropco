@@ -1,6 +1,7 @@
 import axios from "axios";
 import { endPoint } from "../../forAll/forAll";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 const Properties = () => {
   const [properties, setProperties] = useState([]);
@@ -44,6 +45,27 @@ const Properties = () => {
     }
     setCurrentPage(pageNumber);
   };
+  const handleDelete = async (id) => {
+    const confirmDelete = window.confirm("Are you sure you want to delete this Property?");
+    if (!confirmDelete) return;
+
+    try {
+      const response = await axios.delete(`${endPoint}/property/${id}`);
+      setProperties(properties.filter((property) => property._id !== id));
+      console.log(response);
+      toast.success("Property successfully deleted!", {
+        position: "top-center",
+      });
+    } catch (error) {
+      console.error("Error deleting Property:", error.response?.data, error);
+      toast.error(
+        error.response?.data?.message || "Failed to delete Property. Please try again.",
+        {
+          position: "top-center",
+        }
+      );
+    }
+  };
 
   return (
     <div>
@@ -86,7 +108,7 @@ const Properties = () => {
                   <button className="btn btn-success text-white btn-xs">
                     update
                   </button>
-                  <button className="btn btn-error btn-xs text-white">
+                  <button className="btn btn-error btn-xs text-white" onClick={() => handleDelete(property?._id)}>
                     delete
                   </button>
                 </th>

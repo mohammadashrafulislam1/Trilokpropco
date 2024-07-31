@@ -86,13 +86,13 @@ const Testimonials = () => {
       const response = await axios.delete(`${endPoint}/testimonial/${id}`);
       setTestimonials(testimonials.filter((testimonial) => testimonial._id !== id));
       console.log(response);
-      toast.success("Developer successfully deleted!", {
+      toast.success("Testimonial successfully deleted!", {
         position: "top-center",
       });
     } catch (error) {
       console.error("Error deleting testimonial:", error.response?.data, error);
       toast.error(
-        error.response?.data?.message || "Failed to delete developer. Please try again.",
+        error.response?.data?.message || "Failed to delete Testimonial. Please try again.",
         {
           position: "top-center",
         }
