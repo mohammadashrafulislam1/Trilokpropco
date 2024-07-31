@@ -12,7 +12,20 @@ import "react-quill/dist/quill.snow.css"; // Import Quill styles
 import { useLocation } from "react-router-dom";
 const AddProperty = () => {
   const { state } = useLocation();
-  const propertyToEdit = state?.property;
+  const [propertyToEdit, setPropertyToEdit] = useState()
+  const propertyToUpdate = state?.property;
+  useEffect(() => {
+    const fetchPropertyData = async () => {
+        try {
+            const response = await axios.get(`${endPoint}/property/${propertyToUpdate._id}`);
+            setPropertyToEdit(response.data);
+        } catch (error) {
+            console.error('Error fetching property data:', error);
+        }
+    };
+
+    fetchPropertyData();
+}, [propertyToUpdate]);
   console.log(propertyToEdit)
   const [formData, setFormData] = useState({
     name: "",
@@ -205,6 +218,28 @@ const AddProperty = () => {
         setFormData(prevFormData => ({
             ...prevFormData,
             galleryImages: prevFormData.galleryImages.filter(img => img !== imageUrl)
+        }));
+        toast.success('Image successfully deleted.');
+    }} catch (error) {
+      toast.error('Error deleting image.');
+      console.error('Error deleting image:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleBankImageDelete = async (id, imageUrl) => {
+    setLoading(true);
+    try {
+      const response = await axios.delete(`http://localhost:5000/property/${id}/bankImage`, {
+        params: { imageUrl },
+      });
+       // Check if image was successfully deleted
+       if (response.status === 200) {
+        // Remove the deleted image from state
+        setFormData(prevFormData => ({
+            ...prevFormData,
+            bankImages: prevFormData.bankImages.filter(img => img !== imageUrl)
         }));
         toast.success('Image successfully deleted.');
     }} catch (error) {
@@ -986,7 +1021,17 @@ const AddProperty = () => {
           />
           <div className="flex gap-2 my-5">
           {
-           formData?.bankImages?.map((img, index) => (<img className="w-[100px] h-[100px]" key={index} src={img} />))
+           formData?.bankImages?.map((img, index) => (<div key={index} className="relative">
+            <img className="w-[100px] h-[100px]" src={img} />
+            <button
+                    type="button"
+                    className="absolute top-1 right-1 bg-red-600 text-white rounded-full p-1"
+                    onClick={() => handleBankImageDelete(propertyToEdit._id, img)}
+                  >
+                    <FaTrash />
+              </button>
+            </div>
+           ))
           }
           </div>
         </div>
