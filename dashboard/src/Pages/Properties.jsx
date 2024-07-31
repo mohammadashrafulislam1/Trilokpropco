@@ -1,7 +1,7 @@
 import axios from "axios";
 import { endPoint } from "../../forAll/forAll";
 import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 
 const Properties = () => {
   const [properties, setProperties] = useState([]);
@@ -70,6 +70,7 @@ const Properties = () => {
   return (
     <div>
       <div className="overflow-x-auto lg:mx-10 rounded-lg bg-white mt-10 mx-2">
+      <ToastContainer /> 
         <table className="table">
           {/* head */}
           <thead>
