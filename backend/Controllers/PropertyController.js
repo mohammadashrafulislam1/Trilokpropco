@@ -23,6 +23,22 @@ export const addProperty = async (req, res) => {
     }
 };
 
+export const updateProperty = async (req, res) => {
+    const id =req.params.id;
+    try{
+    const findProperty = await PropertyModel.findById(id);
+    if (findProperty) {
+        return res.status(400).json({ message: "Project not found." });
+    }
+    const propertyData = req.body;
+    const updatedProperty = await PropertyModel.findByIdAndUpdate(id, propertyData, {new: true});
+    res.status(200).json(updatedProperty);
+    } catch (e) {
+        console.log(e.message);
+        res.status(500).json({ message: "Internal Server Error." });
+    }s
+}
+
 // get properties controller:
 export const getProperty = async (req, res) =>{
     try{
