@@ -70,6 +70,29 @@ const Status = () => {
       }
     };
 
+    const handleDelete = async (id) => {
+      const confirmDelete = window.confirm("Are you sure you want to delete this Status?");
+      if (!confirmDelete) return;
+  
+      try {
+        const response = await axios.delete(`${endPoint}/status/${id}`);
+        setStatuses(statuses.filter((Status) => Status._id !== id));
+        console.log(response);
+        toast.success("Status successfully deleted!", {
+          position: "top-center",
+        });
+      } catch (error) {
+        console.error("Error deleting Status:", error.response?.data, error);
+        toast.error(
+          error.response?.data?.message || "Failed to delete Status. Please try again.",
+          {
+            position: "top-center",
+          }
+        );
+      }
+    };
+  
+
     return (
         <div className="flex items-center justify-center flex-col gap-12 mx-1 relative overflow-hidden mb-10">
         { loading &&
@@ -145,7 +168,7 @@ const Status = () => {
                       </td>
                       <th className="flex gap-2">
                         <button className="btn btn-success text-white btn-xs">Update</button>
-                        <button className="btn btn-error btn-xs text-white">Delete</button>
+                        <button className="btn btn-error btn-xs text-white" onClick={() => handleDelete(status._id)}>Delete</button>
                       </th>
                     </tr>
                   )) : <tr><td colSpan="3" className="p-5 text-center">No status is available.</td></tr>}

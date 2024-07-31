@@ -67,6 +67,30 @@ const Cities = () => {
     }
   };
 
+  const handleDelete = async (id) => {
+    const confirmDelete = window.confirm("Are you sure you want to delete this City?");
+    if (!confirmDelete) return;
+
+    try {
+      const response = await axios.delete(`${endPoint}/city/${id}`);
+      setCities(cities.filter((city) => city._id !== id));
+      console.log(response);
+      toast.success("City successfully deleted!", {
+        position: "top-center",
+      });
+    } catch (error) {
+      console.error("Error deleting City:", error.response?.data, error);
+      toast.error(
+        error.response?.data?.message || "Failed to delete City. Please try again.",
+        {
+          position: "top-center",
+        }
+      );
+    }
+  };
+
+
+
   return (
     <div className="flex items-center justify-center flex-col gap-12 mx-1 relative overflow-hidden mb-10">
        <ToastContainer />
@@ -144,7 +168,7 @@ const Cities = () => {
                     <button className="btn btn-success text-white btn-xs">
                       Update
                     </button>
-                    <button className="btn btn-error btn-xs text-white">
+                    <button className="btn btn-error btn-xs text-white" onClick={() => handleDelete(city._id)}>
                       Delete
                     </button>
                   </th>
