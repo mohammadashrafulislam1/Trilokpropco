@@ -35,7 +35,7 @@ export const updateProperty = async (req, res) => {
     } catch (e) {
         console.log(e.message);
         res.status(500).json({ message: "Internal Server Error." });
-    }s
+    }
 }
 
 // get properties controller:
@@ -43,6 +43,21 @@ export const getProperty = async (req, res) =>{
     try{
       const propeties = await PropertyModel.find();
       res.status(200).json(propeties)
+    }catch (e) {
+        console.log(e.message);
+        res.status(500).json({ message: "Internal Server Error."});
+
+}}
+
+// get properties controller:
+export const getSingeProperty = async (req, res) =>{
+    const id = req.params.id;
+    try{
+      const property= await PropertyModel.findById(id);
+      if(!property){
+        return res.status(404).json({message: "property not found."})
+      }
+      res.status(200).json(property)
     }catch (e) {
         console.log(e.message);
         res.status(500).json({ message: "Internal Server Error."});
@@ -85,6 +100,36 @@ export const deleteGalleryImage = async (req, res) => {
 
         // Remove the image from the array
         property.galleryImages.splice(imageIndex, 1);
+
+        // Save the updated property
+        const updatedProperty = await property.save();
+        res.status(200).json({ message: "Image successfully deleted.", updatedProperty });
+    } catch (e) {
+        console.log(e.message);
+        res.status(500).json({ message: "Internal Server Error." });
+    }
+};
+
+// Delete Bank image controller
+export const deleteBankImage = async (req, res) => {
+    const { id } = req.params;
+    const { imageUrl } = req.query; // Use query parameter for imageUrl
+
+    try {
+        // Find the property by id
+        const property = await PropertyModel.findById(id);
+        if (!property) {
+            return res.status(404).json({ message: "Property not found." });
+        }
+
+        // Check if the image exists in the galleryImages array
+        const imageIndex = property.bankImages.indexOf(imageUrl);
+        if (imageIndex === -1) {
+            return res.status(404).json({ message: "Image not found in bank." });
+        }
+
+        // Remove the image from the array
+        property.bankImages.splice(imageIndex, 1);
 
         // Save the updated property
         const updatedProperty = await property.save();
