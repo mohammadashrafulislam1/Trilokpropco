@@ -166,7 +166,6 @@ const Type = () => {
                   </div>
                 </td>
                 <th className="flex gap-2">
-                  <button className="btn btn-success text-white btn-xs">Update</button>
                   <button className="btn btn-error btn-xs text-white" onClick={() => handleDelete(type._id)}>Delete</button>
                 </th>
               </tr>

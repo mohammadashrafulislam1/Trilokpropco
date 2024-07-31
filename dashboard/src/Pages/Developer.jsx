@@ -185,7 +185,6 @@ const Developer = () => {
         </td>
         <td>{developer.details}</td>
         <th className="flex gap-2">
-          <button className="btn btn-success text-white btn-xs">update</button>
           <button className="btn btn-error btn-xs text-white" onClick={() => handleDelete(developer._id)}>delete</button>
         </th>
       </tr>
