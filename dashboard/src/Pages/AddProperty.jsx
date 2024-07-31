@@ -9,9 +9,8 @@ import { CustomSelectDeveloper } from "../Component/CustomSelect/CustomSelectDev
 import { CustomSelectStatus } from "../Component/CustomSelect/CustomSelectStatus";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css"; // Import Quill styles
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 const AddProperty = () => {
-  const navigate = useNavigate();
   const { state } = useLocation();
   const propertyToEdit = state?.property;
   console.log(propertyToEdit)
@@ -61,6 +60,8 @@ const AddProperty = () => {
     video: "",
     isFeatured:false
   });
+
+  console.log(formData)
   const [selectedAmenities, setSelectedAmenities] = useState([]);
   const [selectedType, setSelectedType] = useState(null);
   const [selectedDeveloper, setSelectedDeveloper] = useState(null);
@@ -191,6 +192,29 @@ const AddProperty = () => {
       });
     }
   };
+
+  const handleGalleryImageDelete = async (id, imageUrl) => {
+    setLoading(true);
+    try {
+      const response = await axios.delete(`http://localhost:5000/property/${id}/galleryImage`, {
+        params: { imageUrl },
+      });
+       // Check if image was successfully deleted
+       if (response.status === 200) {
+        // Remove the deleted image from state
+        setFormData(prevFormData => ({
+            ...prevFormData,
+            galleryImages: prevFormData.galleryImages.filter(img => img !== imageUrl)
+        }));
+        toast.success('Image successfully deleted.');
+    }} catch (error) {
+      toast.error('Error deleting image.');
+      console.error('Error deleting image:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
 
   const handleFileChangeBank = async (event) => {
     const files = event.target.files;
@@ -371,7 +395,6 @@ const AddProperty = () => {
           isFeatured: false,
         });
         setSelectedAmenities([]);
-        navigate("/properties");
       } else {
         throw new Error("Failed to add/update property");
       }
@@ -661,15 +684,25 @@ const AddProperty = () => {
           <input
             type="file"
             name="galleryImages"
-            value={formData?.galleryImages}
+            
             onChange={(e) => handleFileChange(e, "galleryImages")}
             className="file-input w-full max-w-xs"
-            required
             multiple
           />
           <div className="flex gap-2 my-5">
           {
-           formData?.galleryImages?.map((img, index) => (<img className="w-[100px] h-[100px]" key={index} src={img} />))
+           formData?.galleryImages?.map((img, index) => (
+            <div key={index} className="relative">
+              <img className="w-[100px] h-[100px]" src={img} />
+            <button
+                    type="button"
+                    className="absolute top-1 right-1 bg-red-600 text-white rounded-full p-1"
+                    onClick={() => handleGalleryImageDelete(propertyToEdit._id, img)}
+                  >
+                    <FaTrash />
+              </button>
+            </div>
+           ))
           }
           </div>
         </div>
@@ -949,12 +982,11 @@ const AddProperty = () => {
             name="bankImages"
             onChange={(e) => handleFileChangeBank(e, "bankImages")}
             className="file-input w-full max-w-xs"
-            required
             multiple
           />
           <div className="flex gap-2 my-5">
           {
-           formData?.galleryImages?.map((img, index) => (<img className="w-[100px] h-[100px]" key={index} src={img} />))
+           formData?.bankImages?.map((img, index) => (<img className="w-[100px] h-[100px]" key={index} src={img} />))
           }
           </div>
         </div>
