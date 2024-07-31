@@ -27,3 +27,19 @@ export const getAmenities = async (req, res) =>{
         res.status(500).json({ message: "Internal Server Error."});
 
 }}
+
+// delete Amenity controller:
+export const deleteAmenity = async(req, res) =>{
+    const id = req.params.id;
+    try{
+        const amenity = await AmenitiesModel.findById(id);
+        if(!amenity){
+            return res.status(404).json({ message: "Amenity not found."})
+        }
+        await AmenitiesModel.findByIdAndDelete(id);
+        res.status(200).json({ message: "Amenity successfully deleted."})
+    } catch (e) {
+        console.log(e.message);
+        res.status(500).json({ message: "Internal Server Error."});
+    }
+}

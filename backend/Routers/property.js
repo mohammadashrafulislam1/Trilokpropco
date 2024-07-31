@@ -3,6 +3,7 @@ import { addProperty, deleteProperty, getProperty } from "../Controllers/Propert
 
 export const propertyRouter = express.Router();
 
+
 // POST Property:
 propertyRouter.post('/', addProperty);
 // GET Property:
