@@ -74,7 +74,27 @@ const Developer = () => {
       );
     }
   };
+  const handleDelete = async (id) => {
+    const confirmDelete = window.confirm("Are you sure you want to delete this Developer?");
+    if (!confirmDelete) return;
 
+    try {
+      const response = await axios.delete(`${endPoint}/developer/${id}`);
+      setDevelopers(developers.filter((developer) => developer._id !== id));
+      console.log(response);
+      toast.success("Developer successfully deleted!", {
+        position: "top-center",
+      });
+    } catch (error) {
+      console.error("Error deleting Developer:", error.response?.data, error);
+      toast.error(
+        error.response?.data?.message || "Failed to delete Developer. Please try again.",
+        {
+          position: "top-center",
+        }
+      );
+    }
+  };
   return (
     <div className="flex items-center justify-center flex-col gap-12 mx-1 relative overflow-hidden mb-10">
       <ToastContainer /> 
@@ -165,7 +185,7 @@ const Developer = () => {
         <td>{developer.details}</td>
         <th className="flex gap-2">
           <button className="btn btn-success text-white btn-xs">update</button>
-          <button className="btn btn-error btn-xs text-white">delete</button>
+          <button className="btn btn-error btn-xs text-white" onClick={() => handleDelete(developer._id)}>delete</button>
         </th>
       </tr>
       ) :<p className="p-5">No developer is available.</p>}
