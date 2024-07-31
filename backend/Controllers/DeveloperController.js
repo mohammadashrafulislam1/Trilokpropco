@@ -26,3 +26,19 @@ export const getDeveloper = async (req, res) =>{
         res.status(500).json({ message: "Internal Server Error."});
 
 }}
+
+// delete Property controller:
+export const deleteDeveloper = async(req, res) =>{
+    const id = req.params.id;
+    try{
+        const developer = await DeveloperModel.findById(id);
+        if(!developer){
+            return res.status(404).json({ message: "Developer not found."})
+        }
+        await DeveloperModel.findByIdAndDelete(id);
+        res.status(200).json({ message: "Developer successfully deleted."})
+    } catch (e) {
+        console.log(e.message);
+        res.status(500).json({ message: "Internal Server Error."});
+    }
+}
