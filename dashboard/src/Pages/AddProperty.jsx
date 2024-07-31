@@ -661,6 +661,7 @@ const AddProperty = () => {
           <input
             type="file"
             name="galleryImages"
+            value={formData?.galleryImages}
             onChange={(e) => handleFileChange(e, "galleryImages")}
             className="file-input w-full max-w-xs"
             required
