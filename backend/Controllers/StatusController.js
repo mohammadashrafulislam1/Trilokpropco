@@ -28,3 +28,19 @@ export const getStatus = async (req, res) =>{
         res.status(500).json({ message: "Internal Server Error."});
 
 }}
+
+// delete Status controller:
+export const deleteStatus = async(req, res) =>{
+    const id = req.params.id;
+    try{
+        const status = await StatusModel.findById(id);
+        if(!status){
+            return res.status(404).json({ message: "Status not found."})
+        }
+        await StatusModel.findByIdAndDelete(id);
+        res.status(200).json({ message: "Status successfully deleted."})
+    } catch (e) {
+        console.log(e.message);
+        res.status(500).json({ message: "Internal Server Error."});
+    }
+}
