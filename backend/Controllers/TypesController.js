@@ -34,3 +34,18 @@ export const getTypes = async (req, res) =>{
         res.status(500).json({ message: "Internal Server Error."});
 
 }}
+// delete Type controller:
+export const deleteType = async(req, res) =>{
+    const id = req.params.id;
+    try{
+        const type = await TypesModel.findById(id);
+        if(!type){
+            return res.status(404).json({ message: "type not found."})
+        }
+        await TypesModel.findByIdAndDelete(id);
+        res.status(200).json({ message: "type successfully deleted."})
+    } catch (e) {
+        console.log(e.message);
+        res.status(500).json({ message: "Internal Server Error."});
+    }
+}
