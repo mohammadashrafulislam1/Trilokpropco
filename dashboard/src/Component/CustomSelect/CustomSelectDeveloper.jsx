@@ -8,19 +8,20 @@ export const CustomSelectDeveloper = ({ options, selectedValue, onSelect }) => {
   };
 
   const handleSelect = (option) => {
-    onSelect(option._id); // Pass _id to onSelect callback
+    onSelect(option?._id); // Pass _id to onSelect callback
     setOpen(false); // Close the dropdown after selection
   };
 
   if (!options) {
     return <div>Loading...</div>; // Handle loading state if options are null or undefined
   }
-  const filteredOptions = options.filter((option) => option._id == selectedValue);
+  const filteredOptions = options?.filter((option) => option?._id == selectedValue);
   console.log(filteredOptions[0]?.name)
   return (
     <div className="relative">
       <button
         onClick={toggleDropdown}
+        type='button'
         className="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm leading-5 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue"
         aria-haspopup="listbox"
         aria-expanded={open}
@@ -58,10 +59,10 @@ export const CustomSelectDeveloper = ({ options, selectedValue, onSelect }) => {
           >
           {options.map((option) => (
   <li
-    key={option._id}
+    key={option?._id}
     onClick={() => handleSelect(option)}
     className={`${
-      option._id === selectedValue._id
+      option?._id === selectedValue?._id
         ? 'text-white bg-indigo-600'
         : 'text-gray-900'
     } cursor-default select-none relative py-2 pl-3 pr-9`}
@@ -74,16 +75,16 @@ export const CustomSelectDeveloper = ({ options, selectedValue, onSelect }) => {
       />
       <span
         className={`${
-          option._id === selectedValue._id ? 'font-semibold' : 'font-normal'
+          option?._id === selectedValue?._id ? 'font-semibold' : 'font-normal'
         } block truncate`}
       >
         {option.name}
       </span>
     </div>
-    {option._id === selectedValue._id && (
+    {option?._id === selectedValue?._id && (
       <span
         className={`${
-          option._id === selectedValue._id ? 'text-white' : 'text-indigo-600'
+          option?._id === selectedValue?._id ? 'text-white' : 'text-indigo-600'
         } absolute inset-y-0 right-0 flex items-center pr-4`}
       >
         <svg

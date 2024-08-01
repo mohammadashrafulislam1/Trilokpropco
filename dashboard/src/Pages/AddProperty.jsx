@@ -17,7 +17,7 @@ const AddProperty = () => {
   useEffect(() => {
     const fetchPropertyData = async () => {
         try {
-            const response = await axios.get(`${endPoint}/property/${propertyToUpdate._id}`);
+            const response = await axios.get(`${endPoint}/property/${propertyToUpdate?._id}`);
             setPropertyToEdit(response.data);
         } catch (error) {
             console.error('Error fetching property data:', error);
@@ -90,7 +90,7 @@ const AddProperty = () => {
     if (propertyToEdit) {
       setFormData(propertyToEdit);
 
-      if (propertyToEdit.amenities && amenitiesData.length) {
+      if (propertyToEdit?.amenities && amenitiesData?.length) {
         const selectedAmenities = amenitiesData.filter(item => propertyToEdit.amenities.includes(item._id));
         console.log("Selected Amenities:", selectedAmenities);
         setSelectedAmenities(selectedAmenities);
@@ -568,7 +568,7 @@ const AddProperty = () => {
           </label>
           <CustomSelectType
             options={typeData}
-            selectedValue={formData.type || selectedType}
+            selectedValue={formData?.type || selectedType}
             onSelect={(option) =>
               setFormData((prev) => ({ ...prev, type: option }))
             }
@@ -750,7 +750,7 @@ const AddProperty = () => {
           <input
             type="text"
             name="possessionStart"
-            value={formData.projectOverview.possessionStart}
+            value={formData?.projectOverview?.possessionStart}
             onChange={(e) => handleNestedChange(e, ["projectOverview"])}
             className="input input-bordered"
             placeholder="Possession Start"
@@ -758,7 +758,7 @@ const AddProperty = () => {
           <input
             type="text"
             name="landArea"
-            value={formData.projectOverview.landArea}
+            value={formData?.projectOverview?.landArea}
             onChange={(e) => handleNestedChange(e, ["projectOverview"])}
             className="input input-bordered mt-2"
             placeholder="Land Area"
@@ -766,7 +766,7 @@ const AddProperty = () => {
           <input
             type="text"
             name="configuration"
-            value={formData.projectOverview.configuration}
+            value={formData?.projectOverview?.configuration}
             onChange={(e) => handleNestedChange(e, ["projectOverview"])}
             className="input input-bordered mt-2"
             placeholder="Configuration"
@@ -774,7 +774,7 @@ const AddProperty = () => {
           <input
             type="text"
             name="flatArea"
-            value={formData.projectOverview.flatArea}
+            value={formData?.projectOverview?.flatArea}
             onChange={(e) => handleNestedChange(e, ["projectOverview"])}
             className="input input-bordered mt-2"
             placeholder="Flat Area"
@@ -782,7 +782,7 @@ const AddProperty = () => {
           <input
             type="text"
             name="priceRange"
-            value={formData.projectOverview.priceRange}
+            value={formData?.projectOverview?.priceRange}
             onChange={(e) => handleNestedChange(e, ["projectOverview"])}
             className="input input-bordered mt-2"
             placeholder="Price Range"
@@ -790,7 +790,7 @@ const AddProperty = () => {
           <input
             type="text"
             name="numberOfBlocks"
-            value={formData.projectOverview.numberOfBlocks}
+            value={formData?.projectOverview?.numberOfBlocks}
             onChange={(e) => handleNestedChange(e, ["projectOverview"])}
             className="input input-bordered mt-2"
             placeholder="Number Of Blocks"
@@ -798,7 +798,7 @@ const AddProperty = () => {
           <input
             type="text"
             name="elevation"
-            value={formData.projectOverview.elevation}
+            value={formData?.projectOverview?.elevation}
             onChange={(e) => handleNestedChange(e, ["projectOverview"])}
             className="input input-bordered mt-2"
             placeholder="Elevation"
@@ -806,7 +806,7 @@ const AddProperty = () => {
           <input
             type="text"
             name="numberOfUnits"
-            value={formData.projectOverview.numberOfUnits}
+            value={formData?.projectOverview?.numberOfUnits}
             onChange={(e) => handleNestedChange(e, ["projectOverview"])}
             className="input input-bordered mt-2"
             placeholder="Number Of Units"
@@ -814,7 +814,7 @@ const AddProperty = () => {
           <input
             type="text"
             name="RegistrationNo"
-            value={formData.projectOverview.RegistrationNo}
+            value={formData?.projectOverview?.RegistrationNo}
             onChange={(e) => handleNestedChange(e, ["projectOverview"])}
             className="input input-bordered mt-2"
             placeholder="Registration Number"

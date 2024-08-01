@@ -21,6 +21,7 @@ export const CustomSelectType = ({ options, selectedValue, onSelect }) => {
     <div className="relative">
       <button
         onClick={toggleDropdown}
+        type='button'
         className="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm leading-5 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue"
         aria-haspopup="listbox"
         aria-expanded={open}
@@ -56,12 +57,12 @@ export const CustomSelectType = ({ options, selectedValue, onSelect }) => {
             aria-activedescendant="listbox-option-0"
             className="max-h-56 rounded-md py-1 text-base leading-6 shadow-xs overflow-auto focus:outline-none sm:text-sm sm:leading-5"
           >
-          {options.map((option) => (
+          {options?.map((option) => (
   <li
     key={option._id}
     onClick={() => handleSelect(option)}
     className={`${
-      option._id === selectedValue._id
+      option?._id === selectedValue?._id
         ? 'text-white bg-indigo-600'
         : 'text-gray-900'
     } cursor-default select-none relative py-2 pl-3 pr-9`}
@@ -74,16 +75,16 @@ export const CustomSelectType = ({ options, selectedValue, onSelect }) => {
       />
       <span
         className={`${
-          option._id === selectedValue._id ? 'font-semibold' : 'font-normal'
+          option?._id === selectedValue?._id ? 'font-semibold' : 'font-normal'
         } block truncate`}
       >
         {option.type}
       </span>
     </div>
-    {option._id === selectedValue._id && (
+    {option?._id === selectedValue?._id && (
       <span
         className={`${
-          option._id === selectedValue._id ? 'text-white' : 'text-indigo-600'
+          option?._id === selectedValue?._id ? 'text-white' : 'text-indigo-600'
         } absolute inset-y-0 right-0 flex items-center pr-4`}
       >
         <svg
