@@ -81,7 +81,7 @@ const AddProperty = () => {
   const [selectedStatus, setSelectedStatus] = useState(null);
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [typeData, setTypeData] = useState(null);
-  const [amenitiesData, setAmenities] = useState([]);
+  const [amenitiesData, setAmenitiesData] = useState([]);
   const [statusData, setStatusData] = useState(null);
   const [developerData, setDeveloperData] = useState(null);
   const [cityData, setCityData] = useState(null);
@@ -131,7 +131,7 @@ const AddProperty = () => {
         setTypeData(typeResponse.data);
         setStatusData(statusResponse.data);
         setDeveloperData(developerResponse.data);
-        setAmenities(amenityResponse.data);
+        setAmenitiesData(amenityResponse.data);
         setCityData(cityResponse.data);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -374,11 +374,18 @@ const AddProperty = () => {
 
     setLoading(true);
 
+     // Ensure that amenities are included in the formData
+  const amenitiesIds = selectedAmenities.map(amenity => amenity._id);
+  const updatedFormData = { ...formData, amenities: amenitiesIds };
+
+  console.log(updatedFormData)
+
     try {
       const response = propertyToEdit
         ? await axios.put(`${endPoint}/property/${propertyToEdit._id}`, formData)
-        : await axios.post(`${endPoint}/property`, formData);
+        : await axios.post(`${endPoint}/property`, updatedFormData);
 
+        console.log(response)
       if (response.status === 200) {
         toast.success(`Property ${propertyToEdit ? "updated" : "added"} successfully!`, {
           position: "top-center",
@@ -441,21 +448,27 @@ const AddProperty = () => {
     }
   };
   const handleAmenitySelect = (amenity) => {
-    if (!selectedAmenities.find((a) => a._id === amenity._id)) {
-      setSelectedAmenities((prevSelectedAmenities) => [
-        ...prevSelectedAmenities,
-        amenity,
-      ]);
-    } else {
-      toast.error("Amenity already added!");
-    }
-  };
+  if (!selectedAmenities.find((a) => a._id === amenity._id)) {
+    const updatedSelectedAmenities = [...selectedAmenities, amenity];
+    setSelectedAmenities(updatedSelectedAmenities);
+    setFormData((prevState) => ({
+      ...prevState,
+      amenities: updatedSelectedAmenities.map((a) => a._id), // Map to the IDs of the selected amenities
+    }));
+  } else {
+    toast.error("Amenity already added!");
+  }
+};
 
-  const handleRemoveAmenity = (amenityId) => {
-    setSelectedAmenities((prevSelectedAmenities) =>
-      prevSelectedAmenities.filter((amenity) => amenity._id !== amenityId)
-    );
-  };
+const handleRemoveAmenity = (amenityId) => {
+  const updatedSelectedAmenities = selectedAmenities.filter((amenity) => amenity._id !== amenityId);
+  setSelectedAmenities(updatedSelectedAmenities);
+  setFormData((prevState) => ({
+    ...prevState,
+    amenities: updatedSelectedAmenities.map((a) => a._id),
+  }));
+};
+
   AddProperty.modules = {
     toolbar: [
       [{ header: "1" }, { header: "2" }, { font: [] }],
@@ -555,7 +568,7 @@ const AddProperty = () => {
             onChange={(value) =>
               setFormData({ ...formData, description: value })
             }
-            className="quill-editor h-20 md:mb-20 rounded-lg mb-32" // Add your own class for styling
+            className="quill-editor h-96 md:mb-20 rounded-lg mb-32" // Add your own class for styling
             modules={AddProperty.modules}
             formats={AddProperty.formats}
             required

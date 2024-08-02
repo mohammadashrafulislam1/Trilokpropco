@@ -3,10 +3,13 @@ import { endPoint } from "../../forAll/forAll";
 import { toast, ToastContainer } from "react-toastify";
 import { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
+import { useLocation } from "react-router-dom";
 
 const AddBlog = () => {
-  const [blogs, setBlogs] = useState();
-  const [categories, setCategories] = useState();
+  const { state } = useLocation();
+  const [blogToEdit, setBlogToEdit] = useState(null);
+  const blogToUpdate = state?.blog;
+  const [categories, setCategories] = useState([]);
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -14,30 +17,60 @@ const AddBlog = () => {
   });
   const [imageFile, setImageFile] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState(null);
 
-  
+  useEffect(() => {
+    const fetchBlogData = async () => {
+      if (blogToUpdate?._id) {
+        try {
+          const response = await axios.get(`${endPoint}/blog/${blogToUpdate?._id}`);
+          setBlogToEdit(response.data);
+        } catch (error) {
+          console.error('Error fetching blog data:', error);
+        }
+      }
+    };
+
+    fetchBlogData();
+  }, [blogToUpdate]);
+
+  useEffect(() => {
+    if (blogToEdit) {
+      setFormData({
+        title: blogToEdit?.title || "",
+        description: blogToEdit.description || "",
+        category:selectedCategory || "",
+        _id: blogToEdit._id, // Keep track of the blog ID in formData
+        image: blogToEdit.image || "",
+      });
+      setSelectedCategory(blogToEdit.category || "");
+    }
+  }, [blogToEdit, selectedCategory]);
 
   useEffect(() => {
     const fetchData = async () => {
-        try {
-            const response = await axios.get(`${endPoint}/blogCategory`);
-            console.log(response.data);
-            setCategories(response.data);
-        } catch (error) {
-            console.error('Error fetching data:', error);
+      try {
+        const response = await axios.get(`${endPoint}/blogCategory`);
+        setCategories(response.data);
+
+        if (blogToEdit && blogToEdit.category) {
+          const blogCategory = response.data.find(item => item._id === blogToEdit.category);
+          setSelectedCategory(blogCategory);
         }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
     };
 
     fetchData();
-}, [endPoint]);
-
+  }, [blogToEdit]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
+    setFormData((prevFormData) => ({
+      ...prevFormData,
       [name]: value,
-    });
+    }));
   };
 
   const handleFileChange = (e) => {
@@ -46,31 +79,34 @@ const AddBlog = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true)
+    setLoading(true);
     const data = new FormData();
     data.append("title", formData.title);
     data.append("description", formData.description);
     data.append("category", formData.category);
-    data.append("image", imageFile);
-    console.log(data)
-    try {
-      const response = await axios.post(`${endPoint}/blog`, data, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-      console.log(response.data);
-      setLoading(false)
-      toast.success("Developer successfully added!", {
-        position: "top-center",
-      });
+    if (imageFile) {
+      data.append("image", imageFile);
+    }
 
+    try {
+      console.log(formData, data)
+      const response = blogToEdit
+        ? await axios.put(`${endPoint}/blog/${blogToEdit._id}`, formData)
+        : await axios.post(`${endPoint}/blog`, formData);
+          console.log(response.data)
+
+      if (response.status === 200) {
+        toast.success(`Blog ${blogToEdit ? "updated" : "added"} successfully!`, {
+          position: "top-center",
+        });
+        setLoading(false);
+        // Optionally, you can reset the form or redirect the user here
+      }
     } catch (error) {
       console.error("Error submitting form:", error.response.data, error);
-      setLoading(false)
+      setLoading(false);
       toast.error(
-        error.response.data.message ||
-          "Failed to add developer. Please try again.",
+        error.response.data.message || "Failed to add blog. Please try again.",
         {
           position: "top-center",
         }
@@ -110,45 +146,47 @@ const AddBlog = () => {
     "video",
   ];
 
-  
   return (
     <div className="flex items-center justify-center flex-col gap-12 mx-1 relative overflow-hidden mb-10">
       <ToastContainer />
-      { loading &&
+      <h1 className="text-2xl font-semibold mb-2">
+        {blogToEdit ? "Update Blog" : "Add Blog"}
+      </h1>
+      {loading && (
         <div className="bg-[#0000003e] absolute w-full h-full z-10 md:py-52 lg:px-96 py-36 md:px-32">
-            <div className="modal-box" >
-            <h3 className="font-bold text-lg flex gap-5">Loading.. 
-            <span className="loading loading-ring loading-lg"></span></h3>
-          <p className="py-4">Please wait untill it loaded.</p>
+          <div className="modal-box">
+            <h3 className="font-bold text-lg flex gap-5">Loading..
+              <span className="loading loading-ring loading-lg"></span>
+            </h3>
+            <p className="py-4">Please wait until it loads.</p>
+          </div>
         </div>
-        </div>
-      }
+      )}
       <form
         onSubmit={handleSubmit}
         className="space-y-4 p-6 lg:w-3/4 w-full bg-white rounded-lg mt-10"
       >
         <div className="form-control">
           <label className="label">
-            <span className="label-text">Blog Categroy</span>
+            <span className="label-text">Blog Category</span>
           </label>
           <select
-  className="select select-bordered w-full max-w-xs"
-  name="category"
-  value={formData.category}
-  onChange={handleChange}
->
-  <option disabled value="">
-    Select category
-  </option>
-  {categories?.map((category) => (
-    <option key={category._id} value={category._id}>
-      {category.category}
-    </option>
-  ))}
-</select>
-
+            className="select select-bordered w-full max-w-xs"
+            name="category"
+            value={formData.category}
+            onChange={handleChange}
+          >
+            <option disabled value="">
+              Select category
+            </option>
+            {categories?.map((category) => (
+              <option key={category?._id} value={category?._id}>
+                {(category?.category) || (selectedCategory.category)}
+              </option>
+            ))}
+          </select>
         </div>
-        
+
         <div className="form-control">
           <label className="label">
             <span className="label-text">Blog Title</span>
@@ -171,8 +209,14 @@ const AddBlog = () => {
             name="image"
             onChange={handleFileChange}
             className="file-input w-full max-w-xs"
-            required
           />
+          {formData.image && (
+            <img
+              className="w-[100px] h-[100px] my-5"
+              src={formData.image}
+              alt="Featured"
+            />
+          )}
         </div>
 
         <div className="form-control">
@@ -184,7 +228,7 @@ const AddBlog = () => {
             onChange={(value) =>
               setFormData({ ...formData, description: value })
             }
-            className="quill-editor h-20 md:mb-20 rounded-lg mb-32 text-xl" // Add your own class for styling
+            className="quill-editor h-96 md:mb-20 rounded-lg mb-32 text-xl"
             modules={AddBlog.modules}
             formats={AddBlog.formats}
             required
@@ -192,7 +236,7 @@ const AddBlog = () => {
         </div>
 
         <button type="submit" className="btn btn-primary">
-          Add Blog
+          {loading ? "Saving..." : blogToEdit ? "Update Blog" : "Add Blog"}
         </button>
       </form>
     </div>

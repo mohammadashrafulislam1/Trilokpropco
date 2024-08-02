@@ -2,12 +2,29 @@ import axios from "axios";
 import { endPoint } from "../../forAll/forAll";
 import { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const BlogsLists = () => {
     const [blogs, setBlogs] = useState();
     const [currentPage, setCurrentPage] = useState(1);
-  const blogsPerPage = 5; // Adjust as needed
+    const navigate = useNavigate();
+    const handleEdit = (blog) => {
+      navigate("/addBlog", { state: { blog } });
+      console.log(blog)
+    };
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const response = await axios.get(`${endPoint}/blog`);
+          setBlogs(response.data);
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        }
+      };
 
+      fetchData();
+    }, []);
+  const blogsPerPage = 5; // Adjust as needed
   const getVisibleBlogs = () => {
     const startIndex = (currentPage - 1) * blogsPerPage;
     const endIndex = Math.min(startIndex + blogsPerPage, blogs?.length || 0);
@@ -20,18 +37,7 @@ const BlogsLists = () => {
     }
     setCurrentPage(pageNumber);
   };
-    useEffect(() => {
-        const fetchData = async () => {
-          try {
-            const response = await axios.get(`${endPoint}/blog`);
-            setBlogs(response.data);
-          } catch (error) {
-            console.error('Error fetching data:', error);
-          }
-        };
   
-        fetchData();
-      }, []);
       const handleDelete = async (id) => {
         console.log(id)
         const confirmDelete = window.confirm("Are you sure you want to delete this blog?");
@@ -90,7 +96,7 @@ const BlogsLists = () => {
                 <div dangerouslySetInnerHTML={{ __html: blog.description }}></div>
                 </td>
                 <th className="flex gap-2">
-                  <button className="btn btn-success text-white btn-xs">Update</button>
+                  <button className="btn btn-success text-white btn-xs" onClick={() => handleEdit(blog)}>Update</button>
                   <button className="btn btn-error btn-xs text-white" onClick={() => handleDelete(blog?._id)}>Delete</button>
                 </th>
               </tr>
