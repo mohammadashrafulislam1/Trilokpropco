@@ -91,8 +91,12 @@ const AddBlog = () => {
     try {
       console.log(formData, data)
       const response = blogToEdit
-        ? await axios.put(`${endPoint}/blog/${blogToEdit._id}`, formData)
-        : await axios.post(`${endPoint}/blog`, formData);
+        ? await axios.put(`${endPoint}/blog/${blogToEdit._id}`, data,{
+        'Content-type':'multipart/form-data'
+        })
+        : await axios.post(`${endPoint}/blog`, data, {
+        'Content-type':'multipart/form-data'
+        });
           console.log(response.data)
 
       if (response.status === 200) {
