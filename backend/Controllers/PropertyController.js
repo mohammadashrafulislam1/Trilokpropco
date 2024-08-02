@@ -21,7 +21,7 @@ export const addProperty = async (req, res) => {
         res.status(500).json({ message: "Internal Server Error." });
     }
 };
-
+// update Property
 export const updateProperty = async (req, res) => {
     const id =req.params.id;
     try{

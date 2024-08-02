@@ -47,7 +47,7 @@ export const getSingleBlog = async (req, res) =>{
         res.status(500).json({ message: "Internal Server Error."});
 
 }}
-
+// update Blog
 export const updateBlog = async (req, res) => {
     const id =req.params.id;
     try{
