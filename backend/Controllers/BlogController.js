@@ -50,12 +50,13 @@ export const getSingleBlog = async (req, res) =>{
 // update Blog
 export const updateBlog = async (req, res) => {
     const id =req.params.id;
+    const blogData = req.body;
     try{
     const blog = await blogModel.findById(id);
     if (!blog) {
         return res.status(400).json({ message: "Blog not found." });
     }
-    const blogData = req.body;
+    console.log(blogData)
     const updatedBlog = await blogModel.findByIdAndUpdate(id, blogData, {new: true});
     res.status(200).json(updatedBlog);
     } catch (e) {
