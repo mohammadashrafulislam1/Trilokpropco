@@ -33,6 +33,38 @@ export const getBlogs  = async (req, res) =>{
     }
 }
 
+// get Single Blog controller:
+export const getSingleBlog = async (req, res) =>{
+    const id = req.params.id;
+    try{
+      const blog= await blogModel.findById(id);
+      if(!blog){
+        return res.status(404).json({message: "blog not found."})
+      }
+      res.status(200).json(blog)
+    }catch (e) {
+        console.log(e.message);
+        res.status(500).json({ message: "Internal Server Error."});
+
+}}
+
+export const updateBlog = async (req, res) => {
+    const id =req.params.id;
+    try{
+    const blog = await blogModel.findById(id);
+    if (!blog) {
+        return res.status(400).json({ message: "Blog not found." });
+    }
+    const blogData = req.body;
+    const updatedBlog = await blogModel.findByIdAndUpdate(id, blogData, {new: true});
+    res.status(200).json(updatedBlog);
+    } catch (e) {
+        console.log(e.message);
+        res.status(500).json({ message: "Internal Server Error." });
+    }
+}
+
+
 // delete blog controller:
 export const deleteBlog = async(req, res) =>{
     const id = req.params.id;

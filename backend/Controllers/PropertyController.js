@@ -50,7 +50,7 @@ export const getProperty = async (req, res) =>{
 }}
 
 // get properties controller:
-export const getSingeProperty = async (req, res) =>{
+export const getSingleProperty = async (req, res) =>{
     const id = req.params.id;
     try{
       const property= await PropertyModel.findById(id);

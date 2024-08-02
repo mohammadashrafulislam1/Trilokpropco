@@ -1,5 +1,5 @@
 import express from "express";
-import { addProperty, deleteProperty, getProperty, updateProperty, deleteGalleryImage, getSingeProperty, deleteBankImage } from "../Controllers/PropertyController.js";
+import { addProperty, deleteProperty, getProperty, updateProperty, deleteGalleryImage, getSingleProperty, deleteBankImage } from "../Controllers/PropertyController.js";
 
 export const propertyRouter = express.Router();
 
@@ -9,7 +9,7 @@ propertyRouter.post('/', addProperty);
 // GET Property:
 propertyRouter.get('/', getProperty)
 // GET sing Property:
-propertyRouter.get('/:id', getSingeProperty)
+propertyRouter.get('/:id', getSingleProperty)
 // update Property:
 propertyRouter.put('/:id', updateProperty)
 // delete Property:
