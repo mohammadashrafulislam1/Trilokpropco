@@ -34,11 +34,11 @@ app.use('/footer', footerRouter)
 app.use('/inquire', formRouter)
 
 
-const dbName = "Trilokpropco"
+const dbName = "trilokpropertyconsultant"
 const dbUser = process.env.DBUSER
 const dbPassword = process.env.DBPASS
 try{
-  await mongoose.connect(`mongodb+srv://${dbUser}:${dbPassword}@cluster0.g2lboph.mongodb.net/${dbName}?retryWrites=true&w=majority&appName=Cluster0`)
+  await mongoose.connect(`mongodb+srv://${dbUser}:${dbPassword}@cluster0.vvmocfe.mongodb.net/${dbName}?retryWrites=true&w=majority&appName=Cluster0`)
   console.log("DataBase Connected")
 }
 catch (e){
