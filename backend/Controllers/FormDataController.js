@@ -1,5 +1,5 @@
 import nodemailer from 'nodemailer';
-import { FormDataModel } from '../Models/FormDataModel';
+import { FormDataModel } from '../Models/FormDataModel.js';
 
 const transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -19,9 +19,10 @@ export const addFormData = async(req, res) =>{
         to: process.env.OWNER_EMAIL,
         subject: `New Form Submission by ${name}`,
         text: `Option: ${option},
-               Name: ${name},
-               Email: ${email}
-               Message: ${message}`
+        Name: ${name},
+        Email: ${email},
+        Message: 
+        ${message}`
       };
       transporter.sendMail(mailOptions, (error, info)=>{
         if(error){
@@ -29,6 +30,32 @@ export const addFormData = async(req, res) =>{
         }
         res.status(200).json({message: "Form Data Saved And Email Sent"});
       })
+    }
+    catch (e) {
+        console.log(e.message);
+        res.status(500).json({ message: "Internal Server Error." });
+    }
+}
+
+export const getFormData = async(req, res)=>{
+    try{
+    const formData = await FormDataModel.find();
+    res.status(200).json(formData)
+    }
+    catch (e) {
+        console.log(e.message);
+        res.status(500).json({ message: "Internal Server Error." });
+    }
+}
+
+export const deleteFormData = async(req, res) =>{
+    const id = req.params.id;
+    try{
+    const deleteFormData = await FormDataModel.findByIdAndDelete(id)
+    if(!deleteFormData){
+        return res.status(404).json({message: "Form Data Not Found!"})
+    }
+    res.status(200).json({message: "Form Data Deleted Successfully."})
     }
     catch (e) {
         console.log(e.message);
