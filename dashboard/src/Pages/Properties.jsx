@@ -122,6 +122,7 @@ const Properties = () => {
                       <div className="text-sm opacity-50">
                         {locations[property.location] || "Unknown Location"}
                       </div>
+                      <p>{property?.created_at}</p>
                     </div>
                   </div>
                 </td>
@@ -133,6 +134,9 @@ const Properties = () => {
                   </button>
                   <button className="btn btn-error btn-xs text-white" onClick={() => handleDelete(property._id)}>
                     Delete
+                  </button>
+                  <button className="btn btn-info btn-xs text-white" >
+                    View
                   </button>
                 </th>
               </tr>

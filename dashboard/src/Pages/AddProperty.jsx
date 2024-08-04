@@ -71,6 +71,8 @@ const AddProperty = () => {
     locationMap: "",
     specifications: "",
     video: "",
+    for: "",
+    created_at:"",
     isFeatured:false
   });
 
@@ -434,7 +436,9 @@ const AddProperty = () => {
           locationMap: "",
           specifications: "",
           video: "",
+          for: "",
           isFeatured: false,
+          created_at:"",
         });
         setSelectedAmenities([]);
       } else {
@@ -577,7 +581,23 @@ const handleRemoveAmenity = (amenityId) => {
 
         <div className="form-control">
           <label className="label">
-            <span className="label-text">Type</span>
+            <span className="label-text">Property For</span>
+          </label>
+          <select className="border p-4 rounded-lg" 
+            value={formData.for}
+            name="for"
+            onChange={handleChange}
+            required>
+            <option>Property For?</option>
+            <option value="Sale">Sale</option>
+            <option value="Rent">Rent</option>
+            <option value="Buy">Buy</option>
+          </select>
+        </div>
+
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text">Property Type</span>
           </label>
           <CustomSelectType
             options={typeData}
@@ -1015,6 +1035,20 @@ const handleRemoveAmenity = (amenityId) => {
             type="text"
             name="video"
             value={formData.video}
+            onChange={handleChange}
+            className="input input-bordered"
+            required
+          />
+        </div>
+
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text">Date</span>
+          </label>
+          <input
+            type="date"
+            name="created_at"
+            value={formData.created_at}
             onChange={handleChange}
             className="input input-bordered"
             required
