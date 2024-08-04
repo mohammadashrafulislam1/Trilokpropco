@@ -2,8 +2,8 @@ import { FaConnectdevelop } from "react-icons/fa";
 import { LuTableProperties } from "react-icons/lu";
 import { RiBloggerLine, RiContactsLine } from "react-icons/ri";
 
-const Stats = ({propertiesData, developerData, blogData}) => {
-    console.log(propertiesData?.length, developerData?.length)
+const Stats = ({propertiesData, developerData, blogData, formData}) => {
+    console.log(propertiesData?.length, developerData?.length, formData?.length)
     return (
     <div className="grid lg:grid-cols-4 gap-3 md:grid-cols-2">
         <div className="bg-white p-6 w-[250px] rounded-lg stats-card">
@@ -34,7 +34,7 @@ const Stats = ({propertiesData, developerData, blogData}) => {
                 <div className="bg-[#d8d8d8] p-2 rounded-lg"><RiContactsLine /></div>
             </div>
             <div>
-                <h2 className="text-3xl font-bold">0</h2>
+                <h2 className="text-3xl font-bold">{formData?.length || 0}</h2>
                 <p><span className="text-green-600">total</span> inquires.</p>
             </div>
         </div> 

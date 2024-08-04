@@ -14,6 +14,7 @@ import Cities from "../Pages/City";
 import Testimonials from "../Pages/Testimonials";
 import Partners from "../Pages/Partners";
 import Footer from "../Pages/Footer";
+import Inquiries from "../Pages/Inquiries";
 
 
 export const router = createBrowserRouter([
@@ -74,6 +75,10 @@ export const router = createBrowserRouter([
             {
                 path:'partners',
                 element:<Partners />
+            },
+            {
+                path:'inquiries',
+                element:<Inquiries />
             },
             {
                 path:'footer',

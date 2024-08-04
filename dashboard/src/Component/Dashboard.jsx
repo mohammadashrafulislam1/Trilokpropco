@@ -7,7 +7,7 @@ import { Link, Outlet } from "react-router-dom";
 import { MdOutlineHandshake, MdOutlineLibraryAdd, MdOutlineRealEstateAgent, MdReviews } from "react-icons/md";
 import { LuTableProperties } from "react-icons/lu";
 import { GiConvergenceTarget } from "react-icons/gi";
-import { RiBloggerLine, RiGridLine } from "react-icons/ri";
+import { RiBloggerLine, RiContactsLine, RiGridLine } from "react-icons/ri";
 import { IoAddCircleOutline } from "react-icons/io5";
 import { BiCategory } from "react-icons/bi";
 import { TbLayoutBottombar, TbLayoutNavbar } from "react-icons/tb";
@@ -220,6 +220,15 @@ const Dashboard = () => {
               >
                 <MdOutlineHandshake />
                 <span className="sidebar-text">Partners</span>
+              </Link>
+            </li>
+            <li>
+              <Link
+                to={"/inquiries"}
+                className="p-3 bg-[#7e7e7e1a] rounded flex items-center gap-2 side-li mt-2"
+              >
+                <RiContactsLine />
+                <span className="sidebar-text">Inquiries</span>
               </Link>
             </li>
             <li>
