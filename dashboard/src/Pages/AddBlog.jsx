@@ -151,7 +151,7 @@ const AddBlog = () => {
   ];
 
   return (
-    <div className="flex items-center justify-center flex-col gap-12 mx-1 relative overflow-hidden mb-10">
+    <div className="flex items-center justify-center flex-col gap-12 mx-1 relative overflow-hidden pb-10">
       <ToastContainer />
       <h1 className="text-2xl font-semibold mb-2">
         {blogToEdit ? "Update Blog" : "Add Blog"}
