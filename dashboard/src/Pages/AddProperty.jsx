@@ -265,7 +265,7 @@ const AddProperty = () => {
       // Push each upload promise to the array
       uploadPromises.push(
         axios.post(
-          "https://api.imgbb.com/1/upload?key=d7c44914803981db7f95f8b645b0959a",
+          `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_API_KEY}`,
           formData
         )
       );
@@ -1066,7 +1066,7 @@ const handleRemoveAmenity = (amenityId) => {
             className="file-input w-full max-w-xs"
             multiple
           />
-          <div className="flex gap-2 my-5">
+          <div className="flex gap-2 my-5 flex-warp">
           {
            formData?.bankImages?.map((img, index) => (<div key={index} className="relative">
             <img className="w-[100px] h-[100px]" src={img} />
