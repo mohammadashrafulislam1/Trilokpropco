@@ -7,7 +7,7 @@ export const addType = async(req, res)=>{
         const { name } = req.body;
         const existingProject = await TypesModel.findOne({ name });
 
-        if (existingProject) {
+        if (!existingProject) {
             return res.status(400).json({ message: "Type already exists." });
         }
         const imageResult = await cloudinary.uploader.upload(req.file.path);
