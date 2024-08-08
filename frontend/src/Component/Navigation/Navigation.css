@@ -1,0 +1,10 @@
+.nav-section{
+    background-image: url("https://i.ibb.co/hX07m75/Rectangle-1.webp");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: auto;
+    padding: 20px 60px;
+    padding-bottom: 30px;
+    display: flex;
+    margin-top: 10px;
+}

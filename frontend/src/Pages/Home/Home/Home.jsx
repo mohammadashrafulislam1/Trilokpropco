@@ -1,8 +1,9 @@
+import Navigation from "../../../Component/Navigation/Navigation";
 
 const Home = () => {
     return (
         <div>
-            THis is home page
+            <Navigation />
         </div>
     );
 };
