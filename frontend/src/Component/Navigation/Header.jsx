@@ -2,7 +2,7 @@ import { FaRegHeart } from "react-icons/fa6";
 import "./Navigation.css";
 import { IoGitCompareOutline, IoMenu } from "react-icons/io5";
 
-const Navigation = () => {
+const Header = () => {
   const menuLiMobile = (
     <ul
       tabIndex={0}
@@ -49,20 +49,20 @@ const Navigation = () => {
         
         {/* mobile responsive */}
         <div className="dropdown">
-        <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden text-white text-[22px]">
+        <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden text-white text-[22px] menu-icon">
             <IoMenu />
         </div>
         {menuLiMobile}
       </div>
       {/* ---------- */}
       <a href="">
-        <div className="lg:w-[104px] lg:h-[50px] navbar-start">
+        <div className="md:w-[104px] lg:h-[50px] navbar-start">
           <img src="https://i.ibb.co/stKQtrJ/1000278004-1.webp" alt="" className="logo"/>
         </div>
       </a>
      </div>
 
-      <nav className="navbar-center">
+      <nav className="navbar-center navbar-end">
         <div className="hidden lg:flex text-white">{menuLiLarge}</div>
       </nav>
 
@@ -117,4 +117,4 @@ const Navigation = () => {
   );
 };
 
-export default Navigation;
+export default Header;

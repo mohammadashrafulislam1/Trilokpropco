@@ -1,54 +1,71 @@
-.nav-section{
-    background-image: url("https://i.ibb.co/hX07m75/Rectangle-1.webp");
+/* Default Navbar Styles */
+.nav-section {
+    background-image: url("https://i.ibb.co/j89WZCg/Rectangle-1-3.webp");
     background-position: center;
     background-repeat: no-repeat;
-    background-size: auto;
-    padding: 20px 60px;
+    background-size: contain;
+    padding: 20px 30px;
     padding-bottom: 30px;
     display: flex;
+    justify-content: space-between;
     align-items: center;
     margin-top: 10px;
-}
-
-@media (max-width: 600px){
-    .nav-section{
-        background-image: url("https://i.ibb.co/PwDbfG6/Rectangle-1-1.webp");
-        padding:20px 10px;
-        padding-bottom: 20px;
-        background-size:contain;
-        align-items: center;
-        align-content: center;
-        margin-top: 0px;
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-bottom: 90px;
+  }
+  
+ 
+  
+  /* For Medium Screens */
+  @media (max-width: 900px) {
+    .nav-section {
+      padding: 16px 20px 20px 20px;
+      
     }
-    .logo{
-        width:90%;
+    .logo {
+      width: 60%;
     }
-}
-
-@media (max-width: 600px){
-    .nav-section{
-        background-image: url("https://i.ibb.co/PwDbfG6/Rectangle-1-1.webp");
-        padding:20px 10px;
-        padding-bottom: 20px;
-        background-size:contain;
-        align-items: center;
-        align-content: center;
+    .badge{
+        height: 10px;
+        padding: 4px;
+        font-size: 5px;
     }
-    .logo{
-        width:90%;
+  }
+  
+  /* For Small Screens */
+  @media (max-width: 600px) {
+    .nav-section {
+      padding: 10px 10px 15px 10px;
+      background-image: url("https://i.ibb.co/PwDbfG6/Rectangle-1-1.webp");
+      background-size: cover;
+      margin-top: 10px;
+      
     }
-}
-
-@media (max-width: 950px){
-    .nav-section{
-        background-image: url("https://i.ibb.co/ZWV8mqb/Rectangle-1-2.webp");
-        padding:20px 10px;
-        padding-bottom: 20px;
-        background-size:contain;
-        align-items: center;
-        align-content: center;
+    .logo {
+      width: 80%;
     }
-    .logo{
-        width:60%;
+    .menu-icon{
+        font-size: 16px;
     }
-}
+    .badge{
+        height: 10px;
+        padding: 4px;
+        font-size: 5px;
+    }
+    .navbar-end, .navbar-start{
+      
+      font-size: 8px;
+    }
+  }
+  
+  /* Dropdown Menu */
+  .dropdown-menu {
+    display: none;
+  }
+  
+  /* Show Dropdown Menu on Hover */
+  .dropdown:hover .dropdown-menu {
+    display: block;
+  }
+  
