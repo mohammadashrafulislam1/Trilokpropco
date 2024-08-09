@@ -10,3 +10,45 @@
     margin-top: 10px;
 }
 
+@media (max-width: 600px){
+    .nav-section{
+        background-image: url("https://i.ibb.co/PwDbfG6/Rectangle-1-1.webp");
+        padding:20px 10px;
+        padding-bottom: 20px;
+        background-size:contain;
+        align-items: center;
+        align-content: center;
+        margin-top: 0px;
+    }
+    .logo{
+        width:90%;
+    }
+}
+
+@media (max-width: 600px){
+    .nav-section{
+        background-image: url("https://i.ibb.co/PwDbfG6/Rectangle-1-1.webp");
+        padding:20px 10px;
+        padding-bottom: 20px;
+        background-size:contain;
+        align-items: center;
+        align-content: center;
+    }
+    .logo{
+        width:90%;
+    }
+}
+
+@media (max-width: 950px){
+    .nav-section{
+        background-image: url("https://i.ibb.co/ZWV8mqb/Rectangle-1-2.webp");
+        padding:20px 10px;
+        padding-bottom: 20px;
+        background-size:contain;
+        align-items: center;
+        align-content: center;
+    }
+    .logo{
+        width:60%;
+    }
+}

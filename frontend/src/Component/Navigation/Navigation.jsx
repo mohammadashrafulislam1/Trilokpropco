@@ -1,12 +1,12 @@
 import { FaRegHeart } from "react-icons/fa6";
 import "./Navigation.css";
-import { IoGitCompareOutline } from "react-icons/io5";
+import { IoGitCompareOutline, IoMenu } from "react-icons/io5";
 
 const Navigation = () => {
   const menuLiMobile = (
     <ul
       tabIndex={0}
-      className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+      className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow ml-10"
     >
       <li>
         <a>Property</a>
@@ -49,28 +49,15 @@ const Navigation = () => {
         
         {/* mobile responsive */}
         <div className="dropdown">
-        <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M4 6h16M4 12h8m-8 6h16"
-            />
-          </svg>
+        <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden text-white text-[22px]">
+            <IoMenu />
         </div>
         {menuLiMobile}
       </div>
       {/* ---------- */}
       <a href="">
-        <div className="w-[104px] h-[50px] navbar-start">
-          <img src="https://i.ibb.co/stKQtrJ/1000278004-1.webp" alt="" />
+        <div className="lg:w-[104px] lg:h-[50px] navbar-start">
+          <img src="https://i.ibb.co/stKQtrJ/1000278004-1.webp" alt="" className="logo"/>
         </div>
       </a>
      </div>
