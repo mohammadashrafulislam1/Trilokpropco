@@ -12,7 +12,7 @@ const Home = () => {
   const [slideIndex, setSlideIndex] = useState(0);
   const [properties, setProperties] = useState([]);
   const [activeItem, setActiveItem] = useState({});
-  const [swiperInstance, setSwiperInstance] = useState(null); // Keep track of the swiper instance
+  const [swiperInstance, setSwiperInstance] = useState(null);
 
   // Fetch properties from the API
   useEffect(() => {
@@ -21,15 +21,12 @@ const Home = () => {
         const response = await fetch(`${endPoint}/property`);
         const data = await response.json();
 
-        // Filter properties where isFeatured is true
         let featuredProperties = data.filter(property => property.isFeatured);
 
-        // Sort the featured properties by created_at date in descending order
         featuredProperties = featuredProperties.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
 
         setProperties(featuredProperties);
 
-        // Set the first featured property as the active item
         if (featuredProperties.length > 0) {
           setActiveItem(featuredProperties[0]);
         }
@@ -41,61 +38,108 @@ const Home = () => {
     fetchProperties();
   }, []);
 
-  // Update active item when slideIndex changes
   useEffect(() => {
     if (properties.length > 0) {
       setActiveItem(properties[slideIndex]);
     }
   }, [slideIndex, properties]);
 
-  // Handler to change the slide index and move to the clicked slide
   const onClickHandler = (index) => {
     if (swiperInstance && index !== slideIndex) {
       setSlideIndex(index);
-      swiperInstance.slideToLoop(index); // Move to the clicked slide within the looped Swiper
+      swiperInstance.slideToLoop(index);
     }
   };
 
+  // Handler for custom navigation buttons
+  const handlePrev = () => {
+    console.log("Previous button clicked");
+    if (swiperInstance) {
+      console.log("Swiper instance:", swiperInstance);
+      swiperInstance.slidePrev();
+    }
+  };
+
+  const handleNext = () => {
+    console.log("Next button clicked");
+    if (swiperInstance) {
+      console.log("Swiper instance:", swiperInstance);
+      swiperInstance.slideNext();
+    }
+  };
+
+  // Determine if buttons should be shown
+  const shouldShowButtons = properties.length > 0;
+
   return (
     <div
-      className="mx-auto pt-5 px-4"
+      className="pt-5"
       style={{
         backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${activeItem?.galleryImages?.[0]})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
-        height: '700px'
+        height: '900px'
       }}
     >
       <Header />
-      <div className="flex flex-col lg:flex-row justify-center align-middle items-center gap-5">
-        <div className="lg:w-1/3 mb-8 lg:mb-0 lg:ml-16">
+      
+      <div className="flex flex-col lg:flex-row justify-center align-middle items-center gap-14 relative">
+        {/* Custom Navigation Buttons */}
+        {shouldShowButtons && (
+          <>
+            <button
+              onClick={handlePrev}
+              className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full z-10"
+            >
+              &lt;
+            </button>
+            <button
+              onClick={handleNext}
+              className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full z-10"
+            >
+              &gt;
+            </button>
+          </>
+        )}
+
+        <div className="lg:w-[40%] mb-8 lg:mb-0 lg:ml-16">
           <div className="bg-transparent px-0">
-            <h1 className="font-bold text-3xl text-white">{activeItem?.name}</h1>
+            <h1 className="Bebas-Neue text-7xl text-white"
+            style={{
+              letterSpacing:'3px',
+              textTransform:'uppercase'
+            }}>{activeItem?.name}</h1>
             <p
-              className="mt-4 text-white"
+              className="mt-3 !text-white font-extralight"
               dangerouslySetInnerHTML={{ __html: activeItem?.description?.slice(0, 180) }}
             />
+            <p className="font-semibold text-white mt-2">Price: <span className="!text-white font-extralight"> {activeItem?.priceRange}</span></p>
+            <p className="font-semibold text-white">Unit Size: <span className="!text-white font-extralight">{activeItem?.size}</span></p>
+            <p className="font-semibold text-white">Config: <span className="!text-white font-extralight">{activeItem?.configuration}</span></p>
             <button className="px-4 py-2 mt-4 bg-yellow-500 text-white rounded">
               View
             </button>
           </div>
         </div>
-        <div className="lg:w-2/3">
+
+        <div className="lg:w-[60%] relative">
           <Swiper
             modules={[Navigation, Pagination, Scrollbar, A11y]}
             spaceBetween={12}
-            slidesPerView={3}
-            navigation
-            loop={true}
-            onSwiper={setSwiperInstance} // Capture the swiper instance
+            slidesPerView={2.8}
+            loop={shouldShowButtons} // Enable loop only if there are more than 1 slide
+            onSwiper={(swiper) => {
+              setSwiperInstance(swiper);
+              console.log("Swiper instance:", swiper); // Debugging log
+            }}
             onSlideChange={(swiper) => setSlideIndex(swiper.realIndex)}
           >
-            {properties?.map((property, index) => (
+            {properties.map((property, index) => (
               <SwiperSlide
-                key={property.id}
-                className="flex items-center justify-center"
-                onClick={() => onClickHandler(index)} // Attach click handler here
+                key={`${property.id}-${index}`}
+                className="flex items-center justify-center gap-5"
+                onClick={() => onClickHandler(index)}
               >
                 {({ isActive }) => (
                   <PropertyItem isActive={isActive} property={property} />

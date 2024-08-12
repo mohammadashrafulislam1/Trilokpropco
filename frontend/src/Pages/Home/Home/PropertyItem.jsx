@@ -1,7 +1,8 @@
 import React from 'react';
 
 const PropertyItem = ({ property, isActive }) => {
-  const { name, galleryImages } = property;
+  const { priceRange, name, galleryImages } = property;
+  console.log(property)
 
   // Conditional styles based on whether the slide is active or not
   const itemStyle = {
@@ -20,15 +21,16 @@ const PropertyItem = ({ property, isActive }) => {
   return (
     <div style={itemStyle} className="relative flex items-end p-4">
       {/* Gradient shadow overlay */}
-      <div className="absolute bottom-0 left-0 w-full h-2/4 bg-gradient-to-t from-black to-transparent"></div>
+      <div className="absolute bottom-0 left-0 w-full h-[70%] bg-gradient-to-t from-black to-transparent"></div>
       
-      <div className="text-white w-full p-2 rounded-b-lg z-10">
-        <h3 className="text-lg font-[Anton] font-light"
+      <div className="text-white w-full p-2 rounded-b-lg z-10 !font-light">
+        <h3 className="text-[24px] Bebas-Neue"
         style={{
           letterSpacing:'1px',
           textTransform:'uppercase'
         }}
         >{name}</h3>
+        <p>{priceRange}</p>
       </div>
     </div>
   );
