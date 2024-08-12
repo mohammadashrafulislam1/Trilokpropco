@@ -63,14 +63,14 @@ const Testimonials = () => {
       console.log(response.data);
       setTestimonials([...testimonials, response.data]);
       setLoading(false);
-      toast.success("Developer successfully added!", {
+      toast.success("Testimonial successfully added!", {
         position: "top-center",
       });
     } catch (error) {
       console.error("Error submitting form:", error.response?.data, error);
       setLoading(false);
       toast.error(
-        error.response?.data?.message || "Failed to add developer. Please try again.",
+        error.response?.data?.message || "Failed to add Testimonial. Please try again.",
         {
           position: "top-center",
         }
@@ -184,13 +184,13 @@ const Testimonials = () => {
 
 
         <button type="submit" className="btn btn-primary">
-          Add Developer
+          Add Testimonial
         </button>
       </form>
 
       <div className="overflow-x-auto bg-white rounded-lg pt-5 lg:w-3/4 w-full" >
   <table className="table">
-    <caption className="table-caption text-2xl font-bold mb-8">All Developers</caption>
+    <caption className="table-caption text-2xl font-bold mb-8">All Testimonials</caption>
     <thead>
       <tr>
         <th>No</th>
@@ -217,11 +217,10 @@ const Testimonials = () => {
         </td>
         <td>{testimonial?.details}</td>
         <th className="flex gap-2">
-          <button className="btn btn-success text-white btn-xs">update</button>
           <button className="btn btn-error btn-xs text-white" onClick={() => handleDelete(testimonial?._id)}>delete</button>
         </th>
       </tr>
-      )) :<p className="p-5">No developer is available.</p>}
+      )) :<p className="p-5">No Testimonial is available.</p>}
       
       </tbody></table></div>
     </div>

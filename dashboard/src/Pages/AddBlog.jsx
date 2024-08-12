@@ -4,6 +4,7 @@ import { toast, ToastContainer } from "react-toastify";
 import { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
 import { useLocation } from "react-router-dom";
+import DateInput from "../Component/DateInput";
 
 const AddBlog = () => {
   const { state } = useLocation();
@@ -14,6 +15,7 @@ const AddBlog = () => {
     title: "",
     description: "",
     category: "",
+    date: "",
   });
   const [imageFile, setImageFile] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -23,10 +25,12 @@ const AddBlog = () => {
     const fetchBlogData = async () => {
       if (blogToUpdate?._id) {
         try {
-          const response = await axios.get(`${endPoint}/blog/${blogToUpdate?._id}`);
+          const response = await axios.get(
+            `${endPoint}/blog/${blogToUpdate?._id}`
+          );
           setBlogToEdit(response.data);
         } catch (error) {
-          console.error('Error fetching blog data:', error);
+          console.error("Error fetching blog data:", error);
         }
       }
     };
@@ -39,7 +43,8 @@ const AddBlog = () => {
       setFormData({
         title: blogToEdit?.title || "",
         description: blogToEdit.description || "",
-        category:selectedCategory || "",
+        category: selectedCategory || "",
+        date: blogToEdit?.date,
         _id: blogToEdit._id, // Keep track of the blog ID in formData
         image: blogToEdit.image || "",
       });
@@ -54,11 +59,13 @@ const AddBlog = () => {
         setCategories(response.data);
 
         if (blogToEdit && blogToEdit.category) {
-          const blogCategory = response.data.find(item => item._id === blogToEdit.category);
+          const blogCategory = response.data.find(
+            (item) => item._id === blogToEdit.category
+          );
           setSelectedCategory(blogCategory);
         }
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
       }
     };
 
@@ -83,26 +90,30 @@ const AddBlog = () => {
     const data = new FormData();
     data.append("title", formData.title);
     data.append("description", formData.description);
+    data.append("date", formData.date);
     data.append("category", formData.category);
     if (imageFile) {
       data.append("image", imageFile);
     }
 
     try {
-      console.log(formData, data)
+      console.log(formData, data);
       const response = blogToEdit
-        ? await axios.put(`${endPoint}/blog/${blogToEdit._id}`, data,{
-        'Content-type':'multipart/form-data'
-        })
+        ? await axios.put(`${endPoint}/blog/${blogToEdit._id}`, data, {
+            "Content-type": "multipart/form-data",
+          })
         : await axios.post(`${endPoint}/blog`, data, {
-        'Content-type':'multipart/form-data'
-        });
-          console.log(response.data)
+            "Content-type": "multipart/form-data",
+          });
+      console.log(response.data);
 
       if (response.status === 200) {
-        toast.success(`Blog ${blogToEdit ? "updated" : "added"} successfully!`, {
-          position: "top-center",
-        });
+        toast.success(
+          `Blog ${blogToEdit ? "updated" : "added"} successfully!`,
+          {
+            position: "top-center",
+          }
+        );
         setLoading(false);
         // Optionally, you can reset the form or redirect the user here
       }
@@ -149,6 +160,12 @@ const AddBlog = () => {
     "image",
     "video",
   ];
+  const handleDateChange = (date) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      date: date,
+    }));
+  };
 
   return (
     <div className="flex items-center justify-center flex-col gap-12 mx-1 relative overflow-hidden pb-10">
@@ -159,7 +176,8 @@ const AddBlog = () => {
       {loading && (
         <div className="bg-[#0000003e] absolute w-full h-full z-10 md:py-52 lg:px-96 py-36 md:px-32">
           <div className="modal-box">
-            <h3 className="font-bold text-lg flex gap-5">Loading..
+            <h3 className="font-bold text-lg flex gap-5">
+              Loading..
               <span className="loading loading-ring loading-lg"></span>
             </h3>
             <p className="py-4">Please wait until it loads.</p>
@@ -185,7 +203,7 @@ const AddBlog = () => {
             </option>
             {categories?.map((category) => (
               <option key={category?._id} value={category?._id}>
-                {(category?.category) || (selectedCategory.category)}
+                {category?.category || selectedCategory.category}
               </option>
             ))}
           </select>
@@ -236,6 +254,16 @@ const AddBlog = () => {
             modules={AddBlog.modules}
             formats={AddBlog.formats}
             required
+          />
+        </div>
+
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text">Date</span>
+          </label>
+          <DateInput
+            isoDateString={formData.date}
+            onChange={handleDateChange}
           />
         </div>
 

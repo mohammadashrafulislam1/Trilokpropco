@@ -272,18 +272,6 @@ const Dashboard = () => {
                 className="input input-bordered w-24 md:w-auto"
               />
             </div>
-            <div
-              tabIndex={1}
-              className="text-xl dropdown dropdown-end cursor-pointer"
-            >
-              <FaBell />
-              <ul
-                tabIndex={1}
-                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
-              >
-                <li>Notifications</li>
-              </ul>
-            </div>
             <div className="dropdown dropdown-end">
               <div
                 tabIndex={0}

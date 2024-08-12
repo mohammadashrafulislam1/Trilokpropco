@@ -24,7 +24,7 @@ const BlogsLists = () => {
 
       fetchData();
     }, []);
-  const blogsPerPage = 5; // Adjust as needed
+  const blogsPerPage = 1; // Adjust as needed
   const getVisibleBlogs = () => {
     const startIndex = (currentPage - 1) * blogsPerPage;
     const endIndex = Math.min(startIndex + blogsPerPage, blogs?.length || 0);
@@ -60,6 +60,19 @@ const BlogsLists = () => {
           );
         }
       };
+
+      const formatDate = (isoDateString) => {
+        if (!isoDateString) return "No Date";
+        const date = new Date(isoDateString);
+        return date.toLocaleDateString('en-US', {
+          weekday: 'long',
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+        });
+      };
+      
+     
     return (
       <div>
         <div className="flex items-center justify-center flex-col gap-12 my-10">
@@ -81,14 +94,15 @@ const BlogsLists = () => {
               <tr key={index}>
                 <td>{index + 1}</td>
                 <td>
-                  <div className="flex items-start gap-3">
+                  <div className="flex items-center gap-3 justify-center">
                     <div className="avatar">
                       <div className="mask mask-squircle h-12 w-12">
                         <img src={blog.image} alt={blog.title} />
                       </div>
                     </div>
                     <div>
-                      <div className="font-bold">{blog.title}</div>
+                      <div className="font-bold mb-2">{blog.title}</div>
+                      <p>{formatDate(blog?.date)}</p>
                     </div>
                   </div>
                 </td>
@@ -98,6 +112,9 @@ const BlogsLists = () => {
                 <th className="flex gap-2">
                   <button className="btn btn-success text-white btn-xs" onClick={() => handleEdit(blog)}>Update</button>
                   <button className="btn btn-error btn-xs text-white" onClick={() => handleDelete(blog?._id)}>Delete</button>
+                  <button className="btn btn-info btn-xs text-white" >
+                    View
+                  </button>
                 </th>
               </tr>
             ))) : <tr><td colSpan="3" className="p-5 text-center">No blog is available.</td></tr>}

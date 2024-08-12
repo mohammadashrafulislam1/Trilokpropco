@@ -10,6 +10,8 @@ import { CustomSelectStatus } from "../Component/CustomSelect/CustomSelectStatus
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css"; // Import Quill styles
 import { useLocation } from "react-router-dom";
+import DateInput from "../Component/DateInput";
+
 const AddProperty = () => {
   const { state } = useLocation();
   const [propertyToEdit, setPropertyToEdit] = useState()
@@ -511,6 +513,14 @@ const handleRemoveAmenity = (amenityId) => {
     location: selectedCityId,
   })
  }
+
+ const handleDateChange = (date) => {
+  setFormData((prevState) => ({
+    ...prevState,
+    created_at: date,
+  }));
+};
+
   return (
     <div className="flex items-center justify-center flex-col gap-12 mx-1 relative overflow-hidden mb-10  md:p-5 p-2 lg:p-5">
       <ToastContainer />
@@ -747,7 +757,7 @@ const handleRemoveAmenity = (amenityId) => {
         </div>
         <div className="form-control">
           <label className="label">
-            <span className="label-text">Gallery Images</span>
+            <span className="label-text">Gallery Images (Upload one by one to maintain serial)</span>
           </label>
           <input
             type="file"
@@ -1045,19 +1055,17 @@ const handleRemoveAmenity = (amenityId) => {
           <label className="label">
             <span className="label-text">Date</span>
           </label>
-          <input
-            type="date"
-            name="created_at"
-            value={formData.created_at}
-            onChange={handleChange}
-            className="input input-bordered"
-            required
-          />
+          <DateInput 
+  isoDateString={formData.created_at} 
+  onChange={handleDateChange} 
+/>
+
+          
         </div>
 
         <div className="form-control">
           <label className="label">
-            <span className="label-text">Bank Images</span>
+            <span className="label-text">Bank Images (Upload one by one to maintain serial)</span>
           </label>
           <input
             type="file"
@@ -1066,7 +1074,7 @@ const handleRemoveAmenity = (amenityId) => {
             className="file-input w-full max-w-xs"
             multiple
           />
-          <div className="flex gap-2 my-5 flex-warp">
+          <div className="flex gap-2 my-5 flex-wrap">
           {
            formData?.bankImages?.map((img, index) => (<div key={index} className="relative">
             <img className="w-[100px] h-[100px]" src={img} />

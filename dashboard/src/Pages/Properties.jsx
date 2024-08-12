@@ -90,6 +90,18 @@ const Properties = () => {
     }
   };
 
+  const formatDate = (isoDateString) => {
+    if (!isoDateString) return "No Date";
+    const date = new Date(isoDateString);
+    return date.toLocaleDateString('en-US', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+  };
+  
+
   return (
     <div>
       <div className="overflow-x-auto lg:mx-10 rounded-lg bg-white mt-10 mx-2">
@@ -122,7 +134,7 @@ const Properties = () => {
                       <div className="text-sm opacity-50">
                         {locations[property.location] || "Unknown Location"}
                       </div>
-                      <p>{property?.created_at}</p>
+                      <p>{formatDate(property?.created_at)}</p>
                     </div>
                   </div>
                 </td>

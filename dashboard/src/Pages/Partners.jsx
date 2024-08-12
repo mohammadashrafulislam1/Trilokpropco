@@ -133,7 +133,7 @@ const Partners = () => {
                 </div>
             </form>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 {partners.map(partner => (
                     <div key={partner._id} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
                         <h2 className="text-xl font-bold mb-2">{partner.name}</h2>
