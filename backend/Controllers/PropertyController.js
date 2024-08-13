@@ -139,3 +139,23 @@ export const deleteBankImage = async (req, res) => {
         res.status(500).json({ message: "Internal Server Error." });
     }
 };
+// 
+export const searchProperty = async (req, res) => {
+    const { type, city, status } = req.query;
+  try{
+    
+    // Example filtering logic
+    const filters = {};
+    if (type) filters.type = type;
+    if (city) filters.city = city;
+    if (status) filters.status = status;
+  
+    const properties = await PropertyModel.find(filters); 
+    res.status(200).json(properties);
+  }
+
+    catch (e) {
+        console.log(e.message);
+        res.status(500).json({ message: "Internal Server Error." });
+    }
+  }

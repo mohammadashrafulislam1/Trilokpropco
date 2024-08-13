@@ -1,5 +1,5 @@
 import express from "express";
-import { addProperty, deleteProperty, getProperty, updateProperty, deleteGalleryImage, getSingleProperty, deleteBankImage } from "../Controllers/PropertyController.js";
+import { addProperty, deleteProperty, getProperty, updateProperty, deleteGalleryImage, getSingleProperty, deleteBankImage, searchProperty } from "../Controllers/PropertyController.js";
 
 export const propertyRouter = express.Router();
 
@@ -18,3 +18,5 @@ propertyRouter.delete('/:id', deleteProperty)
 propertyRouter.delete('/:id/galleryImage', deleteGalleryImage)
 // delete Bank Image:
 propertyRouter.delete('/:id/bankImage', deleteBankImage)
+
+propertyRouter.get('/', searchProperty)
