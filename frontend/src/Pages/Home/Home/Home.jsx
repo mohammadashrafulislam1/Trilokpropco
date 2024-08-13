@@ -100,20 +100,20 @@ const Home = () => {
           </>
         )}
 
-        <div className="lg:w-[40%] mb-8 lg:mb-0 lg:ml-16">
+        <div className="lg:w-[40%] md:w-2/3 px-10 md:px-0 lg:px-0 mb-8 lg:mb-0 lg:ml-16">
           <div className="bg-transparent px-0">
-            <h1 className="Bebas-Neue text-7xl text-white"
+            <h1 className="Bebas-Neue text-3xl md:text-5xl lg:text-7xl  text-white"
             style={{
               letterSpacing:'3px',
               textTransform:'uppercase'
             }}>{activeItem?.name}</h1>
             <p
-              className="mt-3 !text-white font-extralight"
+              className="mt-3 !text-white font-extralight lg:text-[18px] text-[12px] md:text-[16px]"
               dangerouslySetInnerHTML={{ __html: activeItem?.description?.slice(0, 180) }}
             />
-            <p className="font-semibold text-white mt-2">Price: <span className="!text-white font-extralight"> {activeItem?.priceRange}</span></p>
-            <p className="font-semibold text-white">Unit Size: <span className="!text-white font-extralight">{activeItem?.size}</span></p>
-            <p className="font-semibold text-white">Config: <span className="!text-white font-extralight">{activeItem?.configuration}</span></p>
+            <p className="font-semibold text-white mt-2 lg:text-[18px] text-[12px] md:text-[16px]">Price: <span className="!text-white font-extralight"> {activeItem?.priceRange}</span></p>
+            <p className="font-semibold text-white lg:text-[18px] text-[12px] md:text-[16px]">Unit Size: <span className="!text-white font-extralight">{activeItem?.size}</span></p>
+            <p className="font-semibold text-white lg:text-[18px] text-[12px] md:text-[16px]">Config: <span className="!text-white font-extralight">{activeItem?.configuration}</span></p>
             <button className="px-7 py-2 mt-4 bg-[#046307] text-white rounded font-extralight flex justify-center items-center gap-2">
               View <FaArrowRight />
             </button>
@@ -149,7 +149,7 @@ const Home = () => {
                 slidesPerView: 2.8,
               },
               1650: {
-                slidesPerView: 3.8,
+                slidesPerView: 4,
               },
             }}
             onSlideChange={(swiper) => setSlideIndex(swiper.realIndex)}
