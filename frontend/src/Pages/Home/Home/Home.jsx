@@ -81,7 +81,7 @@ const Home = () => {
     >
       <Header />
       
-      <div className="flex flex-col lg:flex-row justify-center align-middle items-center gap-14 relative">
+      <div className="flex flex-col lg:flex-row justify-center align-middle items-center lg:gap-14 relative">
         {/* Custom Navigation Buttons */}
         {shouldShowButtons && (
           <>
@@ -100,7 +100,7 @@ const Home = () => {
           </>
         )}
 
-        <div className="lg:w-[40%] md:w-2/3 px-10 md:px-0 lg:px-0 mb-8 lg:mb-0 lg:ml-16">
+        <div className="lg:w-[40%] md:w-2/3 px-10 md:px-0 lg:px-0 mb-8 lg:mb-0 lg:ml-16 ml-0">
           <div className="bg-transparent px-0">
             <h1 className="Bebas-Neue text-3xl md:text-5xl lg:text-7xl  text-white"
             style={{
@@ -124,32 +124,41 @@ const Home = () => {
           <Swiper
             modules={[Navigation, Pagination, Scrollbar, A11y]}
             spaceBetween={12}
-            slidesPerView={2.8}
             loop={shouldShowButtons} // Enable loop only if there are more than 1 slide
             onSwiper={(swiper) => {
               setSwiperInstance(swiper);
             }}
             breakpoints={{
               0: {
-                slidesPerView: 1,
+                slidesPerView: 1.1,
               },
-              640: {
+              350: {
+                slidesPerView: 1.3,
+              },
+              430: {
+                slidesPerView: 1.6,
+              },
+              490: {
+                slidesPerView: 1.5,
+              },
+              550: {
                 slidesPerView: 2,
               },
+              
+              640: {
+                slidesPerView: 2.3,
+              },
               700:{
-                slidesPerView:2.5,
+                slidesPerView:2.4,
               },
               900:{
                 slidesPerView: 3,
               },
-              1030:{
-                slidesPerView:2,
+              1000:{
+                slidesPerView:2.2,
               },
               1300: {
                 slidesPerView: 2.8,
-              },
-              1650: {
-                slidesPerView: 4,
               },
             }}
             onSlideChange={(swiper) => setSlideIndex(swiper.realIndex)}

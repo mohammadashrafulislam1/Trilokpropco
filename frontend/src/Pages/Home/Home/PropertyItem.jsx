@@ -19,7 +19,7 @@ const PropertyItem = ({ property, isActive }) => {
   };
 
   return (
-    <div style={itemStyle} className="relative flex items-end p-4">
+    <div style={itemStyle} className="relative flex items-end p-3">
       {/* Gradient shadow overlay */}
       <div className="absolute bottom-0 left-0 w-full h-[70%] bg-gradient-to-t from-black to-transparent"></div>
       
