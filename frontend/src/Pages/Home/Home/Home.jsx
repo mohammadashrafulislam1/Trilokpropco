@@ -7,6 +7,7 @@ import 'swiper/css/pagination';
 import PropertyItem from "./PropertyItem";
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
 import Header from "../../../Component/Navigation/Header";
+import { FaArrowRight } from "react-icons/fa6";
 
 const Home = () => {
   const [slideIndex, setSlideIndex] = useState(0);
@@ -53,17 +54,13 @@ const Home = () => {
 
   // Handler for custom navigation buttons
   const handlePrev = () => {
-    console.log("Previous button clicked");
     if (swiperInstance) {
-      console.log("Swiper instance:", swiperInstance);
       swiperInstance.slidePrev();
     }
   };
 
   const handleNext = () => {
-    console.log("Next button clicked");
     if (swiperInstance) {
-      console.log("Swiper instance:", swiperInstance);
       swiperInstance.slideNext();
     }
   };
@@ -79,7 +76,7 @@ const Home = () => {
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
-        height: '900px'
+        minHeight: '100vh',  // Use minHeight to ensure the container covers the screen height
       }}
     >
       <Header />
@@ -90,13 +87,13 @@ const Home = () => {
           <>
             <button
               onClick={handlePrev}
-              className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full z-10"
+              className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full z-10 slide-btn"
             >
               &lt;
             </button>
             <button
               onClick={handleNext}
-              className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full z-10"
+              className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full z-10 slide-btn"
             >
               &gt;
             </button>
@@ -117,13 +114,13 @@ const Home = () => {
             <p className="font-semibold text-white mt-2">Price: <span className="!text-white font-extralight"> {activeItem?.priceRange}</span></p>
             <p className="font-semibold text-white">Unit Size: <span className="!text-white font-extralight">{activeItem?.size}</span></p>
             <p className="font-semibold text-white">Config: <span className="!text-white font-extralight">{activeItem?.configuration}</span></p>
-            <button className="px-4 py-2 mt-4 bg-yellow-500 text-white rounded">
-              View
+            <button className="px-7 py-2 mt-4 bg-[#046307] text-white rounded font-extralight flex justify-center items-center gap-2">
+              View <FaArrowRight />
             </button>
           </div>
         </div>
 
-        <div className="lg:w-[60%] relative">
+        <div className="lg:w-[60%] w-full relative">  {/* Ensure full width on smaller screens */}
           <Swiper
             modules={[Navigation, Pagination, Scrollbar, A11y]}
             spaceBetween={12}
@@ -131,7 +128,29 @@ const Home = () => {
             loop={shouldShowButtons} // Enable loop only if there are more than 1 slide
             onSwiper={(swiper) => {
               setSwiperInstance(swiper);
-              console.log("Swiper instance:", swiper); // Debugging log
+            }}
+            breakpoints={{
+              0: {
+                slidesPerView: 1,
+              },
+              640: {
+                slidesPerView: 2,
+              },
+              700:{
+                slidesPerView:2.5,
+              },
+              900:{
+                slidesPerView: 3,
+              },
+              1030:{
+                slidesPerView:2,
+              },
+              1300: {
+                slidesPerView: 2.8,
+              },
+              1650: {
+                slidesPerView: 3.8,
+              },
             }}
             onSlideChange={(swiper) => setSlideIndex(swiper.realIndex)}
           >
