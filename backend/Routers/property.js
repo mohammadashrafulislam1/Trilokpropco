@@ -19,4 +19,5 @@ propertyRouter.delete('/:id/galleryImage', deleteGalleryImage)
 // delete Bank Image:
 propertyRouter.delete('/:id/bankImage', deleteBankImage)
 
-propertyRouter.get('/', searchProperty)
+// Search Property (this should have a different route to avoid conflict)
+propertyRouter.get('/search', searchProperty);

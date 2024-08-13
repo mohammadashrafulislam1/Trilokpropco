@@ -1,4 +1,6 @@
+import mongoose from 'mongoose'
 import { PropertyModel } from "../Models/PropertiesModel.js";
+
 
 // post property controller:
 export const addProperty = async (req, res) => {
@@ -142,20 +144,26 @@ export const deleteBankImage = async (req, res) => {
 // 
 export const searchProperty = async (req, res) => {
     const { type, city, status } = req.query;
-  try{
-    
-    // Example filtering logic
-    const filters = {};
-    if (type) filters.type = type;
-    if (city) filters.city = city;
-    if (status) filters.status = status;
-  
-    const properties = await PropertyModel.find(filters); 
-    res.status(200).json(properties);
-  }
 
-    catch (e) {
+    console.log("Received query params:", { type, city, status });
+
+    try {
+        const filters = {};
+
+        // If type, city, or status are provided, convert them to ObjectId
+        if (type) filters.type = mongoose.Types.ObjectId(type);
+        if (city) filters.city = mongoose.Types.ObjectId(city);
+        if (status) filters.status = mongoose.Types.ObjectId(status);
+
+        console.log("Filters applied:", filters);
+
+        const properties = await PropertyModel.find(filters).populate('type city status');
+
+        console.log("Properties found:", properties);
+
+        res.status(200).json(properties);
+    } catch (e) {
         console.log(e.message);
         res.status(500).json({ message: "Internal Server Error." });
     }
-  }
+};
