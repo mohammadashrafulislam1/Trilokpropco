@@ -141,29 +141,30 @@ export const deleteBankImage = async (req, res) => {
         res.status(500).json({ message: "Internal Server Error." });
     }
 };
+
 // 
+
 export const searchProperty = async (req, res) => {
     const { type, city, status } = req.query;
 
-    console.log("Received query params:", { type, city, status });
 
     try {
         const filters = {};
 
-        // If type, city, or status are provided, convert them to ObjectId
-        if (type) filters.type = mongoose.Types.ObjectId(type);
-        if (city) filters.city = mongoose.Types.ObjectId(city);
-        if (status) filters.status = mongoose.Types.ObjectId(status);
+        if (type) filters.type = type;
+        if (city) filters.location = city; // 'location' refers to 'city' model
+        if (status) filters.status = status;
 
-        console.log("Filters applied:", filters);
-
-        const properties = await PropertyModel.find(filters).populate('type city status');
+        const properties = await PropertyModel.find(filters)
+            .populate('type')
+            .populate('location') 
+            .populate('status')   
 
         console.log("Properties found:", properties);
 
         res.status(200).json(properties);
     } catch (e) {
-        console.log(e.message);
+        console.error("Error in searchProperty:", e.message);
         res.status(500).json({ message: "Internal Server Error." });
     }
 };

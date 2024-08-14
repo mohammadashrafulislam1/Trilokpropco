@@ -4,6 +4,9 @@ import { addProperty, deleteProperty, getProperty, updateProperty, deleteGallery
 export const propertyRouter = express.Router();
 
 
+// Search Property (this should have a different route to avoid conflict)
+propertyRouter.get('/search', searchProperty);
+
 // POST Property:
 propertyRouter.post('/', addProperty);
 // GET Property:
@@ -18,6 +21,3 @@ propertyRouter.delete('/:id', deleteProperty)
 propertyRouter.delete('/:id/galleryImage', deleteGalleryImage)
 // delete Bank Image:
 propertyRouter.delete('/:id/bankImage', deleteBankImage)
-
-// Search Property (this should have a different route to avoid conflict)
-propertyRouter.get('/search', searchProperty);
