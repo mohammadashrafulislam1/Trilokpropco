@@ -4,7 +4,7 @@ import SearchBar from "../Home/SearchBar";
 
 const Main = () => {
     return (
-        <div>
+        <div className="overflow-hidden">
             <Home />
             <SearchBar />
         </div>

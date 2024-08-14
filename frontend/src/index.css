@@ -72,3 +72,18 @@
         top:70%;
     }
 }
+
+@media (max-width: 450px) {
+    .search-bar{
+        background-size: cover;
+        width: 332px;
+        flex-wrap: wrap;
+        height:51px ;
+    }
+    .option{
+        width: 60px;
+    }
+    .slide-btn{
+        top:70%;
+    }
+}
