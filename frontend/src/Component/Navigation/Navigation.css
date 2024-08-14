@@ -18,7 +18,7 @@
  
   
   /* For Medium Screens */
-  @media (max-width: 1000px) {
+  @media (max-width: 1024px) {
     .nav-section {
       padding: 16px 20px 20px 20px;
       margin-bottom: 10px;
