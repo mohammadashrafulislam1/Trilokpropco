@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom"; // Assuming you're using React Router
 import { endPoint } from "../../../Component/ForAll/ForAll";
+import { GoSearch } from "react-icons/go";
 
 const SearchBar = () => {
   const [typeOptions, setTypeOptions] = useState([]);
@@ -48,29 +49,30 @@ const SearchBar = () => {
   };
 
   return (
-    <div>
-      <select value={selectedType} onChange={(e) => setSelectedType(e.target.value)}>
+    <div className="search-bar">
+      <select value={selectedType} onChange={(e) => setSelectedType(e.target.value)} className="lg:px-8 lg:py-2 text-[13px] px-1 py-2">
         <option value="">All Types</option>
         {typeOptions.map(type => (
           <option key={type._id} value={type._id}>{type.type}</option>
         ))}
       </select>
 
-      <select value={selectedCity} onChange={(e) => setSelectedCity(e.target.value)}>
+      <select value={selectedCity} onChange={(e) => setSelectedCity(e.target.value)} className=" lg:py-2 text-[13px] px-1 py-2">
         <option value="">All Cities</option>
         {cityOptions.map(city => (
           <option key={city._id} value={city._id}>{city.name}</option>
         ))}
       </select>
 
-      <select value={selectedStatus} onChange={(e) => setSelectedStatus(e.target.value)}>
+      <select value={selectedStatus} onChange={(e) => setSelectedStatus(e.target.value)} className="lg:px-1 lg:py-2 text-[13px] px-1 py-2">
         <option value="">All Statuses</option>
         {statusOptions.map(status => (
           <option key={status._id} value={status._id}>{status.status}</option>
         ))}
       </select>
 
-      <button onClick={handleSearch}>Search</button>
+      <button onClick={handleSearch} className="bg-[#046307] lg:px-6 lg:py-[10px] text-white font-light flex gap-2 items-center text-[13px] px-1 py-[9px] rounded">Search Now <span className="text-2lg" ><GoSearch/></span>
+</button>
     </div>
   );
 };

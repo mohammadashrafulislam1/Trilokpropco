@@ -21,7 +21,7 @@
   @media (max-width: 900px) {
     .nav-section {
       padding: 16px 20px 20px 20px;
-      
+      margin-bottom: 10px;
     }
     .logo {
       width: 60%;
@@ -40,7 +40,7 @@
       background-image: url("https://i.ibb.co/PwDbfG6/Rectangle-1-1.webp");
       background-size: cover;
       margin-top: 10px;
-      
+      margin-bottom: 10px;
     }
     .logo {
       width: 80%;

@@ -76,7 +76,7 @@ const Home = () => {
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
-        minHeight: '100vh',  // Use minHeight to ensure the container covers the screen height
+        height: '900px', 
       }}
     >
       <Header />
