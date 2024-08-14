@@ -36,11 +36,12 @@
     margin-bottom: 100px;
 }
 
-@media (max-width: 600px) {
+
+@media (max-width: 1000px) {
     .search-bar{
         background-size: cover;
-        width: 463px;
-        height: 71px ;
+        width: 618px;
+        height:95px ;
         gap: 5px;
         margin-top: -60px;
     }
@@ -49,13 +50,23 @@
     }
 }
 
-@media (max-width: 1100px) {
+
+@media (max-width: 650px) {
     .search-bar{
         background-size: cover;
-        width: 618px;
-        height:95px ;
-        gap: 5px;
-        margin-top: -60px;
+        width: 469px;
+        height:73px ;
+    }
+    .slide-btn{
+        top:70%;
+    }
+}
+
+@media (max-width: 650px) {
+    .search-bar{
+        background-size: cover;
+        width: 469px;
+        height:73px ;
     }
     .slide-btn{
         top:70%;

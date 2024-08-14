@@ -50,28 +50,28 @@ const SearchBar = () => {
 
   return (
     <div className="search-bar">
-      <select value={selectedType} onChange={(e) => setSelectedType(e.target.value)} className="lg:px-8 lg:py-2 text-[13px] px-1 py-2">
+      <select value={selectedType} onChange={(e) => setSelectedType(e.target.value)} className="lg:px-8 lg:py-3 md:text-[13px] text-[10px] md:px-1 md:py-2 rounded">
         <option value="">All Types</option>
         {typeOptions.map(type => (
           <option key={type._id} value={type._id}>{type.type}</option>
         ))}
       </select>
 
-      <select value={selectedCity} onChange={(e) => setSelectedCity(e.target.value)} className=" lg:py-2 text-[13px] px-1 py-2">
+      <select value={selectedCity} onChange={(e) => setSelectedCity(e.target.value)} className=" lg:py-3 md:text-[13px] text-[10px] md:px-1 md:py-2 lg:px-2 rounded">
         <option value="">All Cities</option>
         {cityOptions.map(city => (
           <option key={city._id} value={city._id}>{city.name}</option>
         ))}
       </select>
 
-      <select value={selectedStatus} onChange={(e) => setSelectedStatus(e.target.value)} className="lg:px-1 lg:py-2 text-[13px] px-1 py-2">
+      <select value={selectedStatus} onChange={(e) => setSelectedStatus(e.target.value)} className="lg:px-3 lg:py-3 md:text-[13px] text-[10px] md:px-1 md:py-2 rounded">
         <option value="">All Statuses</option>
         {statusOptions.map(status => (
           <option key={status._id} value={status._id}>{status.status}</option>
         ))}
       </select>
 
-      <button onClick={handleSearch} className="bg-[#046307] lg:px-6 lg:py-[10px] text-white font-light flex gap-2 items-center text-[13px] px-1 py-[9px] rounded">Search Now <span className="text-2lg" ><GoSearch/></span>
+      <button onClick={handleSearch} className="bg-[#046307] lg:px-7 lg:py-3 text-white font-light flex gap-2 items-center md:text-[13px] text-[10px] md:px-1 md:py-[9px] rounded py-1 px-1">Search Now <span className="text-2lg" ><GoSearch/></span>
 </button>
     </div>
   );
