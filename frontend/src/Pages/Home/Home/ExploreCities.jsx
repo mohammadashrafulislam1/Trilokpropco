@@ -85,7 +85,7 @@ const ExploreCities = () => {
             </div>
 
             {visibleCount < cities.length && (
-                <button onClick={handleViewMore} className="mt-12 px-12 p-3 bg-[#046307] text-white rounded flex justify-center text-xl font-normal mx-auto">
+                <button onClick={handleViewMore} className="mt-12 lg:px-16 p-3 px-6 bg-[#046307] text-white rounded flex justify-center text-xl font-normal mx-auto">
                     View More
                 </button>
             )}

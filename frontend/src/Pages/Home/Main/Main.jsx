@@ -2,6 +2,7 @@
 import ExploreCities from "../Home/ExploreCities";
 import Home from "../Home/Home";
 import Partners from "../Home/Partners";
+import PropertyTypes from "../Home/PropertyTypes";
 import SearchBar from "../Home/SearchBar";
 
 const Main = () => {
@@ -11,6 +12,7 @@ const Main = () => {
             <SearchBar />
             <Partners />
             <ExploreCities />
+            <PropertyTypes />
         </div>
     );
 };
