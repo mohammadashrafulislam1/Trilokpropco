@@ -88,7 +88,7 @@ const PropertyTypes = () => {
       >
         {types?.map((type) => (
           <SwiperSlide key={type._id}>
-            <div className="flex flex-col justify-center items-center mb-10">
+            <div className="flex flex-col justify-center items-center mb-16">
             <div style={{
                 backgroundImage:'url(https://i.ibb.co/JqpB1St/Ellipse-1.webp)',
                 backgroundSize: 'auto',
