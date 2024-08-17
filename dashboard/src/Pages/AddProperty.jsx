@@ -75,7 +75,8 @@ const AddProperty = () => {
     video: "",
     for: "",
     created_at:"",
-    isFeatured:false
+    isFeatured:false,
+    exclusive:false
   });
 
   console.log(formData)
@@ -440,6 +441,7 @@ const AddProperty = () => {
           video: "",
           for: "",
           isFeatured: false,
+          exclusive:false,
           created_at:"",
         });
         setSelectedAmenities([]);
@@ -553,6 +555,24 @@ const handleRemoveAmenity = (amenityId) => {
               setFormData((prevState) =>({
                 ...prevState,
                 isFeatured: e.target.checked
+              }))
+            }
+            className="toggle toggle-primary"
+          />
+        </div>
+
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text">Exclusive</span>
+          </label>
+          <input
+            type="checkbox"
+            name="exclusive"
+            checked={formData.exclusive}
+            onChange={(e) => 
+              setFormData((prevState) =>({
+                ...prevState,
+                exclusive: e.target.checked
               }))
             }
             className="toggle toggle-primary"
