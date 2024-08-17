@@ -59,6 +59,7 @@ const propertySchema = new mongoose.Schema({
     video: { type: String, required: true },
     for: { type: String, required: true },
     isFeatured: { type: Boolean, default: false },
+    exclusive: { type: Boolean, default: false },
     created_at:{type: Date, default: Date.now}
   });
 
