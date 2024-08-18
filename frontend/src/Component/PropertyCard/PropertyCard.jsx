@@ -9,7 +9,9 @@ const PropertyCard = ({ property }) => {
     const [curentLocation, setCurentLocation] = useState(null);
     const [curentStatus, setCurentStatus] = useState(null);
     const [curentType, setCurentType] = useState(null);
-    console.log(curentType)
+    const [isInCompare, setIsInCompare] = useState(false);
+    const [isInFav, setIsInFav] = useState(false);
+
     useEffect(() => {
         const fetchLocation = async () => {
             const cityResponse = await fetch(`${endPoint}/city`);
@@ -18,9 +20,9 @@ const PropertyCard = ({ property }) => {
                 (city) => city._id === property?.location
             );
             setCurentLocation(locationData);
-            console.log(cityData, locationData);
         };
         fetchLocation();
+
         const fetchStatus = async () =>{
             const statusResponse = await fetch(`${endPoint}/status`);
             const statusData = await statusResponse.json();
@@ -40,8 +42,59 @@ const PropertyCard = ({ property }) => {
             setCurentType(type);
         };
         fetchType();
+
+        // Check if the property is already in the compare and favorite lists on component load
+        const compareList = JSON.parse(localStorage.getItem("compareList")) || [];
+        const favList = JSON.parse(localStorage.getItem("favList")) || [];
+        const isAlreadyInCompare = compareList.some(item => item._id === property._id);
+        const isAlreadyInFav = favList.some(item => item._id === property._id);
+        setIsInCompare(isAlreadyInCompare);
+        setIsInFav(isAlreadyInFav);
     }, [property]);
-   console.log(curentStatus)
+
+    const handleCompareClick = () => {
+        let compareList = JSON.parse(localStorage.getItem("compareList")) || [];
+    
+        if (isInCompare) {
+            // Remove the property from the compare list
+            compareList = compareList.filter(item => item._id !== property._id);
+        } else {
+            // Add the property to the compare list
+            compareList.push(property);
+        }
+    
+        // Update localStorage
+        localStorage.setItem("compareList", JSON.stringify(compareList));
+    
+        // Dispatch a custom event to notify header
+        window.dispatchEvent(new Event('compareListUpdated'));
+    
+        // Update the state
+        setIsInCompare(!isInCompare);
+    };
+    
+    const handleFavClick = () => {
+        let favList = JSON.parse(localStorage.getItem("favList")) || [];
+    
+        if (isInFav) {
+            // Remove the property from the favorite list
+            favList = favList.filter(item => item._id !== property._id);
+        } else {
+            // Add the property to the favorite list
+            favList.push(property);
+        }
+    
+        // Update localStorage
+        localStorage.setItem("favList", JSON.stringify(favList));
+    
+        // Dispatch a custom event to notify header
+        window.dispatchEvent(new Event('favListUpdated'));
+    
+        // Update the state
+        setIsInFav(!isInFav);
+    };
+    
+
     return (
         <div>
             <div>
@@ -64,16 +117,22 @@ const PropertyCard = ({ property }) => {
        <span className="font-normal text-[#046307]">{curentType?.type}</span></p>
 
        <div>
-         {/* Compare icon  */}
-         <div className="text-white text-[12px] lg:text-[25px] indicator border-white border-[3px] rounded-full p-1 lg:p-2 mr-3">
+         {/* Compare icon */}
+         <div
+           onClick={handleCompareClick}
+           className={`text-white text-[12px] lg:text-[25px] indicator border-white border-[3px] rounded-full p-1 lg:p-2 mr-3 cursor-pointer `}
+         >
           <span className="absolute bottom-[-10px] left-[-10px] badge bg-[#046307] text-white border-0 p-1">
             +
           </span>
           <IoGitCompareOutline className="font-[900] text-[16px]"/>
         </div>
 
-        {/* Fav icon  */}
-        <div className="text-white text-[12px] lg:text-[25px] indicator border-white border-[3px] rounded-full p-1 lg:p-2">
+        {/* Fav icon */}
+        <div
+          onClick={handleFavClick}
+          className={`text-white text-[12px] lg:text-[25px] indicator border-white border-[3px] rounded-full p-1 lg:p-2 cursor-pointer`}
+        >
         <span className="absolute bottom-[-10px] left-[-10px] badge bg-[#046307] text-white border-0 p-1">
             +
           </span>

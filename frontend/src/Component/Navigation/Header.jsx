@@ -1,8 +1,11 @@
 import { FaRegHeart } from "react-icons/fa6";
 import "./Navigation.css";
 import { IoGitCompareOutline, IoMenu } from "react-icons/io5";
+import { useEffect, useState } from "react";
 
 const Header = () => {
+  const [compareCount, setCompareCount] = useState()
+  const [favCount, setFavCount] = useState()
   const menuLiMobile = (
     <ul
       tabIndex={0}
@@ -42,6 +45,37 @@ const Header = () => {
     </ul>
   );
 
+  useEffect(() => {
+    // Get counts from localStorage on component load
+    const compareList = JSON.parse(localStorage?.getItem("compareList")) || [];
+    const favList = JSON.parse(localStorage?.getItem("favList")) || [];
+  
+    // Set counts
+    setCompareCount(compareList?.length);
+    setFavCount(favList?.length);
+  
+    // Listen for custom events to update counts
+    const handleCompareListUpdate = () => {
+      const updatedCompareList = JSON.parse(localStorage.getItem("compareList")) || [];
+      setCompareCount(updatedCompareList.length);
+    };
+  
+    const handleFavListUpdate = () => {
+      const updatedFavList = JSON.parse(localStorage.getItem("favList")) || [];
+      setFavCount(updatedFavList.length);
+    };
+  
+    window.addEventListener('compareListUpdated', handleCompareListUpdate);
+    window.addEventListener('favListUpdated', handleFavListUpdate);
+  
+    // Cleanup listeners on component unmount
+    return () => {
+      window.removeEventListener('compareListUpdated', handleCompareListUpdate);
+      window.removeEventListener('favListUpdated', handleFavListUpdate);
+    };
+  }, []);
+  
+
   return (
     <div className="nav-section navbar">
      
@@ -70,7 +104,7 @@ const Header = () => {
         {/* Compare icon  */}
         <div className="text-white text-[12px] lg:text-[25px] indicator border border-white rounded-full p-1 lg:p-2 mr-3">
           <span className="indicator-item badge bg-[#046307] text-white border-0">
-            0
+           {compareCount || 0 }
           </span>
           <IoGitCompareOutline />
         </div>
@@ -78,7 +112,7 @@ const Header = () => {
         {/* Fav icon  */}
         <div className="text-white text-[12px] lg:text-[25px] indicator border border-white rounded-full p-1 lg:p-2">
           <span className="indicator-item badge bg-[#046307] text-white border-0">
-            0
+          {favCount || 0 }
           </span>
           <FaRegHeart />
         </div>
