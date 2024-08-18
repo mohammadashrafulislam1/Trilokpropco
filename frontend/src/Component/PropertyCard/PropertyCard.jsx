@@ -35,8 +35,14 @@ const PropertyCard = ({ property }) => {
                 <img
                     src={property?.galleryImages[0]}
                     alt={property?.name}
-                    className="h-[330px] rounded-[30px] mt-12"
+                    className="h-[330px] rounded-[30px] mt-12 relative"
                 />
+                {property?.exclusive && (
+                    <div className="bg-gradient-to-r from-[#E7C578] to-[#C19554]  h-[33px] flex items-center justify-center rounded-r-[10px] absolute top-[15%] text-white font-normal uppercase px-3 text-[19px] Bebas-Neue"
+                    style={{
+                        letterSpacing:'1px',
+                      }}>Exclusive</div>
+                )}
             </div>
             <div className="mt-6 text-black">
                 <h3 className="text-[26px] font-semibold !mb-0">₹ {property?.priceRange}</h3>
