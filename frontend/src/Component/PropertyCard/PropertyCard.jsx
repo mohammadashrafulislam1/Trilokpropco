@@ -2,11 +2,14 @@ import { useEffect, useState } from "react";
 import { endPoint } from "../ForAll/ForAll";
 import { SlLocationPin } from "react-icons/sl";
 import { FcDataConfiguration } from "react-icons/fc";
+import { IoGitCompareOutline } from "react-icons/io5";
+import { FaRegHeart } from "react-icons/fa6";
 
 const PropertyCard = ({ property }) => {
     const [curentLocation, setCurentLocation] = useState(null);
     const [curentStatus, setCurentStatus] = useState(null);
-
+    const [curentType, setCurentType] = useState(null);
+    console.log(curentType)
     useEffect(() => {
         const fetchLocation = async () => {
             const cityResponse = await fetch(`${endPoint}/city`);
@@ -26,7 +29,17 @@ const PropertyCard = ({ property }) => {
             );
             setCurentStatus(status);
         }
-        fetchStatus()
+        fetchStatus();
+
+        const fetchType = async () => {
+            const typeResponse = await fetch(`${endPoint}/type`);
+            const typeData = await typeResponse.json();
+            const type = typeData.find(
+                (type) => type._id === property?.type
+            );
+            setCurentType(type);
+        };
+        fetchType();
     }, [property]);
    console.log(curentStatus)
     return (
@@ -37,12 +50,38 @@ const PropertyCard = ({ property }) => {
                     alt={property?.name}
                     className="h-[330px] rounded-[30px] mt-12 relative"
                 />
+                 
                 {property?.exclusive && (
-                    <div className="bg-gradient-to-r from-[#E7C578] to-[#C19554]  h-[33px] flex items-center justify-center rounded-r-[10px] absolute top-[15%] text-white font-normal uppercase px-3 text-[19px] Bebas-Neue"
+                    <div className="bg-gradient-to-r from-[#E7C578] to-[#C19554]  h-[30px] flex items-center justify-center rounded-r-[10px] absolute top-[15%] text-white font-normal uppercase px-3 text-[19px] Bebas-Neue pt-1"
                     style={{
                         letterSpacing:'1px',
                       }}>Exclusive</div>
                 )}
+       <div className="absolute top-[60%] flex px-5 justify-between w-full">
+        
+       <p className="text-[#ffffff] flex items-center gap-2 bg-[#dfdfdfbe] px-4 rounded-full">
+       <img src={curentType?.logo} alt={curentType?.type} className="w-[20px] h-[20px]" />
+       <span className="font-normal text-[#046307]">{curentType?.type}</span></p>
+
+       <div>
+         {/* Compare icon  */}
+         <div className="text-white text-[12px] lg:text-[25px] indicator border-white border-[3px] rounded-full p-1 lg:p-2 mr-3">
+          <span className="absolute bottom-[-10px] left-[-10px] badge bg-[#046307] text-white border-0 p-1">
+            +
+          </span>
+          <IoGitCompareOutline className="font-[900] text-[16px]"/>
+        </div>
+
+        {/* Fav icon  */}
+        <div className="text-white text-[12px] lg:text-[25px] indicator border-white border-[3px] rounded-full p-1 lg:p-2">
+        <span className="absolute bottom-[-10px] left-[-10px] badge bg-[#046307] text-white border-0 p-1">
+            +
+          </span>
+          <FaRegHeart className="font-[900] text-[16px]" />
+        </div>
+       </div>
+       </div>
+         
             </div>
             <div className="mt-6 text-black">
                 <h3 className="text-[26px] font-semibold !mb-0">₹ {property?.priceRange}</h3>

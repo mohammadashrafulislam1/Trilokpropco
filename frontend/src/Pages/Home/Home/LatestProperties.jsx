@@ -34,7 +34,7 @@ const LatestProperties = () => {
     }, []);
 
     return (
-        <div className="mt-4 mb-16 lg:ml-24">
+        <div className="mt-4 mb-16 lg:ml-24 lg:mx-0 mx-5">
             <SectionTitle value="our Latest properties" />
 
             <Swiper
@@ -47,34 +47,34 @@ const LatestProperties = () => {
                         slidesPerView: 1,
                     },
                     350: {
-                        slidesPerView: 1.6,
+                        slidesPerView: 1,
                     },
                     430: {
-                        slidesPerView: 1.8,
+                        slidesPerView: 1,
                     },
                     490: {
-                        slidesPerView: 2,
+                        slidesPerView: 1,
                     },
                     550: {
-                        slidesPerView: 2.2,
+                        slidesPerView: 1.5,
                     },
                     640: {
-                        slidesPerView: 2.6,
+                        slidesPerView: 1.6,
                     },
                     700: {
-                        slidesPerView: 2.8,
+                        slidesPerView: 2,
                     },
                     900: {
-                        slidesPerView: 3.7,
+                        slidesPerView: 2.5,
                     },
                     1000: {
-                        slidesPerView: 3.3,
+                        slidesPerView: 2.8,
                     },
                     1300: {
                         slidesPerView: 3.5,
                     },
                     1700: {
-                        slidesPerView: 7.5,
+                        slidesPerView: 4.5,
                     },
                 }}
                 modules={[Pagination]}
