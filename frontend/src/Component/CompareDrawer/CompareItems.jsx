@@ -1,89 +1,105 @@
 import { useEffect, useState } from "react";
 import { endPoint } from "../ForAll/ForAll";
 
-const CompareItems = (item) => {
-    const {list} = item;
+const CompareItems = ({ list }) => {
+ 
+
+  return (
+      
+        <table className="table-auto w-full text-left border-collapse border border-gray-300 rounded-lg">
+          <thead className="rounded-lg">
+            <tr className="border-b bg-gray-200 rounded-lg">
+              <th className="p-4 border border-gray-300">Side</th>
+              <th className="p-4 border border-gray-300">Details</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td className="p-4 font-bold border border-gray-300">Image</td>
+              <td className="p-4 border border-gray-300">
+                <img
+                  src={list?.galleryImages[0]}
+                  alt={list?.name}
+                  className="w-[150px] h-[150px] object-cover rounded-md"
+                />
+              </td>
+              
+            </tr>
+            <tr>
+            <td className="p-4 font-bold border border-gray-300">Title</td>
+            <td className="p-4 border border-gray-300">{list?.name}</td>
+            </tr>
+            <tr>
+              <td className="p-4 font-bold border border-gray-300">Price</td>
+              <td className="p-4 border border-gray-300" colSpan="2">
+                ₹ {list?.priceRange}
+              </td>
+            </tr>
+            <tr>
+              <td className="p-4 font-bold border border-gray-300">Size</td>
+              <td className="p-4 border border-gray-300" colSpan="2">
+                {list?.size}
+              </td>
+            </tr>
+            <tr>
+              <td className="p-4 font-bold border border-gray-300">Configuration</td>
+              <td className="p-4 border border-gray-300" colSpan="2">
+                {list?.configuration}
+              </td>
+            </tr>
+            <tr>
+              <td className="p-4 font-bold border border-gray-300">Location</td>
+              <td className="p-4 border border-gray-300" colSpan="2">
+                {curentLocation?.name}
+              </td>
+            </tr>
+            <tr>
+              <td className="p-4 font-bold border border-gray-300">Type</td>
+              <td className="p-4 border border-gray-300" colSpan="2">
+                {curentType?.type}
+              </td>
+            </tr>
+            <tr>
+              <td className="p-4 font-bold border border-gray-300">Status</td>
+              <td className="p-4 border border-gray-300" colSpan="2">
+                {curentStatus?.status}
+              </td>
+            </tr>
+            <tr>
+              <td className="p-4 font-bold border border-gray-300">Developer</td>
+              <td className="p-4 border border-gray-300" colSpan="2">
+                {curentDeveloper?.name}
+              </td>
+            </tr>
+            <tr>
+              <td className="p-4 font-bold border border-gray-300">Land Area</td>
+              <td className="p-4 border border-gray-300" colSpan="2">
+                {list?.projectOverview?.landArea}
+              </td>
+            </tr>
+            <tr>
+              <td className="p-4 font-bold border border-gray-300">Flat Area</td>
+              <td className="p-4 border border-gray-300" colSpan="2">
+                {list?.projectOverview?.flatArea}
+              </td>
+            </tr>
+            <tr>
+              <td className="p-4 font-bold border border-gray-300">Number of Blocks</td>
+              <td className="p-4 border border-gray-300" colSpan="2">
+                {list?.projectOverview?.numberOfBlocks}
+              </td>
+            </tr>
+            <tr>
+              <td className="p-4 font-bold border border-gray-300">Number of Units</td>
+              <td className="p-4 border border-gray-300" colSpan="2">
+                {list?.projectOverview?.numberOfUnits}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+     
     
-    const [curentLocation, setCurentLocation] = useState(null);
-    const [curentDeveloper, setCurentDeveloper] = useState(null);
-    const [curentStatus, setCurentStatus] = useState(null);
-    const [curentType, setCurentType] = useState(null);
-    const [isInCompare, setIsInCompare] = useState(false);
-    const [isInFav, setIsInFav] = useState(false);
-
-    console.log(list)
-    useEffect(() => {
-        const fetchLocation = async () => {
-            const cityResponse = await fetch(`${endPoint}/city`);
-            const cityData = await cityResponse.json();
-            const locationData = cityData.find(
-                (city) => city._id === list?.location
-            );
-            setCurentLocation(locationData);
-        };
-        fetchLocation();
-
-        const fetchStatus = async () =>{
-            const statusResponse = await fetch(`${endPoint}/status`);
-            const statusData = await statusResponse.json();
-            const status = statusData.find(
-                (status) => status._id === list?.status
-            );
-            setCurentStatus(status);
-        }
-        fetchStatus();
-
-        const fetchType = async () => {
-            const typeResponse = await fetch(`${endPoint}/type`);
-            const typeData = await typeResponse.json();
-            const type = typeData.find(
-                (type) => type._id === list?.type
-            );
-            setCurentType(type);
-        };
-        fetchType();
-        const fetchDeveloper = async () => {
-            const developerResponse = await fetch(`${endPoint}/developer`);
-            const developerData = await developerResponse.json();
-            const developer = developerData.find(
-                (developer) => developer._id === list?.developer
-            );
-            setCurentDeveloper(developer);
-        };
-        fetchDeveloper();
-
-
-        // Check if the property is already in the compare and favorite lists on component load
-        const compareList = JSON.parse(localStorage.getItem("compareList")) || [];
-        const favList = JSON.parse(localStorage.getItem("favList")) || [];
-        const isAlreadyInCompare = compareList.some(item => item._id === list._id);
-        const isAlreadyInFav = favList.some(item => item._id === list._id);
-        setIsInCompare(isAlreadyInCompare);
-        setIsInFav(isAlreadyInFav);
-    }, [list]);
-    return (
-    <div>
-       <div>
-                <div>
-                    <img src={list?.galleryImages[0]} alt={list?.name} />
-                </div>
-                <div>
-                    <h2>Title: {list?.name}</h2>
-                    <p>Price: {list?.priceRange}</p>
-                    <p>Size: {list?.size}</p>
-                    <p>Config: {list?.configuration}</p>
-                    <p>Location: {curentLocation?.name}</p>
-                    <p>Type: {curentType?.type}</p>
-                    <p>Status: {curentStatus?.status}</p>
-                    <p>Developer: {curentDeveloper?.name}</p>
-                    <p>LandArea: {list?.projectOverview.landArea}</p>
-                    <p>FlatArea: {list?.projectOverview.flatArea}</p>
-                    <p>NumberOfBlocks: {list?.projectOverview.numberOfBlocks}</p>
-                    <p>NumberOfUnits: {list?.projectOverview.numberOfUnits}</p>
-                </div>
-            </div>     
-    </div>
-    );
+  );
 };
 
 export default CompareItems;
