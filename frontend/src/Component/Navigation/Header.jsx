@@ -3,6 +3,7 @@ import "./Navigation.css";
 import { IoGitCompareOutline, IoMenu } from "react-icons/io5";
 import { useEffect, useState } from "react";
 import CompareDrawer from "../CompareDrawer/CompareDrawer";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const [compareCount, setCompareCount] = useState()
@@ -112,12 +113,13 @@ const Header = () => {
           <IoGitCompareOutline />
         </div>
 
+        <Link to="/favourite">
         <div className="text-white text-[12px] lg:text-[25px] indicator border border-white rounded-full p-1 lg:p-2">
           <span className="indicator-item badge bg-[#046307] text-white border-0">
             {favCount || 0}
           </span>
           <FaRegHeart />
-        </div>
+        </div></Link>
       </div>
 
       {/* Compare Drawer */}

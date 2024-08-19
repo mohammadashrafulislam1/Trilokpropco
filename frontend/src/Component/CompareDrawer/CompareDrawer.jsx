@@ -36,7 +36,7 @@ const CompareDrawer = ({ isVisible, onClose }) => {
          </div>
         )}
         {compareList.length > 1 && (
-          <Link to='compare'>
+          <Link to='/compare'>
             <button className="w-full mt-4 bg-[#046307] text-white py-2 rounded-lg">
             Compare
           </button>

@@ -54,92 +54,85 @@ const CompareLists = () => {
   return (
     <div>
       <Header />
-      <div className="overflow-x-auto mx-4 lg:mx-20">
-        <table className="table-auto border-1 w-full">
-          <thead>
+      <div className="overflow-x-auto mx-4 lg:mx-20 !rounded-[25px]">
+        <table className="table-auto border w-full !rounded-[25px]">
+            <caption className="text-3xl mb-5 font-semibold">Compare Properties</caption>
+          <tbody className="!rounded-[25px]">
             <tr className="border">
-              <th className="p-4 text-left">Property Details</th>
-              {detailedCompareLists?.map((item, index) => (
-                <th key={index} className="p-4 text-left">Property {index + 1}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            <tr className="border">
-              <td className="p-4 font-bold">Image</td>
+              <td className="p-4 font-bold"></td>
               {detailedCompareLists?.map((item, index) => (
                 <td key={index} className="p-4">
                   <img src={item?.galleryImages[0]} alt={item?.name} className=" object-cover rounded-md" />
                 </td>
               ))}
             </tr>
-            <tr className="border">
+            <tr className="border hover:bg-[#046307] hover:text-white">
               <td className="p-4 font-bold">Title</td>
               {detailedCompareLists?.map((item, index) => (
                 <td key={index} className="p-4">{item?.name}</td>
               ))}
             </tr>
-            <tr className="border">
+            <tr className="border hover:bg-[#046307] hover:text-white">
               <td className="p-4 font-bold">Price</td>
               {detailedCompareLists?.map((item, index) => (
                 <td key={index} className="p-4">₹ {item?.priceRange}</td>
               ))}
             </tr>
-            <tr className="border">
+            <tr className="border hover:bg-[#046307] hover:text-white">
               <td className="p-4 font-bold">Size</td>
               {detailedCompareLists?.map((item, index) => (
                 <td key={index} className="p-4">{item?.size}</td>
               ))}
             </tr>
-            <tr className="border">
+            <tr className="border hover:bg-[#046307] hover:text-white">
               <td className="p-4 font-bold">Configuration</td>
               {detailedCompareLists?.map((item, index) => (
                 <td key={index} className="p-4">{item?.configuration}</td>
               ))}
             </tr>
-            <tr className="border">
+            <tr className="border hover:bg-[#046307] hover:text-white">
               <td className="p-4 font-bold">Location</td>
               {detailedCompareLists?.map((item, index) => (
                 <td key={index} className="p-4">{item?.curentLocation?.name}</td>
               ))}
             </tr>
-            <tr className="border">
+            <tr className="border hover:bg-[#046307] hover:text-white">
               <td className="p-4 font-bold">Type</td>
               {detailedCompareLists?.map((item, index) => (
                 <td key={index} className="p-4">{item?.curentType?.type}</td>
               ))}
             </tr>
-            <tr className="border">
+            <tr className="border hover:bg-[#046307] hover:text-white">
               <td className="p-4 font-bold">Status</td>
               {detailedCompareLists?.map((item, index) => (
                 <td key={index} className="p-4">{item?.curentStatus?.status}</td>
               ))}
             </tr>
-            <tr className="border">
+            <tr className="border hover:bg-[#046307] hover:text-white">
               <td className="p-4 font-bold">Developer</td>
               {detailedCompareLists?.map((item, index) => (
                 <td key={index} className="p-4">{item?.curentDeveloper?.name}</td>
               ))}
             </tr>
-            <tr className="border">
+            <tr className="border hover:bg-[#046307] hover:text-white">
               <td className="p-4 font-bold">Land Area</td>
               {detailedCompareLists?.map((item, index) => (
                 <td key={index} className="p-4">{item?.projectOverview?.landArea}</td>
               ))}
             </tr>
-            <tr className="border">
+            <tr className="border hover:bg-[#046307] hover:text-white">
               <td className="p-4 font-bold">Flat Area</td>
               {detailedCompareLists?.map((item, index) => (
                 <td key={index} className="p-4">{item?.projectOverview?.flatArea}</td>
               ))}
             </tr>
-            <tr className="border">
+            <tr className="border hover:bg-[#046307] hover:text-white">
               <td className="p-4 font-bold">Number of Blocks</td>
               {detailedCompareLists?.map((item, index) => (
                 <td key={index} className="p-4">{item?.projectOverview?.numberOfBlocks}</td>
               ))}
             </tr>
-            <tr className="border">
+            <tr className="border hover:bg-[#046307] hover:text-white">
               <td className="p-4 font-bold">Number of Units</td>
               {detailedCompareLists?.map((item, index) => (
                 <td key={index} className="p-4">{item?.projectOverview?.numberOfUnits}</td>
