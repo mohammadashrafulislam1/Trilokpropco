@@ -2,10 +2,12 @@ import { FaRegHeart } from "react-icons/fa6";
 import "./Navigation.css";
 import { IoGitCompareOutline, IoMenu } from "react-icons/io5";
 import { useEffect, useState } from "react";
+import CompareDrawer from "../CompareDrawer/CompareDrawer";
 
 const Header = () => {
   const [compareCount, setCompareCount] = useState()
   const [favCount, setFavCount] = useState()
+  const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const menuLiMobile = (
     <ul
       tabIndex={0}
@@ -75,6 +77,9 @@ const Header = () => {
     };
   }, []);
   
+  const toggleDrawer = () => {
+    setIsDrawerVisible(!isDrawerVisible);
+  };
 
   return (
     <div className="nav-section navbar">
@@ -96,29 +101,27 @@ const Header = () => {
       </a>
      </div>
 
-      <nav className="navbar-center navbar-end">
-        <div className="hidden lg:flex text-white">{menuLiLarge}</div>
-      </nav>
-
-      <div className="flex items-center gap-4 navbar-end">
-        {/* Compare icon  */}
-        <div className="text-white text-[12px] lg:text-[25px] indicator border border-white rounded-full p-1 lg:p-2 mr-3">
+     <div className="flex items-center gap-4 navbar-end">
+        <div
+          onClick={toggleDrawer}  // Toggle the drawer visibility
+          className="text-white text-[12px] lg:text-[25px] indicator border border-white rounded-full p-1 lg:p-2 mr-3 cursor-pointer"
+        >
           <span className="indicator-item badge bg-[#046307] text-white border-0">
-           {compareCount || 0 }
+            {compareCount || 0}
           </span>
           <IoGitCompareOutline />
         </div>
 
-        {/* Fav icon  */}
         <div className="text-white text-[12px] lg:text-[25px] indicator border border-white rounded-full p-1 lg:p-2">
           <span className="indicator-item badge bg-[#046307] text-white border-0">
-          {favCount || 0 }
+            {favCount || 0}
           </span>
           <FaRegHeart />
         </div>
-
-        
       </div>
+
+      {/* Compare Drawer */}
+      <CompareDrawer isVisible={isDrawerVisible} onClose={toggleDrawer} />
     </div>
   );
 };

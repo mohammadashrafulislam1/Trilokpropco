@@ -59,6 +59,11 @@ const PropertyCard = ({ property }) => {
             // Remove the property from the compare list
             compareList = compareList.filter(item => item._id !== property._id);
         } else {
+            // Check if the compare list already has 4 properties
+            if (compareList.length >= 4) {
+                alert("You can only compare up to 4 properties.");
+                return;
+            }
             // Add the property to the compare list
             compareList.push(property);
         }
@@ -72,6 +77,7 @@ const PropertyCard = ({ property }) => {
         // Update the state
         setIsInCompare(!isInCompare);
     };
+    
     
     const handleFavClick = () => {
         let favList = JSON.parse(localStorage.getItem("favList")) || [];
