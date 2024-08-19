@@ -118,7 +118,15 @@ const PropertyCard = ({ property }) => {
 
        <div>
          {/* Compare icon */}
-         <div
+         {isInCompare ? <div
+           onClick={handleCompareClick}
+           className={`text-white text-[12px] lg:text-[25px] indicator border-white border-[3px] rounded-full p-1 lg:p-2 mr-3 cursor-pointer `}
+         >
+          <span className="absolute bottom-[-10px] left-[-10px] badge bg-[#ff0000] text-white border-0 p-1">
+            -
+          </span>
+          <IoGitCompareOutline className="font-[900] text-[16px]"/>
+        </div> : <div
            onClick={handleCompareClick}
            className={`text-white text-[12px] lg:text-[25px] indicator border-white border-[3px] rounded-full p-1 lg:p-2 mr-3 cursor-pointer `}
          >
@@ -126,10 +134,20 @@ const PropertyCard = ({ property }) => {
             +
           </span>
           <IoGitCompareOutline className="font-[900] text-[16px]"/>
-        </div>
+        </div>}
 
         {/* Fav icon */}
-        <div
+        {
+            isInFav? <div
+            onClick={handleFavClick}
+            className={`text-white text-[12px] lg:text-[25px] indicator border-white border-[3px] rounded-full p-1 lg:p-2 cursor-pointer`}
+          >
+          <span className="absolute bottom-[-10px] left-[-10px] badge bg-[#ff0000] text-white border-0 p-1">
+            -
+            </span>
+            <FaRegHeart className="font-[900] text-[16px]" />
+          </div> :
+          <div
           onClick={handleFavClick}
           className={`text-white text-[12px] lg:text-[25px] indicator border-white border-[3px] rounded-full p-1 lg:p-2 cursor-pointer`}
         >
@@ -138,6 +156,7 @@ const PropertyCard = ({ property }) => {
           </span>
           <FaRegHeart className="font-[900] text-[16px]" />
         </div>
+        }
        </div>
        </div>
          
