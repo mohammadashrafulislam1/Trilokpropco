@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Header from "../../Component/Navigation/Header";
 import { endPoint } from "../../Component/ForAll/ForAll";
+import { Helmet } from "react-helmet";
 
 const CompareLists = () => {
   const [compareLists, setCompareLists] = useState([]);
@@ -54,7 +55,11 @@ const CompareLists = () => {
   return (
     <div>
       <Header />
-      <div className="overflow-x-auto mx-4 lg:mx-20 !rounded-[25px]">
+      <Helmet>
+                <meta charSet="utf-8" />
+                <title>Compare Lists - Trilokpropco</title>
+      </Helmet>
+      <div className="overflow-x-auto mx-4 lg:mx-20 !rounded-[25px] mb-12">
         <table className="table-auto border w-full !rounded-[25px]">
             <caption className="text-3xl mb-5 font-semibold">Compare Properties</caption>
           <tbody className="!rounded-[25px]">

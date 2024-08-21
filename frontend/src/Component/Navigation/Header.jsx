@@ -102,6 +102,10 @@ const Header = () => {
       </a>
      </div>
 
+     <nav className="navbar-center navbar-end">
+        <div className="hidden lg:flex text-white">{menuLiLarge}</div>
+      </nav>
+
      <div className="flex items-center gap-4 navbar-end">
         <div
           onClick={toggleDrawer}  // Toggle the drawer visibility
