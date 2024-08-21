@@ -113,9 +113,9 @@ const PropertyListCard = (property) => {
 
     return (
         <Link>
-        <div className="flex gap-3 h-[210px] items-center rounded-2xl shadow-xl pr-1 hover:transform hover:translate-y-2 transition hover:shadow-2xl bg-white">
+        <div className="flex gap-3 h-[210px] items-center rounded-2xl shadow-xl pr-2 hover:transform hover:translate-y-2 transition md:hover:shadow-2xl bg-white hover:border-[#046307] hover:border-2 hover:h-[213px]">
             <div className="relative">
-                <img src={property?.property?.galleryImages[0]} alt="" className="h-[210px] w-[170px] rounded-l-2xl relative"/>
+                <img src={property?.property?.galleryImages[0]} alt="" className="  h-[210px] lg:w-[170px] w-[140px] rounded-l-2xl relative"/>
                 {property?.property?.exclusive && (
                     <div className="bg-[#046307]  h-[30px] flex items-center justify-center rounded-r-[10px] absolute top-[10%] text-white font-normal uppercase px-3 text-[17px] Bebas-Neue pt-1"
                     style={{
@@ -124,16 +124,16 @@ const PropertyListCard = (property) => {
                 )}
             </div>
         <div>
-                <h4 className="text-[20px] font-medium text-black mb-2"
+                <h4 className="lg:text-[20px] text-[18px] font-medium text-black lg:mb-2 mb-1"
                 style={{
                     lineHeight:'22px'
                 }}
                 >{property?.property?.name}</h4>
-                <h6 className="text-[14px] font-normal text-black mt-[-4px]">by {curentDeveloper?.name}</h6>
-                <p className="text-[14px] flex items-center gap-2"><SlLocationPin/> {curentLocation?.name}</p>
-                <h4 className="text-[20px] font-medium text-black mt-[-4px]">₹   {property?.property?.priceRange}</h4>
-                <p className="text-[14px]">{curentType?.type}</p>
-                <p className="text-[14px] flex items-center gap-2"><img src={curentStatus?.image} alt={curentStatus?.status} className="w-[16px] h-[16px]" /> <span>{curentStatus?.status}</span></p>
+                <h6 className="lg:text-[14px] text-[12px] font-normal text-black mt-[-4px]">by {curentDeveloper?.name}</h6>
+                <p className="lg:text-[14px] text-[12px] flex items-center gap-2"><SlLocationPin/> {curentLocation?.name}</p>
+                <h4 className="lg:text-[20px] text-[18px] font-medium text-black mt-[-4px]">₹   {property?.property?.priceRange}</h4>
+                <p className="lg:text-[14px] text-[12px]">{curentType?.type}</p>
+                <p className="lg:text-[14px] text-[12px] flex items-center gap-2"><img src={curentStatus?.image} alt={curentStatus?.status} className="w-[16px] h-[16px]" /> <span>{curentStatus?.status}</span></p>
             </div>
         </div>
         </Link>
