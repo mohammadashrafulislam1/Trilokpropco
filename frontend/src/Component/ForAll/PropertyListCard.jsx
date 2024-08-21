@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { endPoint } from "./ForAll";
 import { SlLocationPin } from "react-icons/sl";
+import { Link } from "react-router-dom";
 
 const PropertyListCard = (property) => {
     console.log(property.property)
@@ -111,18 +112,31 @@ const PropertyListCard = (property) => {
     
 
     return (
-        <div>
-            <div>
-                <img src={property?.property?.galleryImages[0]} alt="" />
+        <Link>
+        <div className="flex gap-3 h-[210px] items-center rounded-2xl shadow-xl pr-1 hover:transform hover:translate-y-2 transition hover:shadow-2xl bg-white">
+            <div className="relative">
+                <img src={property?.property?.galleryImages[0]} alt="" className="h-[210px] w-[170px] rounded-l-2xl relative"/>
+                {property?.property?.exclusive && (
+                    <div className="bg-[#046307]  h-[30px] flex items-center justify-center rounded-r-[10px] absolute top-[10%] text-white font-normal uppercase px-3 text-[17px] Bebas-Neue pt-1"
+                    style={{
+                        letterSpacing:'1px',
+                      }}>Exclusive</div>
+                )}
             </div>
-
-            <div>
-                <h4 className="text-[20px] font-semibold text-black mb-0">{property?.property?.name}</h4>
-                <h6 className="text-[16px] font-normal text-black mt-[-4px]">by {curentDeveloper?.name}</h6>
-                <p className="flex items-center gap-2"><SlLocationPin/> {curentLocation.name}</p>
-                <p className="text-[16px] font-normal text-black mt-[-4px]">₹   {property?.property?.priceRange}</p>
+        <div>
+                <h4 className="text-[20px] font-medium text-black mb-2"
+                style={{
+                    lineHeight:'22px'
+                }}
+                >{property?.property?.name}</h4>
+                <h6 className="text-[14px] font-normal text-black mt-[-4px]">by {curentDeveloper?.name}</h6>
+                <p className="text-[14px] flex items-center gap-2"><SlLocationPin/> {curentLocation?.name}</p>
+                <h4 className="text-[20px] font-medium text-black mt-[-4px]">₹   {property?.property?.priceRange}</h4>
+                <p className="text-[14px]">{curentType?.type}</p>
+                <p className="text-[14px] flex items-center gap-2"><img src={curentStatus?.image} alt={curentStatus?.status} className="w-[16px] h-[16px]" /> <span>{curentStatus?.status}</span></p>
             </div>
         </div>
+        </Link>
     );
 };
 

@@ -15,7 +15,7 @@ const FavLists = () => {
 
       console.log(favLists)
     return (
-    <div>
+    <div className="bg-[#e0e0e05d]">
       <div
       className="pt-5"
       style={{
@@ -35,11 +35,13 @@ const FavLists = () => {
       </div>
 
       {/* card */}
+      <div className="grid lg:grid-cols-3 gap-4 lg:mt-24 lg:mx-6 lg:pb-20">
       {
         favLists?.map((favlist, index) =>
          <PropertyListCard key={index} property={favlist}></PropertyListCard>
         )
       }
+      </div>
     </div>
     );
 };

@@ -15,7 +15,7 @@
     align-items: center;
 }
 .Bebas-Neue{
-    font-family: "Bebas Neue", sans-serif;
+    font-family: "Bebas Neue", sans-serif !important;
 }
 
 /* search bar */
