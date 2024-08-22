@@ -7,6 +7,8 @@ const CompareDrawer = ({ isVisible, onClose }) => {
 
   if (!isVisible) return null;
 
+  console.log(compareList)
+
   return (
     <div className="fixed top-0 right-0 z-50 w-[50%] md:w-1/3 h-full bg-white shadow-lg flex flex-col overflow-y-auto">
     <h3 className="text-lg font-semibold">Compare Properties</h3>
@@ -16,19 +18,19 @@ const CompareDrawer = ({ isVisible, onClose }) => {
       <div className="p-4justify-between items-center border-b">
       </div>
       <div className="p-4">
-        {compareList.length === 0 ? (
+        {compareList.length < 0 ? (
           <p>No properties to compare.</p>
         ) : (
          <div className="gap-2  grid lg:grid-cols-2 grid-cols-1 ">
-            { compareList.map((property, index) => (
+            { compareList?.map((property, index) => (
             <div key={index} className="mb-4">
               <img
-                src={property.galleryImages[0]}
-                alt={property.name}
+                src={property?.galleryImages[0] }
+                alt={property?.name}
                 className="w-full h-40 object-cover rounded-lg"
               />
               <div className="mt-2 flex justify-between items-center">
-                <h4 className="text-md font-semibold">{property.name}</h4>
+                <h4 className="text-md font-semibold">{property?.name}</h4>
                 {/* Add more property details as needed */}
               </div>
             </div>

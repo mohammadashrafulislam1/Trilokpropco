@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import { endPoint } from "./ForAll";
 import { SlLocationPin } from "react-icons/sl";
 import { Link } from "react-router-dom";
+import { IoGitCompareOutline } from "react-icons/io5";
+import { FaHeart, FaMinus, FaPlus, FaRegHeart } from "react-icons/fa6";
 
 const PropertyListCard = (property) => {
-    console.log(property.property)
     const [curentLocation, setCurentLocation] = useState(null);
     const [curentStatus, setCurentStatus] = useState(null);
     const [curentType, setCurentType] = useState(null);
@@ -56,8 +57,8 @@ const PropertyListCard = (property) => {
         // Check if the property is already in the compare and favorite lists on component load
         const compareList = JSON.parse(localStorage.getItem("compareList")) || [];
         const favList = JSON.parse(localStorage.getItem("favList")) || [];
-        const isAlreadyInCompare = compareList.some(item => item._id === property._id);
-        const isAlreadyInFav = favList.some(item => item._id === property._id);
+        const isAlreadyInCompare = compareList.some(item => item._id === property?.property?._id);
+        const isAlreadyInFav = favList.some(item => item._id === property?.property?._id);
         setIsInCompare(isAlreadyInCompare);
         setIsInFav(isAlreadyInFav);
     }, [property]);
@@ -67,7 +68,7 @@ const PropertyListCard = (property) => {
     
         if (isInCompare) {
             // Remove the property from the compare list
-            compareList = compareList.filter(item => item._id !== property._id);
+            compareList = compareList.filter(item => item._id !== property?.property?._id);
         } else {
             // Check if the compare list already has 4 properties
             if (compareList.length >= 4) {
@@ -75,9 +76,9 @@ const PropertyListCard = (property) => {
                 return;
             }
             // Add the property to the compare list
-            compareList.push(property);
+            compareList.push(property?.property);
         }
-    
+       console.log(compareList)
         // Update localStorage
         localStorage.setItem("compareList", JSON.stringify(compareList));
     
@@ -85,16 +86,14 @@ const PropertyListCard = (property) => {
         window.dispatchEvent(new Event('compareListUpdated'));
     
         // Update the state
-        setIsInCompare(!isInCompare);
-    };
-    
+        setIsInCompare(!isInCompare);}
     
     const handleFavClick = () => {
         let favList = JSON.parse(localStorage.getItem("favList")) || [];
     
         if (isInFav) {
             // Remove the property from the favorite list
-            favList = favList.filter(item => item._id !== property._id);
+            favList = favList.filter(item => item._id !== property?.property?._id);
         } else {
             // Add the property to the favorite list
             favList.push(property);
@@ -113,17 +112,52 @@ const PropertyListCard = (property) => {
 
     return (
         <Link>
-        <div className="flex gap-3 h-[210px] items-center rounded-2xl shadow-xl pr-2 hover:transform hover:translate-y-2 transition md:hover:shadow-2xl bg-white hover:border-[#046307] hover:border-2 hover:h-[213px]">
+        <div className="flex gap-3 h-[210px] items-center rounded-2xl shadow-xl pr-2 hover:transform hover:translate-y-2 transition md:hover:shadow-2xl bg-white hover:border-[#046307] hover:border-2 hover:h-[212px] w-full">
             <div className="relative">
-                <img src={property?.property?.galleryImages[0]} alt="" className="  h-[210px] lg:w-[170px] w-[140px] rounded-l-2xl relative"/>
+                <img src={property?.property?.galleryImages[0]} alt="" className="  h-[208px] lg:w-[170px] w-[140px] rounded-l-2xl relative object-cover object-center"/>
+
                 {property?.property?.exclusive && (
                     <div className="bg-[#046307]  h-[30px] flex items-center justify-center rounded-r-[10px] absolute top-[10%] text-white font-normal uppercase px-3 text-[17px] Bebas-Neue pt-1"
                     style={{
                         letterSpacing:'1px',
                       }}>Exclusive</div>
                 )}
+
+                
+        <div className="absolute bottom-[8%] right-[4%] flex gap-2">
+         {/* Compare icon */}
+         {isInCompare ? <div
+           onClick={handleCompareClick}
+           className={`text-[#046307] bg-white text-[12px] lg:text-[16px] indicator border-white border-[1px] rounded-full p-1 cursor-pointer`}
+         >
+          <FaMinus  className="font-[900] text-[15px]" />
+
+        </div> : <div
+           onClick={handleCompareClick}
+           className={`text-[#046307] bg-white text-[12px] lg:text-[16px] indicator border-white border-[1px] rounded-full p-1 cursor-pointer`}
+         >
+          <FaPlus  className="font-[900] text-[15px]"/>
+        </div>}
+
+        {/* Fav icon */}
+        {
+            isInFav? <div
+            onClick={handleFavClick}
+            className={`text-[#046307] bg-white text-[12px] lg:text-[16px] indicator border-white border-[1px] rounded-full p-1 cursor-pointer`}
+          >
+            <FaHeart className="font-[900] text-[15px]" />
+          </div> :
+          <div
+          onClick={handleFavClick}
+          className={`text-[#046307] text-[12px] lg:text-[16px] indicator border-white border-[1px] rounded-full p-1 cursor-pointer`}
+        >
+          <FaRegHeart className="font-[900] text-[15px]" />
+        </div>
+        }
+       </div>
             </div>
-        <div>
+            
+        <div className="relative">
                 <h4 className="lg:text-[20px] text-[18px] font-medium text-black lg:mb-2 mb-1"
                 style={{
                     lineHeight:'22px'
@@ -132,8 +166,9 @@ const PropertyListCard = (property) => {
                 <h6 className="lg:text-[14px] text-[12px] font-normal text-black mt-[-4px]">by {curentDeveloper?.name}</h6>
                 <p className="lg:text-[14px] text-[12px] flex items-center gap-2"><SlLocationPin/> {curentLocation?.name}</p>
                 <h4 className="lg:text-[20px] text-[18px] font-medium text-black mt-[-4px]">₹   {property?.property?.priceRange}</h4>
-                <p className="lg:text-[14px] text-[12px]">{curentType?.type}</p>
+                <p className="lg:text-[14px] text-[12px] flex items-center gap-2"><img src={curentType?.logo} alt={curentType?.type} className="w-[16px] h-[16px]" /> <span>{curentType?.type}</span></p>
                 <p className="lg:text-[14px] text-[12px] flex items-center gap-2"><img src={curentStatus?.image} alt={curentStatus?.status} className="w-[16px] h-[16px]" /> <span>{curentStatus?.status}</span></p>
+                
             </div>
         </div>
         </Link>
