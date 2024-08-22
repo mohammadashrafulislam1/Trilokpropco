@@ -1,6 +1,7 @@
 
 import ExploreCities from "../Home/ExploreCities";
 import Home from "../Home/Home";
+import Info from "../Home/Info";
 import LatestProperties from "../Home/LatestProperties";
 import Partners from "../Home/Partners";
 import PropertyTypes from "../Home/PropertyTypes";
@@ -15,6 +16,7 @@ const Main = () => {
             <ExploreCities />
             <PropertyTypes />
             <LatestProperties />
+            <Info />
         </div>
     );
 };
