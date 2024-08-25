@@ -12,13 +12,13 @@ const PropertyListCard = (property) => {
     const [curentDeveloper, setCurentDeveloper] = useState(null);
     const [isInCompare, setIsInCompare] = useState(false);
     const [isInFav, setIsInFav] = useState(false);
-
+   console.log(property)
     useEffect(() => {
         const fetchLocation = async () => {
             const cityResponse = await fetch(`${endPoint}/city`);
             const cityData = await cityResponse.json();
             const locationData = cityData.find(
-                (city) => city._id === property?.property?.location
+                (city) => city._id === property?.property?.location || property?.property?.location?._id
             );
             setCurentLocation(locationData);
         };
@@ -28,7 +28,7 @@ const PropertyListCard = (property) => {
             const statusResponse = await fetch(`${endPoint}/status`);
             const statusData = await statusResponse.json();
             const status = statusData.find(
-                (status) => status._id === property?.property?.status
+                (status) => status._id === property?.property?.status || property?.property?.status?._id
             );
             setCurentStatus(status);
         }
@@ -38,7 +38,7 @@ const PropertyListCard = (property) => {
             const typeResponse = await fetch(`${endPoint}/type`);
             const typeData = await typeResponse.json();
             const type = typeData.find(
-                (type) => type._id === property?.property?.type
+                (type) => type._id === property?.property?.type || property?.property?.type?._id
             );
             setCurentType(type);
         };
@@ -48,7 +48,7 @@ const PropertyListCard = (property) => {
             const developerResponse = await fetch(`${endPoint}/developer`);
             const developerData = await developerResponse.json();
             const developer = developerData.find(
-                (developer) => developer._id === property?.property?.developer
+                (developer) => developer._id === property?.property?.developer || property?.property?.developer?._id
             );
             setCurentDeveloper(developer);
         };
@@ -149,7 +149,7 @@ const PropertyListCard = (property) => {
           </div> :
           <div
           onClick={handleFavClick}
-          className={`text-[#046307] text-[12px] lg:text-[16px] indicator border-white border-[1px] rounded-full p-1 cursor-pointer`}
+          className={`text-[#046307] text-[12px] lg:text-[16px] indicator border-white border-[1px] bg-white  rounded-full p-1 cursor-pointer`}
         >
           <FaRegHeart className="font-[900] text-[15px]" />
         </div>
@@ -166,7 +166,7 @@ const PropertyListCard = (property) => {
                 <h6 className="lg:text-[14px] text-[12px] font-normal text-black mt-[-4px]">by {curentDeveloper?.name}</h6>
                 <p className="lg:text-[14px] text-[12px] flex items-center gap-2"><SlLocationPin/> {curentLocation?.name}</p>
                 <h4 className="lg:text-[20px] text-[18px] font-medium text-black mt-[-4px]">₹   {property?.property?.priceRange}</h4>
-                <p className="lg:text-[14px] text-[12px] flex items-center gap-2"><img src={curentType?.logo} alt={curentType?.type} className="w-[16px] h-[16px]" /> <span>{curentType?.type}</span></p>
+                <p className="lg:text-[14px] text-[12px] flex items-center gap-2"><img src={property?.property?.type?.logo ||curentType?.logo} alt={property?.property?.type?.type ||curentType?.type} className="w-[16px] h-[16px]" /> <span>{property?.property?.type?.type ||curentType?.type}</span></p>
                 <p className="lg:text-[14px] text-[12px] flex items-center gap-2"><img src={curentStatus?.image} alt={curentStatus?.status} className="w-[16px] h-[16px]" /> <span>{curentStatus?.status}</span></p>
                 
             </div>

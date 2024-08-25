@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { endPoint } from "../../Component/ForAll/ForAll";
 import Header from "../../Component/Navigation/Header";
+import PropertyListCard from "../../Component/ForAll/PropertyListCard";
 
 const ResultsPage = () => {
     const [results, setResults] = useState([]);
@@ -51,17 +52,7 @@ const ResultsPage = () => {
                 ) : results.length > 0 ? (
                     <ul className=" list-inside list-none grid lg:grid-cols-3 md:grid-cols-2 lg:gap-4 md:gap-2">
                         {results.map(result => (
-                            <li key={result._id} className="mb-2 border rounded-lg">
-                                <img src={`${result?.galleryImages?.[0]}`} alt={result?.name} className="w-full mb-2 rounded-t-lg" />
-                                <div className="p-3">
-                                <h2 className="text-lg font-semibold">{result?.name}</h2>
-                                <p>Type: {result?.type?.type}</p>
-                                <p>City: {result?.location?.name}</p>
-                                <p>Status: {result?.status?.status}</p>
-                                <p className="text-green-500">View</p>
-                                </div>
-                                {/* Additional property details */}
-                            </li>
+                            <PropertyListCard key={result._id} property={result} />
                         ))}
                     </ul>
                 ) : (

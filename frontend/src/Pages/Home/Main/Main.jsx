@@ -2,6 +2,7 @@
 import ExploreCities from "../Home/ExploreCities";
 import Home from "../Home/Home";
 import Info from "../Home/Info";
+import LatestBlogs from "../Home/LatestBlogs";
 import LatestProperties from "../Home/LatestProperties";
 import Partners from "../Home/Partners";
 import PropertyTypes from "../Home/PropertyTypes";
@@ -17,6 +18,7 @@ const Main = () => {
             <PropertyTypes />
             <LatestProperties />
             <Info />
+            <LatestBlogs />
         </div>
     );
 };
