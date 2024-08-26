@@ -7,6 +7,7 @@ import LatestProperties from "../Home/LatestProperties";
 import Partners from "../Home/Partners";
 import PropertyTypes from "../Home/PropertyTypes";
 import SearchBar from "../Home/SearchBar";
+import Testimonial from "../Home/Testimonial";
 
 const Main = () => {
     return (
@@ -19,6 +20,7 @@ const Main = () => {
             <LatestProperties />
             <Info />
             <LatestBlogs />
+            <Testimonial />
         </div>
     );
 };
