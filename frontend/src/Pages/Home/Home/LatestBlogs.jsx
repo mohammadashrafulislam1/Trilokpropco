@@ -2,6 +2,10 @@ import { useEffect, useState } from "react";
 import SectionTitle from "../../../Component/ForAll/SectionTitle";
 import { endPoint } from "../../../Component/ForAll/ForAll";
 import BlogCard from "../../../Component/BlogCard/BlogCard";
+import 'swiper/css/pagination';
+import { Swiper, SwiperSlide } from "swiper/react";
+// import required modules
+import { Pagination } from 'swiper/modules';
 
 const LatestBlogs = () => {
     const [blogs, setBlogs] = useState(null)
@@ -30,9 +34,55 @@ const LatestBlogs = () => {
     return (
     <div>
      <SectionTitle value="Latest Blogs & Posts" /> 
+     <Swiper
+                spaceBetween={10}
+                pagination={{
+                    clickable: true,
+                }}
+                breakpoints={{
+                    0: {
+                        slidesPerView: 1,
+                    },
+                    350: {
+                        slidesPerView: 1,
+                    },
+                    430: {
+                        slidesPerView: 1,
+                    },
+                    490: {
+                        slidesPerView: 1,
+                    },
+                    550: {
+                        slidesPerView: 1.5,
+                    },
+                    640: {
+                        slidesPerView: 1.6,
+                    },
+                    700: {
+                        slidesPerView: 2,
+                    },
+                    900: {
+                        slidesPerView: 2.5,
+                    },
+                    1000: {
+                        slidesPerView: 2.8,
+                    },
+                    1300: {
+                        slidesPerView: 3,
+                    },
+                    1700: {
+                        slidesPerView: 4.5,
+                    },
+                }}
+                modules={[Pagination]}
+                className="!flex !justify-center !gap-5 !mx-24 mt-10"
+            >
      {
-        blogs?.map(blog => <BlogCard key={blog._id} blog={blog}> </BlogCard>)
-     }      
+        blogs?.map(blog => 
+            <SwiperSlide key={blog._id} className="mb-10 !mr-12 !w-[340px]"><BlogCard blog={blog}> </BlogCard>
+            </SwiperSlide>)
+     } 
+          </Swiper>
     </div>
     );
 };

@@ -96,10 +96,12 @@ const PropertyListCard = (property) => {
             favList = favList.filter(item => item._id !== property?.property?._id);
         } else {
             // Add the property to the favorite list
-            favList.push(property);
+            favList.push(property?.property);
         }
     
+        console.log(favList)
         // Update localStorage
+        
         localStorage.setItem("favList", JSON.stringify(favList));
     
         // Dispatch a custom event to notify header
@@ -112,6 +114,7 @@ const PropertyListCard = (property) => {
 
     return (
         <Link>
+       {property &&
         <div className="flex gap-3 h-[210px] items-center rounded-2xl shadow-xl pr-2 hover:transform hover:translate-y-2 transition md:hover:shadow-2xl bg-white hover:border-[#046307] hover:border-2 hover:h-[212px] w-full">
             <div className="relative">
                 <img src={property?.property?.galleryImages[0]} alt="" className="  h-[208px] lg:w-[170px] w-[140px] rounded-l-2xl relative object-cover object-center"/>
@@ -171,7 +174,8 @@ const PropertyListCard = (property) => {
                 
             </div>
         </div>
-        </Link>
+       }
+       </Link>
     );
 };
 
