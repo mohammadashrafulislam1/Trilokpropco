@@ -34,7 +34,7 @@ const LatestProperties = () => {
     }, []);
 
     return (
-        <div className="mt-4 mb-16 lg:ml-24 lg:mx-0 mx-5">
+        <div className="mt-4 mb-24 lg:ml-24 lg:mx-0 mx-5">
             <SectionTitle value="our Latest properties" />
 
             <Swiper
