@@ -19,14 +19,15 @@ const Testimonial = () => {
      fetchTestimonial()
     },[])
     return (
-    <div className="my-24">
+    <div className="my-24 mx-10">
        <SectionTitle value="What Our Client Says" />
 
+       <div className="flex gap-3 mx-auto ">
        {
         testimonials?.map(testimonial =>
             <TestimonialCard key={testimonial._id} testimonial={testimonial} />
         )
-       }   
+       } </div>  
     </div>
     );
 };
