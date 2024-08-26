@@ -77,7 +77,21 @@
     box-sizing: border-box;
 }
 
-  
+/* custom styles for the swiper pagination bullets (blogs part only)  */
+.latest-properties-swiper .swiper-pagination-bullet{
+    background-color: rgb(68, 68, 68) !important;
+    width: 70px !important;
+    height: 5px !important;
+    border-radius: 10px !important;
+    margin-left: 15px !important; 
+    border: 0;
+}
+.latest-properties-swiper .swiper-pagination-bullet-active {
+    background-color: #000000 !important; 
+    border: 0;
+    height: 5px !important;
+    transform: rotate(0deg); 
+}
 
 @media (max-width: 1000px) {
     .search-bar{

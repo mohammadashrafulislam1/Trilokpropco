@@ -75,11 +75,11 @@ const LatestBlogs = () => {
                     },
                 }}
                 modules={[Pagination]}
-                className="!flex !justify-center !gap-5 !mx-24 mt-10"
+                className="!flex !justify-center !gap-5 !mx-24 mt-10 latest-properties-swiper "
             >
      {
         blogs?.map(blog => 
-            <SwiperSlide key={blog._id} className="mb-10 !mr-12 !w-[340px]"><BlogCard blog={blog}> </BlogCard>
+            <SwiperSlide key={blog._id} className="mb-20 !mr-12 !w-[340px]"><BlogCard blog={blog}> </BlogCard>
             </SwiperSlide>)
      } 
           </Swiper>
