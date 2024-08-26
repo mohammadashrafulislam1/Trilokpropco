@@ -27,7 +27,7 @@ const BlogCard = (blog) => {
         <img
           src={blog?.blog?.image}
           alt={blog?.blog?.title}
-          className="w-[340px] h-[240px] rounded-[30px] shadow-xl"
+          className="md:w-[340px] h-[240px] w-full rounded-[30px] shadow-xl"
         />
         <p
           className="bg-white px-3 top-0 left-8
@@ -37,13 +37,14 @@ const BlogCard = (blog) => {
           <span className="font-2xl">{month.toString()}</span>
         </p>
       </div>
-      <div>
-        <h3 className="text-2xl font-medium text-black mb-2">{blog?.blog?.title}</h3>
+      <div className="md:w-[340px]">
+        <div>
+        <h3 className="md:text-2xl text-[20px] font-medium text-black mb-2">{blog?.blog?.title}</h3>
             <p>{truncateText(stripHtmlTags(blog?.blog?.description), 10)}</p>
       </div>
       <div className="text-3xl bg-black text-white w-12 h-12 flex justify-center items-center rounded-full mt-8 ml-auto">
       <FiArrowRight />
-      </div>
+      </div></div>
     </div>
   );
 };
