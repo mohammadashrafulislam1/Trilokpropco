@@ -1,12 +1,28 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { MdOutlineAddHomeWork } from "react-icons/md";
 import { TbHomeSearch } from "react-icons/tb";
-import {endPoint} from '../../../Component/ForAll/ForAll.js'
+import { endPoint } from '../../../Component/ForAll/ForAll.js';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Contact = () => {
   const [selectedOption, setSelectedOption] = useState("sale");
+  const [loading, setLoading] = useState(false);
+  const [countryCodes, setCountryCodes] = useState([]);
+  const [selectedCountryCode, setSelectedCountryCode] = useState("+1"); // Default to US code
+
+  useEffect(() => {
+    fetch("https://restcountries.com/v3.1/all")
+      .then((response) => response.json())
+      .then((data) => {
+        const codes = data.map((country) => ({
+          name: country.name.common,
+          code: country.idd.root + (country.idd.suffixes ? country.idd.suffixes[0] : ""),
+        })).filter(c => c.code); // Filter out countries without a code
+        setCountryCodes(codes);
+      })
+      .catch((error) => console.error("Error fetching country codes:", error));
+  }, []);
 
   const handleOptionClick = (option) => {
     setSelectedOption(option);
@@ -14,15 +30,17 @@ const Contact = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
-    // POST request to "inquire" endpoint
+    setLoading(true);
+
     const formData = {
       option: selectedOption,
       name: e.target.name.value,
       email: e.target.email.value,
+      phone: `${selectedCountryCode} ${e.target.phone.value}`,
+      project: e.target.project.value,
       message: e.target.message.value,
     };
-    console.log(formData)
+
     fetch(`${endPoint}/inquire`, {
       method: "POST",
       headers: {
@@ -32,22 +50,22 @@ const Contact = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("Success:", data);
-        if(data){
-            toast.success("Successfully sent email to owner.")
+        if (data) {
+          toast.success("Successfully sent email to owner.");
         }
       })
       .catch((error) => {
         console.error("Error:", error);
-        if(error){
-            toast.success("Error sending email to owner.")
-        }
+        toast.error("Error sending email to owner.");
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
   return (
     <div className="my-10 md:flex justify-center w-full mx-auto items-center lg:px-10 gap-5 lg:gap-10 px-5">
-        <ToastContainer />
+      <ToastContainer />
       <div className="md:w-1/2">
         <h2 className="lg:text-6xl text-4xl font-semibold text-black">
           We help to buy and sell your properties.
@@ -123,9 +141,10 @@ const Contact = () => {
               className="border-b-[3px] bg-black p-3 focus:border-[#046307] border-[#ffffff68] w-full focus:text-white"
             />
           </div>
+
           <div>
             <div className="label mt-4">
-              <span className="label-text border-b-[1px] w-full border-[#ffffff68] text-white">
+              <span className="label-text text-white border-b-[1px] w-full border-[#ffffff68]">
                 Your email
               </span>
             </div>
@@ -133,12 +152,54 @@ const Contact = () => {
               type="email"
               name="email"
               placeholder="Type email here"
-              className="border-b-[3px] bg-black p-3 focus:border-[#046307] border-[#ffffff68] w-full focus:text-white "
+              className="border-b-[3px] bg-black p-3 focus:border-[#046307] border-[#ffffff68] w-full focus:text-white"
             />
           </div>
+
           <div>
             <div className="label mt-4">
-              <span className="label-text border-b-[1px] w-full border-[#ffffff68] text-white">
+              <span className="label-text text-white border-b-[1px] w-full border-[#ffffff68]">
+                Your phone
+              </span>
+            </div>
+            <div className="flex w-full">
+              <select
+                onChange={(e) => setSelectedCountryCode(e.target.value)}
+                value={selectedCountryCode}
+                className="bg-black border-b-[3px] border-[#ffffff68] w-1/4 focus:border-[#046307] p-3 text-white"
+              >
+                {countryCodes.map((country, index) => (
+                  <option key={index} value={country.code}>
+                    {country.name} ({country.code})
+                  </option>
+                ))}
+              </select>
+              <input
+                type="text"
+                name="phone"
+                placeholder="Type phone number"
+                className="border-b-[3px] bg-black p-3 focus:border-[#046307] border-[#ffffff68] focus:text-white w-3/4"
+              />
+            </div>
+          </div>
+
+          <div>
+            <div className="label mt-4">
+              <span className="label-text text-white border-b-[1px] w-full border-[#ffffff68]">
+                Your project
+              </span>
+            </div>
+            <input
+              type="text"
+              name="project"
+              placeholder="Type project name here"
+              className="border-b-[3px] bg-black p-3 focus:border-[#046307] border-[#ffffff68] w-full focus:text-white"
+            />
+          </div>
+
+          <div>
+            <div className="label mt-4">
+              <span className="label-text text-white border-b-[1px] w-full border-[#ffffff68]">
                 Your message
               </span>
             </div>
@@ -150,11 +211,13 @@ const Contact = () => {
             ></textarea>
           </div>
 
-          <input
+          <button
             type="submit"
-            value="Send message"
             className="btn bg-[#046307] border-0 text-white w-full rounded-full mt-6"
-          />
+            disabled={loading}
+          >
+            {loading ? "Sending..." : "Send message"}
+          </button>
         </form>
       </div>
     </div>
