@@ -2,6 +2,8 @@ import { useState } from "react";
 import { MdOutlineAddHomeWork } from "react-icons/md";
 import { TbHomeSearch } from "react-icons/tb";
 import {endPoint} from '../../../Component/ForAll/ForAll.js'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Contact = () => {
   const [selectedOption, setSelectedOption] = useState("sale");
@@ -31,14 +33,21 @@ const Contact = () => {
       .then((response) => response.json())
       .then((data) => {
         console.log("Success:", data);
+        if(data){
+            toast.success("Successfully sent email to owner.")
+        }
       })
       .catch((error) => {
         console.error("Error:", error);
+        if(error){
+            toast.success("Error sending email to owner.")
+        }
       });
   };
 
   return (
     <div className="my-10 md:flex justify-center w-full mx-auto items-center lg:px-10 gap-5 lg:gap-10 px-5">
+        <ToastContainer />
       <div className="md:w-1/2">
         <h2 className="lg:text-6xl text-4xl font-semibold text-black">
           We help to buy and sell your properties.
@@ -111,7 +120,7 @@ const Contact = () => {
               type="text"
               name="name"
               placeholder="Type name here"
-              className="border-b-[3px] bg-black p-3 focus:border-[#046307] border-[#ffffff68] w-full "
+              className="border-b-[3px] bg-black p-3 focus:border-[#046307] border-[#ffffff68] w-full focus:text-white"
             />
           </div>
           <div>
@@ -124,7 +133,7 @@ const Contact = () => {
               type="email"
               name="email"
               placeholder="Type email here"
-              className="border-b-[3px] bg-black p-3 focus:border-[#046307] border-[#ffffff68] w-full "
+              className="border-b-[3px] bg-black p-3 focus:border-[#046307] border-[#ffffff68] w-full focus:text-white "
             />
           </div>
           <div>
@@ -134,7 +143,7 @@ const Contact = () => {
               </span>
             </div>
             <textarea
-              className="border-[3px] bg-black p-3 focus:border-[#046307] border-[#ffffff68] text-area w-full mt-4 rounded-3xl"
+              className="border-[3px] bg-black p-3 focus:border-[#046307] border-[#ffffff68] text-area w-full mt-4 rounded-3xl focus:text-white"
               placeholder="What is in your mind?"
               rows={4}
               name="message"
