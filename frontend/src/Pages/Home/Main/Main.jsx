@@ -1,4 +1,5 @@
 
+import Contact from "../Home/Contact";
 import ExploreCities from "../Home/ExploreCities";
 import Home from "../Home/Home";
 import Info from "../Home/Info";
@@ -21,6 +22,7 @@ const Main = () => {
             <Info />
             <LatestBlogs />
             <Testimonial />
+            <Contact />
         </div>
     );
 };

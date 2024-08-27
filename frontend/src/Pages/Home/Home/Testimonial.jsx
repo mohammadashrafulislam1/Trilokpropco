@@ -63,7 +63,7 @@ const Testimonial = () => {
     };
 
     return (
-        <div className="my-24 mx-10">
+        <div className="my-24 md:mx-10 mx-2">
             <SectionTitle value="What Our Client Says" />
             <div className="relative">
                 <Swiper
@@ -72,13 +72,15 @@ const Testimonial = () => {
                     pagination={{
                         clickable: true,
                     }}
-                    slidesPerView={3}
                     initialSlide={1} // Set the second slide as the default
                     onSwiper={(swiper) => applySlideStyles(swiper)} // Apply styles on initial load
                     onSlideChange={handleSlideChange}
                     breakpoints={{
+                        0:{
+                            slidesPerView: 1,
+                        },
                         640: {
-                            slidesPerView: 1.5,
+                            slidesPerView: 1,
                         },
                         768: {
                             slidesPerView: 2,
