@@ -1,19 +1,54 @@
+import { useState } from "react";
 import { MdOutlineAddHomeWork } from "react-icons/md";
 import { TbHomeSearch } from "react-icons/tb";
+import {endPoint} from '../../../Component/ForAll/ForAll.js'
 
 const Contact = () => {
+  const [selectedOption, setSelectedOption] = useState("sale");
+
+  const handleOptionClick = (option) => {
+    setSelectedOption(option);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    
+    // POST request to "inquire" endpoint
+    const formData = {
+      option: selectedOption,
+      name: e.target.name.value,
+      email: e.target.email.value,
+      message: e.target.message.value,
+    };
+    console.log(formData)
+    fetch(`${endPoint}/inquire`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Success:", data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
+
   return (
-    <div className="my-10 flex justify-center w-full mx-auto items-center px-10">
-      <div className="w-1/2">
-        <h2 className="text-6xl font-semibold text-black">
+    <div className="my-10 md:flex justify-center w-full mx-auto items-center lg:px-10 gap-5 lg:gap-10 px-5">
+      <div className="md:w-1/2">
+        <h2 className="lg:text-6xl text-4xl font-semibold text-black">
           We help to buy and sell your properties.
         </h2>
         <div className="flex gap-3 items-center mt-8">
-          <TbHomeSearch className="text-6xl font-semibold text-[#046307]" />
+          <TbHomeSearch className="text-6xl font-semibold text-[#046307] md:text-8xl" />
           <div>
-            <h4 className="text-4xl font-semibold text-black">
+            <h5 className="md:text-3xl text-2xl font-semibold text-black">
               Looking for the new home?
-            </h4>
+            </h5>
             <p>
               10 new offers every day. 350 offers on-site, trusted by a
               community of thousands of users.
@@ -22,11 +57,11 @@ const Contact = () => {
         </div>
 
         <div className="flex gap-3 items-center mt-5">
-          <MdOutlineAddHomeWork className="text-6xl font-semibold text-[#046307]" />
+          <MdOutlineAddHomeWork className="text-6xl font-semibold text-[#046307] md:text-8xl" />
           <div>
-            <h4 className="text-4xl font-semibold text-black">
+            <h5 className="md:text-3xl text-2xl font-semibold text-black">
               Want to sell your home?
-            </h4>
+            </h5>
             <p>
               10 new offers every day. 350 offers on-site, trusted by a
               community of thousands of users.
@@ -35,23 +70,42 @@ const Contact = () => {
         </div>
       </div>
 
-      <div className="w-1/2">
-        <form className="bg-black p-10 rounded-[30px]">
-        <div className="label text-white">
-              <span className="label-text text-white text-xl">I'm interested in:</span>
-            </div>
-          <select
-            name="option"
-            id=""
-            className="select select-bordered w-full mt-4"
-          >
-            <option value="sale">Sale</option>
-            <option value="buy">Buy</option>
-          </select>
+      <div className="md:w-1/2 md:pt-0 pt-12">
+        <form onSubmit={handleSubmit} className="bg-black p-10 rounded-[30px]">
+          <div className="label text-white">
+            <span className="label-text text-white text-xl">I'm interested in:</span>
+          </div>
+          
+          <div className="flex gap-4 mt-4">
+            <button
+              type="button"
+              onClick={() => handleOptionClick("sale")}
+              className={`w-fit py-3 px-6 rounded-full ${
+                selectedOption === "sale"
+                  ? "bg-[#046307] text-white"
+                  : "bg-transparent border border-[#ffffff] text-[#ffffff]"
+              }`}
+            >
+              Sale
+            </button>
+            <button
+              type="button"
+              onClick={() => handleOptionClick("buy")}
+              className={`w-fit py-3 px-6 rounded-full ${
+                selectedOption === "buy"
+                  ? "bg-[#046307] text-white"
+                  : "bg-transparent border border-[#ffffff] text-[#ffffff]"
+              }`}
+            >
+              Buy
+            </button>
+          </div>
 
           <div>
             <div className="label mt-4">
-              <span className="label-text text-white border-b-[1px] w-full border-[#ffffff68]">Your name</span>
+              <span className="label-text text-white border-b-[1px] w-full border-[#ffffff68]">
+                Your name
+              </span>
             </div>
             <input
               type="text"
@@ -62,7 +116,9 @@ const Contact = () => {
           </div>
           <div>
             <div className="label mt-4">
-              <span className="label-text border-b-[1px] w-full border-[#ffffff68] text-white">Your email</span>
+              <span className="label-text border-b-[1px] w-full border-[#ffffff68] text-white">
+                Your email
+              </span>
             </div>
             <input
               type="email"
@@ -73,7 +129,9 @@ const Contact = () => {
           </div>
           <div>
             <div className="label mt-4">
-              <span className="label-text border-b-[1px] w-full border-[#ffffff68] text-white">Your message</span>
+              <span className="label-text border-b-[1px] w-full border-[#ffffff68] text-white">
+                Your message
+              </span>
             </div>
             <textarea
               className="border-[3px] bg-black p-3 focus:border-[#046307] border-[#ffffff68] text-area w-full mt-4 rounded-3xl"
@@ -83,7 +141,11 @@ const Contact = () => {
             ></textarea>
           </div>
 
-          <input type="submit" value="Send message" className="btn bg-[#046307] border-0 text-white w-full rounded-full mt-6" />
+          <input
+            type="submit"
+            value="Send message"
+            className="btn bg-[#046307] border-0 text-white w-full rounded-full mt-6"
+          />
         </form>
       </div>
     </div>
