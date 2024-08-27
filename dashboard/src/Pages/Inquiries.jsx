@@ -66,8 +66,9 @@ const Inquiries = () => {
             <tr>
               <th>No</th>
               <th>Name</th>
-              <th>message</th>
-              <th>time</th>
+              <th>Message</th>
+              <th>Project</th>
+              <th>Time</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -78,9 +79,10 @@ const Inquiries = () => {
                 <td>{index + 1}</td>
                 <td>
                   <div className="flex flex-col gap-3">
-                    <h1 className="font-bold">{inqurie.name}</h1>
+                    <h1 className="font-bold">{inqurie?.name}</h1>
                     <div>
-                      <p>{inqurie.email}</p>
+                      <p>{inqurie?.email}</p> 
+                      <p>{inqurie?.phone}</p>
                     </div>
                     <p className="bg-gray-200 p-2 text-center rounded-lg">{inqurie.option}</p>
                   </div>
@@ -88,6 +90,7 @@ const Inquiries = () => {
                 <td>
                 <div dangerouslySetInnerHTML={{ __html: inqurie.message }}></div>
                 </td>
+                <td>{inqurie? inqurie?.project: "None"}</td>
                 <td>
                     {inqurie?.created_at}
                 </td>
