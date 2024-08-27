@@ -136,6 +136,7 @@ const Contact = () => {
             </div>
             <input
               type="text"
+              required
               name="name"
               placeholder="Type name here"
               className="border-b-[3px] bg-black p-3 focus:border-[#046307] border-[#ffffff68] w-full focus:text-white"
@@ -150,6 +151,7 @@ const Contact = () => {
             </div>
             <input
               type="email"
+              required
               name="email"
               placeholder="Type email here"
               className="border-b-[3px] bg-black p-3 focus:border-[#046307] border-[#ffffff68] w-full focus:text-white"
