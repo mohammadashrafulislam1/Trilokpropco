@@ -179,6 +179,7 @@ const Contact = () => {
               <input
                 type="text"
                 name="phone"
+                required
                 placeholder="Type phone number"
                 className="border-b-[3px] bg-black p-3 focus:border-[#046307] border-[#ffffff68] focus:text-white w-3/4"
               />

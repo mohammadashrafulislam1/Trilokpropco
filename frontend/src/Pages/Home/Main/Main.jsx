@@ -1,4 +1,5 @@
 
+import Footer from "../../../Component/Navigation/Footer";
 import Contact from "../Home/Contact";
 import ExploreCities from "../Home/ExploreCities";
 import Home from "../Home/Home";
@@ -23,6 +24,7 @@ const Main = () => {
             <LatestBlogs />
             <Testimonial />
             <Contact />
+            <Footer />
         </div>
     );
 };
