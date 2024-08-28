@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { endPoint } from "../ForAll/ForAll";
-import { FaFacebook, FaInstagram, FaLinkedin, FaWhatsapp, FaX, FaXRay, FaYoutube } from "react-icons/fa6";
+import { FaFacebook, FaInstagram, FaLinkedin, FaPhone, FaRegEnvelope, FaWhatsapp, FaX, FaXRay, FaYoutube } from "react-icons/fa6";
 import { AiFillCaretRight } from "react-icons/ai";
 import { GoDotFill } from "react-icons/go";
+import { CiLocationOn } from "react-icons/ci";
 
 // https://i.ibb.co/dkBPKPz/footer-bg.webp
 const Footer = () => {
@@ -23,9 +24,15 @@ const Footer = () => {
         backgroundSize:'contain',
         opacity:'0.8',
         height:'400px',
-        display:'flex'
+        display:'flex',
+        width:'100%',
+        justifyContent:'center',
+        alignItems:'center',
+        paddingLeft:'40px',
+        paddingRight:'40px',
+        gap:'10px'
     }}>
-        <div className="w-1/4">
+        <div className="w-[30%]">
           <img src={footers?.image} alt="" className="w-[105px] h-[53px]"/>
           <p>{footers?.description}</p>
           <h6 className="text-xl font-semibold mt-4 text-black">Follow us</h6>
@@ -41,7 +48,8 @@ whatsapp}><div className="text-[#5B687C] bg-[#2a323c34] w-[32px] h-[32px] flex j
 youtube}><div className="text-[#5B687C] bg-[#2a323c34] w-[32px] h-[32px] flex justify-center items-center rounded-[4px] text-xl"><FaYoutube/></div></a>
            </div>
         </div>
-        <div className="w-1/4">
+        
+        <div className="w-[20%]">
         <h6 className="text-xl font-semibold mt-4 text-black mb-6">About Us</h6>
         <div className="flex gap-3 flex-col">
         <a href="">
@@ -56,12 +64,51 @@ youtube}><div className="text-[#5B687C] bg-[#2a323c34] w-[32px] h-[32px] flex ju
         </div>
         </div>
 
-        <div className="w-1/4">
+        <div className="w-[20%]">
+        <h6 className="text-xl font-semibold text-black mb-6">Support & Summary</h6>
 
+        <div className="flex gap-3 flex-col">
+        <a href=""><p>Helping Center</p></a>
+        <a href=""><p>Privacy & Policy</p></a>
+        <a href=""><p>Buy or Rent</p></a>
+        <a href=""><p>Properties</p></a>
+        <a href=""><p>Blogs</p></a>
+        </div>
         </div>
 
-        <div className="w-1/4">
-            
+        <div className="w-[30%]">
+        <h6 className="text-xl font-semibold mt-6 text-black mb-5">Contact Us</h6>
+        
+      <div className="flex gap-3 flex-col">
+        <div className="flex gap-3 items-center">
+        <div className="w-[10%]">  <div className="bg-[#2a323c34] w-[40px] h-[40px] flex items-center justify-center text-[20px] rounded-full"><FaRegEnvelope /></div></div>
+        <div>
+        <p className="text-[18px] text-black font-semibold">E-mail </p>
+        <a href="">
+        <p>{footers?.email}</p></a>
+        </div>
+        </div>
+        
+        <div className="flex gap-3 items-center">
+        <div className="w-[10%]"> <div className="bg-[#2a323c34] w-[40px] h-[40px] flex items-center justify-center text-[20px] rounded-full"><FaPhone /></div></div>
+        <div>
+        <p className="text-[18px] text-black font-semibold">Contact</p>
+        <a href="">
+        <p>{footers?.contact}</p></a>
+        </div>
+        </div>
+        
+        <div className="flex gap-3 items-center">
+        <div className="w-[10%]">
+        <div className="bg-[#2a323c34] !w-[40px] !h-[40px] flex items-center justify-center text-[20px] rounded-full"><CiLocationOn /></div>
+        </div>
+        <div>
+        <p className="text-[18px] text-black font-semibold">Location</p>
+        <a href="">
+        <p>{footers?.location}</p></a>
+        </div>
+        </div>
+        </div>
         </div>
     </div>
     );
