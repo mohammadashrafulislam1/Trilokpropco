@@ -24,11 +24,10 @@ const Footer = () => {
         backgroundSize:'contain',
         opacity:'0.8',
         width:'100%',
-        justifyContent:'center',
-        alignItems:'center',
         
-    }} className="md:flex md:gap-3 md:px-5 justify-center md:h-[400px] md:py-0 py-10 px-10">
-        <div className="md:w-[30%] w-full">
+    }}>
+       <div className="md:flex md:gap-3 md:px-5 justify-center md:h-[400px] md:py-0 py-10 px-10 items-center">
+       <div className="md:w-[30%] w-full">
           <img src={footers?.image} alt="" className="w-[105px] h-[53px]"/>
           <p>{footers?.description}</p>
           <h6 className="text-xl font-semibold mt-4 text-black">Follow us</h6>
@@ -106,6 +105,12 @@ youtube}><div className="text-[#5B687C] bg-[#2a323c34] w-[32px] h-[32px] flex ju
         </div>
         </div>
         </div>
+       </div>
+      <hr className="md:px-5"/>
+       <div className="md:flex md:gap-3 md:px-5 justify-between pb-5 md:py-0 py-3 px-10 items-center text-[16px]">
+        <a href=""><p>Copyright © 2022 Trilok. </p></a>
+        <a href="policy" className="mt-2"><p>Term Condition & Policy</p></a>
+       </div>
     </div>
     );
 };
