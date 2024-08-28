@@ -23,16 +23,12 @@ const Footer = () => {
         backgroundPosition:'center',
         backgroundSize:'contain',
         opacity:'0.8',
-        height:'400px',
-        display:'flex',
         width:'100%',
         justifyContent:'center',
         alignItems:'center',
-        paddingLeft:'40px',
-        paddingRight:'40px',
-        gap:'10px'
-    }}>
-        <div className="w-[30%]">
+        
+    }} className="md:flex md:gap-3 md:px-5 justify-center md:h-[400px] md:py-0 py-10 px-10">
+        <div className="md:w-[30%] w-full">
           <img src={footers?.image} alt="" className="w-[105px] h-[53px]"/>
           <p>{footers?.description}</p>
           <h6 className="text-xl font-semibold mt-4 text-black">Follow us</h6>
@@ -49,7 +45,7 @@ youtube}><div className="text-[#5B687C] bg-[#2a323c34] w-[32px] h-[32px] flex ju
            </div>
         </div>
         
-        <div className="w-[20%]">
+        <div className="md:w-[20%] w-full">
         <h6 className="text-xl font-semibold mt-4 text-black mb-6">About Us</h6>
         <div className="flex gap-3 flex-col">
         <a href="">
@@ -64,7 +60,7 @@ youtube}><div className="text-[#5B687C] bg-[#2a323c34] w-[32px] h-[32px] flex ju
         </div>
         </div>
 
-        <div className="w-[20%]">
+        <div className="md:w-[20%] w-full">
         <h6 className="text-xl font-semibold text-black mb-6">Support & Summary</h6>
 
         <div className="flex gap-3 flex-col">
@@ -76,7 +72,7 @@ youtube}><div className="text-[#5B687C] bg-[#2a323c34] w-[32px] h-[32px] flex ju
         </div>
         </div>
 
-        <div className="w-[30%]">
+        <div className="md:w-[30%] w-full">
         <h6 className="text-xl font-semibold mt-6 text-black mb-5">Contact Us</h6>
         
       <div className="flex gap-3 flex-col">
