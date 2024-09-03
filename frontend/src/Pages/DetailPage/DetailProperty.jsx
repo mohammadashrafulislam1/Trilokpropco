@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { endPoint } from "../../Component/ForAll/ForAll";
+import Header from "../../Component/Navigation/Header";
 
 const DetailProperty = () => {
     const {id} = useParams();
@@ -10,15 +11,16 @@ const DetailProperty = () => {
         const fetchProperty = async() =>{
          const response = await fetch(`${endPoint}/property/${id}`)
          const propertyData = await response.json();
-         console.log(propertyData)
+         setProperty(propertyData)
         }
         fetchProperty()
     },[id])
-    return (
-        <div>
+return (
+   <div>
+    <Header isDefault={false} />
             
-        </div>
-    );
+   </div>
+);
 };
 
 export default DetailProperty;
