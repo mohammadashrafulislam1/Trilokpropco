@@ -77,7 +77,7 @@ youtube}><div className="text-[#5B687C] bg-[#2a323c34] w-[32px] h-[32px] flex ju
       <div className="flex gap-3 flex-col">
         <div className="flex gap-3 items-center">
         <div className="w-[10%]">  <div className="bg-[#2a323c34] w-[40px] h-[40px] flex items-center justify-center text-[20px] rounded-full"><FaRegEnvelope /></div></div>
-        <div>
+        <div className="md:ml-2">
         <p className="text-[18px] text-black font-semibold">E-mail </p>
         <a href="">
         <p>{footers?.email}</p></a>
@@ -86,7 +86,7 @@ youtube}><div className="text-[#5B687C] bg-[#2a323c34] w-[32px] h-[32px] flex ju
         
         <div className="flex gap-3 items-center">
         <div className="w-[10%]"> <div className="bg-[#2a323c34] w-[40px] h-[40px] flex items-center justify-center text-[20px] rounded-full"><FaPhone /></div></div>
-        <div>
+        <div className="md:ml-2">
         <p className="text-[18px] text-black font-semibold">Contact</p>
         <a href="">
         <p>{footers?.contact}</p></a>
@@ -97,7 +97,7 @@ youtube}><div className="text-[#5B687C] bg-[#2a323c34] w-[32px] h-[32px] flex ju
         <div className="w-[10%]">
         <div className="bg-[#2a323c34] !w-[40px] !h-[40px] flex items-center justify-center text-[20px] rounded-full"><CiLocationOn /></div>
         </div>
-        <div>
+        <div className="md:ml-2">
         <p className="text-[18px] text-black font-semibold">Location</p>
         <a href="">
         <p>{footers?.location}</p></a>
