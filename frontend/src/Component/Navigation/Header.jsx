@@ -96,7 +96,8 @@ const Header = ({ isDefault = true }) => {
     margin: '0 auto',
     marginBottom: '90px',
     }:{
-    background:"#fff"
+    background:"#fff0",
+    marginBottom: '5px',
     }}
     >
       <div className="navbar-start">
@@ -125,7 +126,7 @@ const Header = ({ isDefault = true }) => {
       <div className="flex items-center gap-4 navbar-end">
         <div
           onClick={toggleDrawer}
-          className={`indicator border rounded-full p-1 lg:p-2 mr-3 cursor-pointer ${isDefault ? "text-white border-white" : "text-black"}`}
+          className={`indicator border rounded-full p-1 lg:p-2 mr-3 cursor-pointer ${isDefault ? "text-white border-white" : "text-black border-black"}`}
         >
           <span className="indicator-item badge bg-[#046307] text-white border-0">
             {compareCount || 0}
