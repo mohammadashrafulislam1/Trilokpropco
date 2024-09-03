@@ -113,7 +113,7 @@ const PropertyListCard = (property) => {
     
 
     return (
-        <Link>
+        <Link to={`/property/${property?.property?._id}`}>
        {property &&
         <div className="flex gap-3 h-[210px] items-center rounded-2xl shadow-xl pr-2 hover:transform hover:translate-y-2 transition md:hover:shadow-2xl bg-white hover:border-[#046307] hover:border-2 hover:h-[212px] w-full">
             <div className="relative">
