@@ -37,17 +37,18 @@ const DetailProperty = () => {
   };
 
   return (
-    <div>
+    <div className="mb-20">
       <Header isDefault={false} />
 
       {/* Custom Navigation Buttons */}
     <div
       style={{
-        backgroundImage: `url(${property?.galleryImages?.[activeIndex]})`,
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(${property?.galleryImages?.[activeIndex]})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
-        height: '600px',
+        height: '670px',
+        position:'relative'
       }}
     >
     <button
@@ -63,28 +64,28 @@ const DetailProperty = () => {
         <FaArrowRight size={20} />
       </button>
 
-      <div className="flex flex-col justify-center align-middle items-center relative">
-        <div className="lg:w-[80%] w-full relative mt-10">
+      <div>
+        <div className=" absolute bottom-12 !right-[-500px]">
           <Swiper
             modules={[Navigation, Pagination, Scrollbar, A11y]}
             spaceBetween={12}
-            slidesPerView={3}
+            slidesPerView={2}
             onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
             onSwiper={setSwiperInstance}
           >
             {property?.galleryImages?.map((image, index) => (
               <SwiperSlide
                 key={index}
-                className={`flex items-center justify-center gap-5 ${
-                  index === activeIndex ? "border-4 border-[#046307]" : ""
+                className={`!w-[160px] !h-[100px] flex items-center justify-center gap-5 ${
+                  index === activeIndex ? "border-[3px] border-[#046307] rounded-[10px] !h-[103px]" : "rounded-[10px] "
                 }`}
               >
                 <img
                   src={image}
                   alt={`Slide ${index}`}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover rounded-[10px]"
                   style={{
-                    opacity: index === activeIndex ? 1 : 0.5,
+                    opacity: index === activeIndex ? 1 : 0.9,
                     transition: 'opacity 0.5s ease',
                   }}
                 />

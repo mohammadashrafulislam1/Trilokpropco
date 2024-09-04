@@ -97,7 +97,9 @@ const Header = ({ isDefault = true }) => {
     marginBottom: '90px',
     }:{
     background:"#fff0",
-    marginBottom: '5px',
+    display: 'flex',
+    alignItems: 'center',
+    marginBottom: '0px',
     }}
     >
       <div className="navbar-start">
