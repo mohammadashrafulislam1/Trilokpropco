@@ -15,7 +15,9 @@ const DetailProperty = () => {
   const { id } = useParams();
   const [property, setProperty] = useState({});
   const [developer, setDeveloper] = useState({});
+  const [type, setType] = useState({});
   const [swiperInstance, setSwiperInstance] = useState(null);
+  const [isHovering, setIsHovering] = useState(true);
 
   useEffect(() => {
     const fetchProperty = async () => {
@@ -28,6 +30,12 @@ const DetailProperty = () => {
         const developerData = await developerResponse.json();
         const foundDeveloper = developerData.find(d => d._id === propertyData.developer);
         setDeveloper(foundDeveloper);
+      }
+      if(propertyData.type){
+        const typeResponse = await fetch(`${endPoint}/type`);
+        const typeData = await typeResponse.json();
+        const foundType = typeData.find(d => d._id === propertyData.type);
+        setType(foundType)
       }
     };
     fetchProperty();
@@ -68,6 +76,9 @@ const DetailProperty = () => {
     }
   };
 
+  const handleMouseEnter = () => setIsHovering(true);
+  const handleMouseLeave = () => setIsHovering(false);
+
   return (
     <div className="mb-20 overflow-hidden">
       <Header isDefault={false} />
@@ -83,13 +94,27 @@ const DetailProperty = () => {
           position: 'relative',
         }}
       >
-        <div className="flex">
+        <div className="flex items-center justify-between pt-3 px-8">
           <div className="flex gap-2 text-[#ffffff77] text-4xl">
-          <IoShareSocial />
             <FaRegHeart />
+            <IoShareSocial />
           </div>
-          <img src={developer.image} alt={developer.name} className="w-[70px] h-[70px] rounded-full opacity-10"/>
-
+         <div>
+         <img src={developer.image} alt={developer.name} className="w-[70px] h-[70px] rounded-full opacity-70"
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}/>
+          {isHovering && (
+    <div className="w-[500px] mt-2 p-4 bg-white text-black shadow-lg rounded-md z-10 absolute right-10">
+      <img
+        src={developer.image}
+        alt={developer.name}
+        className="w-[50px] h-[50px] rounded-full"
+      />
+      <h5 className="font-semibold text-lg">{developer.name}</h5>
+      <p>{developer.details}</p>
+    </div>
+    )} 
+         </div>
         </div>
         <button
           onClick={handlePrev}
@@ -106,17 +131,20 @@ const DetailProperty = () => {
           <FaAngleRight size={20} />
         </button>
 
-        <div className="absolute bottom-12 !right-[-500px]">
+        <div className="flex items-center justify-between mx-10">
+          <div className="flex gap-5 items-center  absolute bottom-14">
+            <img src={type?.logo} alt={type?.type} className="w-[50px] h-[50px] bg-[#fff] p-2"/>
+            <h5 className="text-2xl font-semibold text-white">{type?.type}</h5>
+          </div>
           <Swiper
             modules={[Navigation, Pagination, Scrollbar, A11y]}
             spaceBetween={12}
             slidesPerView={3.2}
-            pagination={{ clickable: true }}
             onSlideChange={(swiper) => {
               setActiveIndex(swiper.realIndex);
             }}
             onSwiper={setSwiperInstance}
-            className="swiper-container"
+            className="swiper-container !mr-0  !absolute !bottom-14 !right-[-450px]"
           >
             {property?.galleryImages?.map((image, index) => (
               <SwiperSlide
