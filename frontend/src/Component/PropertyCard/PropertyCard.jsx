@@ -4,6 +4,7 @@ import { SlLocationPin } from "react-icons/sl";
 import { FcDataConfiguration } from "react-icons/fc";
 import { IoGitCompareOutline } from "react-icons/io5";
 import { FaRegHeart } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 
 const PropertyCard = ({ property }) => {
     const [curentLocation, setCurentLocation] = useState(null);
@@ -100,9 +101,10 @@ const PropertyCard = ({ property }) => {
         setIsInFav(!isInFav);
     };
     
-
+    
     return (
         <div>
+            <Link to={`/property/${property?._id}`}>
             <div>
                 <img
                     src={property?.galleryImages[0]}
@@ -167,6 +169,8 @@ const PropertyCard = ({ property }) => {
        </div>
          
             </div>
+            </Link>
+            <Link to={`/property/${property?._id}`}>
             <div className="mt-6 text-black">
                 <h3 className="text-[26px] font-semibold !mb-0">₹ {property?.priceRange}</h3>
                 <h4 className="text-[20px] font-medium !mt-0">{property?.name}</h4>
@@ -179,7 +183,7 @@ const PropertyCard = ({ property }) => {
                     <img src={curentStatus?.image} alt={curentStatus?.status} className="w-[24px] h-[24px] font-bold"/> <span className="font-bold">{curentStatus?.status}</span>
                     </span>
                 </p>
-            </div>
+            </div></Link>
         </div>
     );
 };

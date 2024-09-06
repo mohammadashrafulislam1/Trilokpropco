@@ -8,6 +8,7 @@ import PropertyItem from "./PropertyItem";
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
 import Header from "../../../Component/Navigation/Header";
 import { FaArrowRight } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const [slideIndex, setSlideIndex] = useState(0);
@@ -114,9 +115,9 @@ const Home = () => {
             <p className="font-semibold text-white mt-2 lg:text-[18px] text-[12px] md:text-[16px]">Price: <span className="!text-white font-extralight"> {activeItem?.priceRange}</span></p>
             <p className="font-semibold text-white lg:text-[18px] text-[12px] md:text-[16px]">Unit Size: <span className="!text-white font-extralight">{activeItem?.size}</span></p>
             <p className="font-semibold text-white lg:text-[18px] text-[12px] md:text-[16px]">Config: <span className="!text-white font-extralight">{activeItem?.configuration}</span></p>
-            <button className="px-7 py-2 mt-4 bg-[#046307] text-white rounded font-extralight flex justify-center items-center gap-2">
+            <Link to={`/property/${activeItem?._id}`}> <button className="px-7 py-2 mt-4 bg-[#046307] text-white rounded font-extralight flex justify-center items-center gap-2">
               View <FaArrowRight />
-            </button>
+            </button></Link>
           </div>
         </div>
 
