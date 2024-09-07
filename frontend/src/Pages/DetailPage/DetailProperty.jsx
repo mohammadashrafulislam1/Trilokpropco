@@ -462,27 +462,53 @@ const DetailProperty = () => {
 
           {/* description section*/}
           <div>
-          <h2 className="text-3xl font-semibold text-black poppins mt-10 mb-6">
-          Description
+            <h2 className="text-3xl font-semibold text-black poppins mt-10 mb-6">
+              Description
             </h2>
-          <p className="text-[18px] text-black font-normal" dangerouslySetInnerHTML={{ __html:property?.description}}/>
+            <p
+              className="text-[18px] text-black font-normal"
+              dangerouslySetInnerHTML={{ __html: property?.description }}
+            />
           </div>
 
           {/* project video */}
           <div>
-            
-          <h2 className="text-3xl font-semibold text-black poppins mt-10 mb-6">
-          Video
+            <h2 className="text-3xl font-semibold text-black poppins mt-10 mb-6">
+              Video
             </h2>
-<iframe 
-  width="100%" 
-  height="450" 
-  src={property?.video} 
-  title={property?.title}
-  className="rounded-2xl"
-  allowfullscreen>
-</iframe>
+            <iframe
+              width="100%"
+              height="450"
+              src={property?.video}
+              title={property?.title}
+              className="rounded-2xl"
+              allowfullscreen
+            ></iframe>
           </div>
+          
+          {/* Price Table */}
+          <div>
+          <h2 className="text-3xl font-semibold text-black poppins mt-10 mb-6">
+              Price
+            </h2>
+            <table className="table text-center">
+              <tr className="bg-[#046307] text-white text-xl font-medium border-0">
+                <th className="border-[1px] border-[#ffffff35]">CONFIG.</th>
+                <th className="border-[1px] border-[#ffffff35]">SIZE</th>
+                <th className="border-[1px] border-[#ffffff35]">PRICE</th>
+              </tr>
+                {property?.priceDetails?.map(
+                  (pd) => (
+                    <tr key={pd._id} className="text-black font-normal text-[16px] border-[1px] border-[#00000035]">
+                      <td className="border-[1px] border-[#00000035]">{pd?.configuration}</td>
+                      <td className="border-[1px] border-[#00000035]">{pd?.size}</td>
+                      <td className="border-[1px] border-[#00000035]">{pd?.price}</td>
+                    </tr>
+                  )
+                )}
+            </table>
+          </div>
+
 
         </div>
 
