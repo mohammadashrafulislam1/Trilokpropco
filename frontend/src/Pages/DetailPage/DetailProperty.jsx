@@ -290,12 +290,12 @@ const DetailProperty = () => {
           <Swiper
             modules={[Navigation, Pagination, Scrollbar, A11y]}
             spaceBetween={12}
-            slidesPerView={3.2}
+            slidesPerView={2.9}
             onSlideChange={(swiper) => {
               setActiveIndex(swiper.realIndex);
             }}
             onSwiper={setSwiperInstance}
-            className="swiper-container !mr-0  !absolute md:!bottom-14 !bottom-32 !right-[-450px]"
+            className="swiper-container !mr-0  !absolute md:!bottom-14 !bottom-32 !right-[-250px]"
           >
             {property?.galleryImages?.map((image, index) => (
               <SwiperSlide
@@ -367,7 +367,38 @@ const DetailProperty = () => {
           </div>
 {/* project overview section */}
          <div>
-          <h2 className="text-3xl font-semibold text-black">Project Overview</h2>
+          <h2 className="text-3xl font-semibold text-black poppins">Project Overview</h2>
+          <div className="grid grid-cols-3 gap-3 mt-6">
+            <div className="text-center border py-4 px-3 rounded-lg">
+              <h3 className="text-2xl text-black font-medium uppercase">POSSESSION DATE</h3>
+              <p className="uppercase text-[18px] text-black font-light">{property?.projectOverview?.possessionStart}</p>
+            </div>
+
+            <div className="text-center border py-4 px-3 rounded-lg">
+              <h3 className="text-2xl text-black font-medium uppercase">POSSESSION DATE</h3>
+              <p className="uppercase text-[18px] text-black font-light">{property?.projectOverview?.possessionStart}</p>
+            </div>
+
+            <div className="text-center border py-4 px-3 rounded-lg">
+              <h3 className="text-2xl text-black font-medium uppercase">POSSESSION DATE</h3>
+              <p className="uppercase text-[18px] text-black font-light">{property?.projectOverview?.possessionStart}</p>
+            </div>
+
+            <div className="text-center border py-4 px-3 rounded-lg">
+              <h3 className="text-2xl text-black font-medium uppercase">POSSESSION DATE</h3>
+              <p className="uppercase text-[18px] text-black font-light">{property?.projectOverview?.possessionStart}</p>
+            </div>
+
+            <div className="text-center border py-4 px-3 rounded-lg">
+              <h3 className="text-2xl text-black font-medium uppercase">POSSESSION DATE</h3>
+              <p className="uppercase text-[18px] text-black font-light">{property?.projectOverview?.possessionStart}</p>
+            </div>
+
+            <div className="text-center border py-4 px-3 rounded-lg">
+              <h3 className="text-2xl text-black font-medium uppercase">POSSESSION DATE</h3>
+              <p className="uppercase text-[18px] text-black font-light">{property?.projectOverview?.possessionStart}</p>
+            </div>
+          </div>
          </div>
 
 
