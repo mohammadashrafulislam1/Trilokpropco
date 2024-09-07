@@ -29,13 +29,17 @@ const DetailProperty = () => {
   const [swiperInstance, setSwiperInstance] = useState(null);
   const [isHovering, setIsHovering] = useState(false);
   const [isInFav, setIsInFav] = useState(false);
+  const [selectedPlan, setSelectedPlan] = useState(null);
   console.log(property, status);
   useEffect(() => {
     const fetchProperty = async () => {
       const response = await fetch(`${endPoint}/property/${id}`);
       const propertyData = await response.json();
       setProperty(propertyData);
-
+// Set default selected plan
+if (propertyData.plans && propertyData.plans.length > 0) {
+  setSelectedPlan(propertyData.plans[0]); // Set the first plan as default
+}
       if (propertyData.developer) {
         const developerResponse = await fetch(`${endPoint}/developer`);
         const developerData = await developerResponse.json();
@@ -132,8 +136,7 @@ const DetailProperty = () => {
     // Update the state
     setIsInFav(!isInFav);
   };
-
-  const [selectedOption, setSelectedOption] = useState("sale");
+  
   const [loading, setLoading] = useState(false);
   const [countryCodes, setCountryCodes] = useState([]);
   const [selectedCountryCode, setSelectedCountryCode] = useState("+1"); // Default to US code
@@ -155,9 +158,6 @@ const DetailProperty = () => {
       .catch((error) => console.error("Error fetching country codes:", error));
   }, []);
 
-  const handleOptionClick = (option) => {
-    setSelectedOption(option);
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -192,6 +192,10 @@ const DetailProperty = () => {
       .finally(() => {
         setLoading(false);
       });
+  };
+  // Handle click on a planType button
+  const handlePlanClick = (plan) => {
+    setSelectedPlan(plan);
   };
   return (
     <div className="mb-20 overflow-hidden">
@@ -509,7 +513,41 @@ const DetailProperty = () => {
             </table>
           </div>
 
+          {/* Plans section */}
+          <div>
+          <h2 className="text-3xl font-semibold text-black poppins mt-10 mb-6">
+          Plans
+            </h2>
+            <div>
+        {property?.plans?.map((plan) => (
+          <button 
+            key={plan._id} 
+            onClick={() => handlePlanClick(plan)}
+            style={{
+              margin: '10px',
+              backgroundColor: selectedPlan?._id === plan._id ? '#000' : '#046307',
+              color: selectedPlan?._id === plan._id ? '#fff' : '#fff'
+            }}
+            className="btn btn-sm"
+          >
+            {plan?.planType}
+          </button>
+        ))}
+      </div>
 
+      {/* Display selected plan details */}
+      {selectedPlan && (
+        <div style={{ marginTop: '20px', border: '1px solid #ddd', padding: '20px' }}>
+          <h3>{selectedPlan?.planType}</h3>
+          {selectedPlan?.image && <img src={selectedPlan?.image} alt={selectedPlan?.planType} style={{ width: '100%', maxWidth: '400px' }} />}
+          <p><strong>Size:</strong> {selectedPlan?.size || 'N/A'}</p>
+          <p><strong>Price:</strong> {selectedPlan?.price || 'N/A'}</p>
+        </div>
+      )}
+
+
+          </div>
+          
         </div>
 
         {/* Form right side  */}
