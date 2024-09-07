@@ -285,7 +285,7 @@ const DetailProperty = () => {
               alt={type?.type}
               className="w-[50px] h-[50px] bg-[#fff] p-2"
             />
-            <h5 className="text-2xl font-semibold text-black">{type?.type}</h5>
+            <h5 className="text-2xl font-semibold text-white">{type?.type}</h5>
           </div>
           <Swiper
             modules={[Navigation, Pagination, Scrollbar, A11y]}
@@ -363,7 +363,7 @@ const DetailProperty = () => {
                 </span>
               </button>
             </div>
-            <h3 className="text-2xl flex gap-1 text-black">PRICE RANGE: <span className="flex gap-1 font-bold items-center"><FaIndianRupeeSign />{property?.priceRange}</span></h3>
+            <h3 className="text-2xl flex gap-1 text-black items-center">PRICE RANGE: <span className="flex gap-1 font-bold items-center"><FaIndianRupeeSign />{property?.priceRange}</span></h3>
           </div>
 {/* project overview section */}
          <div>
@@ -375,28 +375,50 @@ const DetailProperty = () => {
             </div>
 
             <div className="text-center border py-4 px-3 rounded-lg">
-              <h3 className="text-2xl text-black font-medium uppercase">POSSESSION DATE</h3>
-              <p className="uppercase text-[18px] text-black font-light">{property?.projectOverview?.possessionStart}</p>
+              <h3 className="text-2xl text-black font-medium uppercase">LAND AREA</h3>
+              <p className="uppercase text-[18px] text-black font-light">{property?.projectOverview?.landArea}</p>
             </div>
 
             <div className="text-center border py-4 px-3 rounded-lg">
-              <h3 className="text-2xl text-black font-medium uppercase">POSSESSION DATE</h3>
-              <p className="uppercase text-[18px] text-black font-light">{property?.projectOverview?.possessionStart}</p>
+              <h3 className="text-2xl text-black font-medium uppercase">CONFIGURATION</h3>
+              <p className="uppercase text-[18px] text-black font-light">{property?.projectOverview?.configuration}</p>
             </div>
 
             <div className="text-center border py-4 px-3 rounded-lg">
-              <h3 className="text-2xl text-black font-medium uppercase">POSSESSION DATE</h3>
-              <p className="uppercase text-[18px] text-black font-light">{property?.projectOverview?.possessionStart}</p>
+              <h3 className="text-2xl text-black font-medium uppercase">FLAT AREA</h3>
+              <p className="uppercase text-[18px] text-black font-light">{property?.projectOverview?.flatArea}</p>
             </div>
 
             <div className="text-center border py-4 px-3 rounded-lg">
-              <h3 className="text-2xl text-black font-medium uppercase">POSSESSION DATE</h3>
-              <p className="uppercase text-[18px] text-black font-light">{property?.projectOverview?.possessionStart}</p>
+              <h3 className="text-2xl text-black font-medium uppercase">PRICE RANGE</h3>
+              <p className="uppercase text-[18px] text-black font-light">{property?.projectOverview?.priceRange}</p>
             </div>
 
             <div className="text-center border py-4 px-3 rounded-lg">
-              <h3 className="text-2xl text-black font-medium uppercase">POSSESSION DATE</h3>
-              <p className="uppercase text-[18px] text-black font-light">{property?.projectOverview?.possessionStart}</p>
+              <h3 className="text-2xl text-black font-medium uppercase">NO. OF BLOCKS</h3>
+              <p className="uppercase text-[18px] text-black font-light">{property?.projectOverview?.numberOfBlocks
+              }</p>
+            </div>
+
+            <div className="text-center border py-4 px-3 rounded-lg">
+              <h3 className="text-2xl text-black font-medium uppercase">ELEVATION</h3>
+              <p className="uppercase text-[18px] text-black font-light">{property?.projectOverview?.elevation
+              }</p>
+            </div>
+
+            <div className="text-center border py-4 px-3 rounded-lg">
+              <h3 className="text-2xl text-black font-medium uppercase">NO. OF UNITS</h3>
+              <p className="uppercase text-[18px] text-black font-light">{property?.projectOverview?.
+numberOfUnits
+
+              }</p>
+            </div>
+
+            <div className="text-center border py-4 px-3 rounded-lg">
+              <h3 className="text-2xl text-black font-medium uppercase">RERA Reg No.</h3>
+              <p className="uppercase text-[18px] text-black font-light">{property?.projectOverview?.RegistrationNo
+
+              }</p>
             </div>
           </div>
          </div>
