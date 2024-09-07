@@ -1,15 +1,22 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 import Header from "../../Component/Navigation/Header";
-import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
+import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
 import { endPoint } from "../../Component/ForAll/ForAll";
-import { FaAngleLeft, FaAngleRight, FaHeart, FaRegHeart} from "react-icons/fa6";
+import {
+  FaAngleLeft,
+  FaAngleRight,
+  FaHeart,
+  FaIndianRupeeSign,
+  FaRegHeart,
+} from "react-icons/fa6";
 import { IoBedOutline, IoResize, IoShareSocial } from "react-icons/io5";
 import { toast, ToastContainer } from "react-toastify";
+import { BsThreeDots } from "react-icons/bs";
 
 const DetailProperty = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -22,7 +29,7 @@ const DetailProperty = () => {
   const [swiperInstance, setSwiperInstance] = useState(null);
   const [isHovering, setIsHovering] = useState(false);
   const [isInFav, setIsInFav] = useState(false);
-  console.log(property, status)
+  console.log(property, status);
   useEffect(() => {
     const fetchProperty = async () => {
       const response = await fetch(`${endPoint}/property/${id}`);
@@ -32,26 +39,32 @@ const DetailProperty = () => {
       if (propertyData.developer) {
         const developerResponse = await fetch(`${endPoint}/developer`);
         const developerData = await developerResponse.json();
-        const foundDeveloper = developerData.find(d => d._id === propertyData.developer);
+        const foundDeveloper = developerData.find(
+          (d) => d._id === propertyData.developer
+        );
         setDeveloper(foundDeveloper);
       }
-      if(propertyData.type){
+      if (propertyData.type) {
         const typeResponse = await fetch(`${endPoint}/type`);
         const typeData = await typeResponse.json();
-        const foundType = typeData.find(d => d._id === propertyData.type);
-        setType(foundType)
+        const foundType = typeData.find((d) => d._id === propertyData.type);
+        setType(foundType);
       }
-      if(propertyData.location){
+      if (propertyData.location) {
         const locationResponse = await fetch(`${endPoint}/city`);
         const locationData = await locationResponse.json();
-        const foundLocation = locationData.find(d => d._id === propertyData.location);
-        setLocation(foundLocation)
+        const foundLocation = locationData.find(
+          (d) => d._id === propertyData.location
+        );
+        setLocation(foundLocation);
       }
-      if(propertyData.status){
+      if (propertyData.status) {
         const statusResponse = await fetch(`${endPoint}/status`);
         const statusData = await statusResponse.json();
-        const foundStatus = statusData.find(d => d._id === propertyData.status);
-        setStatus(foundStatus)
+        const foundStatus = statusData.find(
+          (d) => d._id === propertyData.status
+        );
+        setStatus(foundStatus);
       }
     };
     fetchProperty();
@@ -94,33 +107,33 @@ const DetailProperty = () => {
   const handleMouseLeave = () => setIsHovering(false);
   useEffect(() => {
     const favList = JSON.parse(localStorage.getItem("favList")) || [];
-    const isFavorite = favList.some(item => item._id === property?._id);
+    const isFavorite = favList.some((item) => item._id === property?._id);
     setIsInFav(isFavorite);
   }, [property._id]);
-  
-const handleFavClick = () => {
-        let favList = JSON.parse(localStorage.getItem("favList")) || [];
-        if (isInFav) {
-            // Remove the property from the favorite list
-            favList = favList.filter(item => item._id !== property?._id);
-        } else {
-            // Add the property to the favorite list
-            favList.push(property);
-        }
-    
-        console.log(favList)
-        // Update localStorage
-        
-        localStorage.setItem("favList", JSON.stringify(favList));
-    
-        // Dispatch a custom event to notify header
-        window.dispatchEvent(new Event('favListUpdated'));
-    
-        // Update the state
-        setIsInFav(!isInFav);
-    };
 
-    const [selectedOption, setSelectedOption] = useState("sale");
+  const handleFavClick = () => {
+    let favList = JSON.parse(localStorage.getItem("favList")) || [];
+    if (isInFav) {
+      // Remove the property from the favorite list
+      favList = favList.filter((item) => item._id !== property?._id);
+    } else {
+      // Add the property to the favorite list
+      favList.push(property);
+    }
+
+    console.log(favList);
+    // Update localStorage
+
+    localStorage.setItem("favList", JSON.stringify(favList));
+
+    // Dispatch a custom event to notify header
+    window.dispatchEvent(new Event("favListUpdated"));
+
+    // Update the state
+    setIsInFav(!isInFav);
+  };
+
+  const [selectedOption, setSelectedOption] = useState("sale");
   const [loading, setLoading] = useState(false);
   const [countryCodes, setCountryCodes] = useState([]);
   const [selectedCountryCode, setSelectedCountryCode] = useState("+1"); // Default to US code
@@ -129,10 +142,14 @@ const handleFavClick = () => {
     fetch("https://restcountries.com/v3.1/all")
       .then((response) => response.json())
       .then((data) => {
-        const codes = data.map((country) => ({
-          name: country.name.common,
-          code: country.idd.root + (country.idd.suffixes ? country.idd.suffixes[0] : ""),
-        })).filter(c => c.code); // Filter out countries without a code
+        const codes = data
+          .map((country) => ({
+            name: country.name.common,
+            code:
+              country.idd.root +
+              (country.idd.suffixes ? country.idd.suffixes[0] : ""),
+          }))
+          .filter((c) => c.code); // Filter out countries without a code
         setCountryCodes(codes);
       })
       .catch((error) => console.error("Error fetching country codes:", error));
@@ -147,11 +164,11 @@ const handleFavClick = () => {
     setLoading(true);
 
     const formData = {
-      option: selectedOption,
+      option: "Buy",
       name: e.target.name.value,
       email: e.target.email.value,
       phone: `${selectedCountryCode} ${e.target.phone.value}`,
-      project: e.target.project.value,
+      project: property?.name,
       message: e.target.message.value,
     };
 
@@ -184,55 +201,67 @@ const handleFavClick = () => {
       <div
         style={{
           backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(${property?.galleryImages?.[activeIndex]})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-          height: '670px',
-          position: 'relative',
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          height: "670px",
+          position: "relative",
         }}
       >
         <div className="flex items-center justify-between pt-3 px-8">
           <div className="flex gap-2 text-[#ffffff77] text-4xl">
             {/* Fav icon */}
-        {
-            isInFav? <div
-            onClick={handleFavClick}
-            className={`text-[#046307] text-4xl cursor-pointer`}
-          >
-            <FaHeart className="" />
-          </div> :
-          <div
-          onClick={handleFavClick}
-          className={` text-[#ffffff77] text-4xl cursor-pointer`}
-        >
-          <FaRegHeart className="" />
-        </div>
-        }
+            {isInFav ? (
+              <div
+                onClick={handleFavClick}
+                className={`text-[#046307] text-4xl cursor-pointer`}
+              >
+                <FaHeart className="" />
+              </div>
+            ) : (
+              <div
+                onClick={handleFavClick}
+                className={` text-[#ffffff77] text-4xl cursor-pointer`}
+              >
+                <FaRegHeart className="" />
+              </div>
+            )}
             <IoShareSocial />
           </div>
-         <div>
-         <img src={developer.image} alt={developer.name} className="w-[70px] h-[70px] rounded-full opacity-70"
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}/>
-          {isHovering && (
-    <div style={{
-      background: 'rgba( 255, 255, 255, 0.25 )',
-      boxShadow: '0 8px 32px 0 rgba( 31, 38, 135, 0.37 )',
-      backdropFilter: 'blur( 6px )',
-      borderRadius: '10px',
-      WebkitBackdropFilter: 'blur( 6px )',
-      border: '1px solid rgba( 255, 255, 255, 0.18 )',
-    }} className="md:w-[500px] mt-2 md:p-4 bg-white text-white shadow-lg rounded-md z-10 p-2 absolute right-10 flex items-center gap-3 ml-3">
-      <img
-        src={developer.image}
-        alt={developer.name}
-        className="w-[150px] h-[100px]"
-      />
-      <div><h5 className="font-semibold text-lg">{developer.name}</h5>
-      <p className="md:text-[16] text-[12px]">{developer.details}</p></div>
-    </div>
-    )} 
-         </div>
+          <div>
+            <img
+              src={developer.image}
+              alt={developer.name}
+              className="w-[70px] h-[70px] rounded-full opacity-70"
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            />
+            {isHovering && (
+              <div
+                style={{
+                  background: "rgba( 255, 255, 255, 0.25 )",
+                  boxShadow: "0 8px 32px 0 rgba( 31, 38, 135, 0.37 )",
+                  backdropFilter: "blur( 6px )",
+                  borderRadius: "10px",
+                  WebkitBackdropFilter: "blur( 6px )",
+                  border: "1px solid rgba( 255, 255, 255, 0.18 )",
+                }}
+                className="md:w-[500px] mt-2 md:p-4 bg-white text-white shadow-lg rounded-md z-10 p-2 absolute right-10 flex items-center gap-3 ml-3"
+              >
+                <img
+                  src={developer.image}
+                  alt={developer.name}
+                  className="w-[150px] h-[100px]"
+                />
+                <div>
+                  <h5 className="font-semibold text-lg">{developer.name}</h5>
+                  <p className="md:text-[16] text-[12px]">
+                    {developer.details}
+                  </p>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
         <button
           onClick={handlePrev}
@@ -251,8 +280,12 @@ const handleFavClick = () => {
 
         <div className="md:flex items-center justify-between mx-10">
           <div className="flex gap-5 items-center  absolute bottom-14">
-            <img src={type?.logo} alt={type?.type} className="w-[50px] h-[50px] bg-[#fff] p-2"/>
-            <h5 className="text-2xl font-semibold text-white">{type?.type}</h5>
+            <img
+              src={type?.logo}
+              alt={type?.type}
+              className="w-[50px] h-[50px] bg-[#fff] p-2"
+            />
+            <h5 className="text-2xl font-semibold text-black">{type?.type}</h5>
           </div>
           <Swiper
             modules={[Navigation, Pagination, Scrollbar, A11y]}
@@ -261,7 +294,6 @@ const handleFavClick = () => {
             onSlideChange={(swiper) => {
               setActiveIndex(swiper.realIndex);
             }}
-            
             onSwiper={setSwiperInstance}
             className="swiper-container !mr-0  !absolute md:!bottom-14 !bottom-32 !right-[-450px]"
           >
@@ -290,105 +322,107 @@ const handleFavClick = () => {
         </div>
       </div>
 
-     <div className="flex gap-5 mt-10 mx-10">
+      <div className="flex gap-5 mt-10 md:ml-10 md:mr-6">
+        {/* Full left side details  */}
+        <div className="w-[65%]">
+          <h2 className="text-4xl text-black font-semibold">
+            {property?.name}
+          </h2>
+          <p className="text-[14px] text-black ml-5 mb-2">{location?.name}</p>
+          <hr />
+          <div className="flex gap-3 my-2">
+            <div className="text-xl text-black flex gap-4 items-center">
+              <IoBedOutline className="text-2xl" />
+              <p>{property?.configuration}</p>
+            </div>
 
-       {/* Full left side details  */}
-       <div className="w-[65%]">
-        <h2 className="text-4xl text-black font-semibold">{property?.name}</h2>
-        <p className="text-[14px] text-black ml-5 mb-2">{location?.name}</p>
-        <hr />
-        <div className="flex gap-3">
-        <div className="text-xl text-black flex gap-4 items-center">
-        <IoBedOutline className="text-2xl" />
-        <p>{property?.configuration}</p>
+            <div className="text-xl text-black flex gap-4 items-center">
+              <IoResize className="text-2xl border-2 border-black rounded-[4px] font-semibold" />
+              <p>{property?.size}</p>
+            </div>
+
+            <div className="text-xl text-black flex gap-4 items-center">
+              <img
+                src={status?.image}
+                className="text-2xl font-semibold"
+                alt={status?.status}
+              />
+              <p>{status?.status}</p>
+            </div>
+          </div>
+          <hr />
+{/* price, title and contact btn */}
+          <div className="flex items-center justify-between gap-3 my-8">
+            <div className="flex items-center gap-3 my-8">
+              <button className="bg-black text-white px-20 py-3 rounded-xl">
+                Contact
+              </button>
+              <button className="bg-[#dbdbdb] text-black px-3 py-3 rounded-xl">
+                <span className="bg-white border-[1px] border-black text-[12px] p-1 rounded-md flex items-center justify-center">
+                  <BsThreeDots />
+                </span>
+              </button>
+            </div>
+            <h3 className="text-2xl flex gap-1 text-black">PRICE RANGE: <span className="flex gap-1 font-bold items-center"><FaIndianRupeeSign />{property?.priceRange}</span></h3>
+          </div>
+{/* project overview section */}
+         <div>
+          <h2 className="text-3xl font-semibold text-black">Project Overview</h2>
+         </div>
+
+
+
         </div>
 
-        <div className="text-xl text-black flex gap-4 items-center">
-        <IoResize  className="text-2xl border-2 border-black rounded-[4px] font-semibold" />
-        <p>{property?.size}</p>
-        </div>
-        
-        <div className="text-xl text-black flex gap-4 items-center">
-        <img src={status?.image}  className="text-2xl font-semibold" alt={status?.status} />
-        <p>{status?.status}</p>
-        </div>
-
-        </div>
-        </div>
-  
         {/* Form right side  */}
-         <div className="w-[35%]">
-         <form onSubmit={handleSubmit} className="bg-black p-10 rounded-[30px] w-full">
-            <div className="label text-white">
-              <span className="label-text text-white text-xl">I'm interested in:</span>
+        <div className="w-[35%]">
+          <form
+            onSubmit={handleSubmit}
+            className="shadow-xl p-10 rounded-[30px] w-full"
+          >
+            <div className="label text-black">
+              <img
+                src="https://i.ibb.co/f1L99L9/18a006575c097b8b99494b75da063caf-removebg-preview-2.webp"
+                alt="Trilokpropco"
+                className="w-1/4"
+              />
             </div>
-            
-            <div className="flex gap-4 mt-4">
-              <button
-                type="button"
-                onClick={() => handleOptionClick("sale")}
-                className={`w-fit py-3 px-6 rounded-full ${
-                  selectedOption === "sale"
-                    ? "bg-[#046307] text-white"
-                    : "bg-transparent border border-[#ffffff] text-[#ffffff]"
-                }`}
-              >
-                Sale
-              </button>
-              <button
-                type="button"
-                onClick={() => handleOptionClick("buy")}
-                className={`w-fit py-3 px-6 rounded-full ${
-                  selectedOption === "buy"
-                    ? "bg-[#046307] text-white"
-                    : "bg-transparent border border-[#ffffff] text-[#ffffff]"
-                }`}
-              >
-                Buy
-              </button>
-            </div>
-  
+
             <div>
               <div className="label mt-4">
-                <span className="label-text text-white border-b-[1px] w-full border-[#ffffff68]">
-                  Your name
-                </span>
+                <span className="label-text text-black ">Your name</span>
               </div>
               <input
                 type="text"
                 required
                 name="name"
                 placeholder="Type name here"
-                className="border-b-[3px] bg-black p-3 focus:border-[#046307] border-[#ffffff68] w-full focus:text-white"
+                className="border-b-[2px]  p-3 focus:border-[#046307] border-[#b4b4b468] w-full focus:text-black"
               />
             </div>
-  
+
             <div>
               <div className="label mt-4">
-                <span className="label-text text-white border-b-[1px] w-full border-[#ffffff68]">
-                  Your email
-                </span>
+                <span className="label-text text-black ">Your email</span>
               </div>
               <input
                 type="email"
                 required
                 name="email"
                 placeholder="Type email here"
-                className="border-b-[3px] bg-black p-3 focus:border-[#046307] border-[#ffffff68] w-full focus:text-white"
+                className="border-b-[2px]  p-3 focus:border-[#046307] border-[#b4b4b468] w-full focus:text-black"
               />
             </div>
-  
+
             <div>
               <div className="label mt-4">
-                <span className="label-text text-white border-b-[1px] w-full border-[#ffffff68]">
-                  Your phone
-                </span>
+                <span className="label-text text-black ">Your phone</span>
               </div>
               <div className="flex w-full">
                 <select
                   onChange={(e) => setSelectedCountryCode(e.target.value)}
                   value={selectedCountryCode}
-                  className="bg-black border-b-[3px] border-[#ffffff68] w-1/4 focus:border-[#046307] p-3 text-white"
+                  className=" border-b-[2px] border-[#b4b4b468] w-1/4 focus:border-[#046307] p-3 text-black"
                 >
                   {countryCodes.map((country, index) => (
                     <option key={index} value={country.code}>
@@ -401,39 +435,23 @@ const handleFavClick = () => {
                   name="phone"
                   required
                   placeholder="Type phone number"
-                  className="border-b-[3px] bg-black p-3 focus:border-[#046307] border-[#ffffff68] focus:text-white w-3/4"
+                  className="border-b-[2px]  p-3 focus:border-[#046307] border-[#b4b4b468] focus:text-black w-3/4"
                 />
               </div>
             </div>
-  
+
             <div>
               <div className="label mt-4">
-                <span className="label-text text-white border-b-[1px] w-full border-[#ffffff68]">
-                  Your project
-                </span>
-              </div>
-              <input
-                type="text"
-                name="project"
-                placeholder="Type project name here"
-                className="border-b-[3px] bg-black p-3 focus:border-[#046307] border-[#ffffff68] w-full focus:text-white"
-              />
-            </div>
-  
-            <div>
-              <div className="label mt-4">
-                <span className="label-text text-white border-b-[1px] w-full border-[#ffffff68]">
-                  Your message
-                </span>
+                <span className="label-text text-black ">Your message</span>
               </div>
               <textarea
-                className="border-[3px] bg-black p-3 focus:border-[#046307] border-[#ffffff68] text-area w-full mt-4 rounded-3xl focus:text-white"
+                className="border-[2px]  p-3 focus:border-[#046307] border-[#b4b4b468] text-area w-full mt-4 rounded-xl focus:text-black"
                 placeholder="What is in your mind?"
-                rows={4}
+                rows={3}
                 name="message"
               ></textarea>
             </div>
-  
+
             <button
               type="submit"
               className="btn bg-[#046307] border-0 text-white w-full rounded-full mt-6"
@@ -442,10 +460,8 @@ const handleFavClick = () => {
               {loading ? "Sending..." : "Send message"}
             </button>
           </form>
-         </div>
-
-     </div>
-
+        </div>
+      </div>
     </div>
   );
 };

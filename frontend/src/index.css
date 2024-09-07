@@ -20,8 +20,6 @@
 
 /* search bar */
 .search-bar{
-    background-image: url("https://i.ibb.co/94P1XkC/Rectangle-2-3.webp");
-    background-position: center;
     display: flex;
     justify-content: center;
     align-items: center;

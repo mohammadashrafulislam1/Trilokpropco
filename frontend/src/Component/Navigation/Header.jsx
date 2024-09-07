@@ -82,19 +82,12 @@ const Header = ({ isDefault = true }) => {
   return (
     <div className={`nav-section navbar`}
     style={isDefault? {
-      backgroundImage: "url(https://i.ibb.co/j89WZCg/Rectangle-1-3.webp)",
-    backgroundPosition: 'center',
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'contain',
-    padding: '20px 30px',
-    paddingBottom: '30px',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginTop: '10px',
-    maxWidth: '1200px',
-    margin: '0 auto',
-    marginBottom: '90px',
+      background: 'rgba( 255, 255, 255, 0.25 )',
+      boxShadow: '0 8px 32px 0 rgba( 31, 38, 135, 0.37 )',
+      backdropFilter: 'blur( 6px )',
+      borderRadius: '10px',
+      WebkitBackdropFilter: 'blur( 6px )',
+      border: '1px solid rgba( 255, 255, 255, 0.18 )',
     }:{
     background:"#fff0",
     display: 'flex',
