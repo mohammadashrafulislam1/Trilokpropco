@@ -31,15 +31,13 @@ const DetailProperty = () => {
   const [isInFav, setIsInFav] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState(null);
   console.log(property, status);
+
+
   useEffect(() => {
     const fetchProperty = async () => {
       const response = await fetch(`${endPoint}/property/${id}`);
       const propertyData = await response.json();
       setProperty(propertyData);
-// Set default selected plan
-if (propertyData.plans && propertyData.plans.length > 0) {
-  setSelectedPlan(propertyData.plans[0]); // Set the first plan as default
-}
       if (propertyData.developer) {
         const developerResponse = await fetch(`${endPoint}/developer`);
         const developerData = await developerResponse.json();
@@ -78,7 +76,9 @@ if (propertyData.plans && propertyData.plans.length > 0) {
     if (swiperInstance) {
       swiperInstance.slideTo(activeIndex);
     }
+    
   }, [activeIndex, swiperInstance]);
+
 
   const handlePrev = () => {
     if (swiperInstance) {
@@ -136,7 +136,7 @@ if (propertyData.plans && propertyData.plans.length > 0) {
     // Update the state
     setIsInFav(!isInFav);
   };
-  
+
   const [loading, setLoading] = useState(false);
   const [countryCodes, setCountryCodes] = useState([]);
   const [selectedCountryCode, setSelectedCountryCode] = useState("+1"); // Default to US code
@@ -537,11 +537,12 @@ if (propertyData.plans && propertyData.plans.length > 0) {
 
       {/* Display selected plan details */}
       {selectedPlan && (
-        <div style={{ marginTop: '20px', border: '1px solid #ddd', padding: '20px' }}>
-          <h3>{selectedPlan?.planType}</h3>
-          {selectedPlan?.image && <img src={selectedPlan?.image} alt={selectedPlan?.planType} style={{ width: '100%', maxWidth: '400px' }} />}
-          <p><strong>Size:</strong> {selectedPlan?.size || 'N/A'}</p>
-          <p><strong>Price:</strong> {selectedPlan?.price || 'N/A'}</p>
+        <div className="my-5 mx-5 border rounded-2xl">
+          {selectedPlan?.image && <img src={selectedPlan?.image} alt={selectedPlan?.planType} className="!w-full  rounded-t-2xl"/>}
+        <div className="bg-[#0000000e] rounded-b-2xl p-4 flex justify-between items-center text-2xl"> 
+         {selectedPlan?.price && <p><strong>Price:</strong> {selectedPlan?.price || 'N/A'}</p>}
+         {selectedPlan?.size &&<p><strong>Size:</strong> {selectedPlan?.size || 'N/A'}</p>}
+         </div>
         </div>
       )}
 
