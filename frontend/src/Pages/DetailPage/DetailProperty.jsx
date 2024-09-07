@@ -351,7 +351,7 @@ const DetailProperty = () => {
             </div>
           </div>
           <hr />
-{/* price, title and contact btn */}
+          {/* price, title and contact btn */}
           <div className="flex items-center justify-between gap-3 my-8">
             <div className="flex items-center gap-3 my-8">
               <button className="bg-black text-white px-20 py-3 rounded-xl">
@@ -363,72 +363,131 @@ const DetailProperty = () => {
                 </span>
               </button>
             </div>
-            <h3 className="text-2xl flex gap-1 text-black items-center">PRICE RANGE: <span className="flex gap-1 font-bold items-center"><FaIndianRupeeSign />{property?.priceRange}</span></h3>
+            <h3 className="text-2xl flex gap-1 text-black items-center">
+              PRICE RANGE:{" "}
+              <span className="flex gap-1 font-bold items-center">
+                <FaIndianRupeeSign />
+                {property?.priceRange}
+              </span>
+            </h3>
           </div>
-{/* project overview section */}
-         <div>
-          <h2 className="text-3xl font-semibold text-black poppins">Project Overview</h2>
-          <div className="grid grid-cols-3 gap-3 mt-6">
-            <div className="text-center border py-4 px-3 rounded-lg">
-              <h3 className="text-2xl text-black font-medium uppercase">POSSESSION DATE</h3>
-              <p className="uppercase text-[18px] text-black font-light">{property?.projectOverview?.possessionStart}</p>
-            </div>
+          {/* project overview section */}
+          <div>
+            <h2 className="text-3xl font-semibold text-black poppins">
+              Project Overview
+            </h2>
+            <div className="grid grid-cols-3 gap-3 mt-6">
+              <div className="text-center border py-6 px-3 rounded-2xl">
+                <h3 className="text-2xl text-black font-medium uppercase">
+                  POSSESSION DATE
+                </h3>
+                <p className="uppercase text-[18px] text-black font-light">
+                  {property?.projectOverview?.possessionStart}
+                </p>
+              </div>
 
-            <div className="text-center border py-4 px-3 rounded-lg">
-              <h3 className="text-2xl text-black font-medium uppercase">LAND AREA</h3>
-              <p className="uppercase text-[18px] text-black font-light">{property?.projectOverview?.landArea}</p>
-            </div>
+              <div className="text-center border py-6 px-3 rounded-2xl">
+                <h3 className="text-2xl text-black font-medium uppercase">
+                  LAND AREA
+                </h3>
+                <p className="uppercase text-[18px] text-black font-light">
+                  {property?.projectOverview?.landArea}
+                </p>
+              </div>
 
-            <div className="text-center border py-4 px-3 rounded-lg">
-              <h3 className="text-2xl text-black font-medium uppercase">CONFIGURATION</h3>
-              <p className="uppercase text-[18px] text-black font-light">{property?.projectOverview?.configuration}</p>
-            </div>
+              <div className="text-center border py-6 px-3 rounded-2xl">
+                <h3 className="text-2xl text-black font-medium uppercase">
+                  CONFIGURATION
+                </h3>
+                <p className="uppercase text-[18px] text-black font-light">
+                  {property?.projectOverview?.configuration}
+                </p>
+              </div>
 
-            <div className="text-center border py-4 px-3 rounded-lg">
-              <h3 className="text-2xl text-black font-medium uppercase">FLAT AREA</h3>
-              <p className="uppercase text-[18px] text-black font-light">{property?.projectOverview?.flatArea}</p>
-            </div>
+              <div className="text-center border py-6 px-3 rounded-2xl">
+                <h3 className="text-2xl text-black font-medium uppercase">
+                  FLAT AREA
+                </h3>
+                <p className="uppercase text-[18px] text-black font-light">
+                  {property?.projectOverview?.flatArea}
+                </p>
+              </div>
 
-            <div className="text-center border py-4 px-3 rounded-lg">
-              <h3 className="text-2xl text-black font-medium uppercase">PRICE RANGE</h3>
-              <p className="uppercase text-[18px] text-black font-light">{property?.projectOverview?.priceRange}</p>
-            </div>
+              <div className="text-center border py-6 px-3 rounded-2xl">
+                <h3 className="text-2xl text-black font-medium uppercase">
+                  PRICE RANGE
+                </h3>
+                <p className="uppercase text-[18px] text-black font-light">
+                  {property?.projectOverview?.priceRange}
+                </p>
+              </div>
 
-            <div className="text-center border py-4 px-3 rounded-lg">
-              <h3 className="text-2xl text-black font-medium uppercase">NO. OF BLOCKS</h3>
-              <p className="uppercase text-[18px] text-black font-light">{property?.projectOverview?.numberOfBlocks
-              }</p>
-            </div>
+              <div className="text-center border py-6 px-3 rounded-2xl">
+                <h3 className="text-2xl text-black font-medium uppercase">
+                  NO. OF BLOCKS
+                </h3>
+                <p className="uppercase text-[18px] text-black font-light">
+                  {property?.projectOverview?.numberOfBlocks}
+                </p>
+              </div>
 
-            <div className="text-center border py-4 px-3 rounded-lg">
-              <h3 className="text-2xl text-black font-medium uppercase">ELEVATION</h3>
-              <p className="uppercase text-[18px] text-black font-light">{property?.projectOverview?.elevation
-              }</p>
-            </div>
+              <div className="text-center border py-6 px-3 rounded-2xl">
+                <h3 className="text-2xl text-black font-medium uppercase">
+                  ELEVATION
+                </h3>
+                <p className="uppercase text-[18px] text-black font-light">
+                  {property?.projectOverview?.elevation}
+                </p>
+              </div>
 
-            <div className="text-center border py-4 px-3 rounded-lg">
-              <h3 className="text-2xl text-black font-medium uppercase">NO. OF UNITS</h3>
-              <p className="uppercase text-[18px] text-black font-light">{property?.projectOverview?.
-numberOfUnits
+              <div className="text-center border py-6 px-3 rounded-2xl">
+                <h3 className="text-2xl text-black font-medium uppercase">
+                  NO. OF UNITS
+                </h3>
+                <p className="uppercase text-[18px] text-black font-light">
+                  {property?.projectOverview?.numberOfUnits}
+                </p>
+              </div>
 
-              }</p>
-            </div>
-
-            <div className="text-center border py-4 px-3 rounded-lg">
-              <h3 className="text-2xl text-black font-medium uppercase">RERA Reg No.</h3>
-              <p className="uppercase text-[18px] text-black font-light">{property?.projectOverview?.RegistrationNo
-
-              }</p>
+              <div className="text-center border py-6 px-3 rounded-2xl">
+                <h3 className="text-2xl text-black font-medium uppercase">
+                  RERA Reg No.
+                </h3>
+                <p className="uppercase text-[18px] text-black font-light">
+                  {property?.projectOverview?.RegistrationNo}
+                </p>
+              </div>
             </div>
           </div>
-         </div>
 
+          {/* description section*/}
+          <div>
+          <h2 className="text-3xl font-semibold text-black poppins mt-10 mb-6">
+          Description
+            </h2>
+          <p className="text-[18px] text-black font-normal" dangerouslySetInnerHTML={{ __html:property?.description}}/>
+          </div>
 
+          {/* project video */}
+          <div>
+            
+          <h2 className="text-3xl font-semibold text-black poppins mt-10 mb-6">
+          Video
+            </h2>
+<iframe 
+  width="100%" 
+  height="450" 
+  src={property?.video} 
+  title={property?.title}
+  className="rounded-2xl"
+  allowfullscreen>
+</iframe>
+          </div>
 
         </div>
 
         {/* Form right side  */}
-        <div className="w-[35%]">
+        <div className="w-[35%] my-10">
           <form
             onSubmit={handleSubmit}
             className="shadow-xl p-10 rounded-[30px] w-full"
