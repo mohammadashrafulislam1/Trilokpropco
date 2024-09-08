@@ -17,7 +17,8 @@ import {
 import { IoBedOutline, IoResize, IoShareSocial } from "react-icons/io5";
 import { toast, ToastContainer } from "react-toastify";
 import { BsThreeDots } from "react-icons/bs";
-
+import { Pie } from 'react-chartjs-2';
+import { Chart as ChartJS } from 'chart.js/auto';
 const DetailProperty = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const { id } = useParams();
@@ -32,8 +33,11 @@ const DetailProperty = () => {
   const [selectedPlan, setSelectedPlan] = useState(null);
   const [amenities, setAmenities] = useState([]);
   console.log(property, property?.specifications);
-
-
+  const [loanAmount, setLoanAmount] = useState(5000000);
+  const [interestRate, setInterestRate] = useState(9);
+  const [loanTenure, setLoanTenure] = useState(20); // in years
+  const [tenureType, setTenureType] = useState('years'); // 'years' or 'months'
+  
   useEffect(() => {
     const fetchProperty = async () => {
       const response = await fetch(`${endPoint}/property/${id}`);
@@ -216,7 +220,35 @@ const DetailProperty = () => {
   const handlePlanClick = (plan) => {
     setSelectedPlan(plan);
   };
+// Helper function to calculate EMI
+const calculateEMI = (amount, rate, tenure, tenureType) => {
+  const monthlyRate = rate / 12 / 100;
+  const months = tenureType === 'years' ? tenure * 12 : tenure;
+  const emi = (amount * monthlyRate * Math.pow(1 + monthlyRate, months)) /
+              (Math.pow(1 + monthlyRate, months) - 1);
+  return emi;
+};
 
+// Calculate EMI, interest, and total payment
+const emi = calculateEMI(loanAmount, interestRate, loanTenure, tenureType);
+const totalInterest = emi * (loanTenure * (tenureType === 'years' ? 12 : 1)) - loanAmount;
+const totalPayment = loanAmount + totalInterest;
+
+// Pie chart data
+const chartData = {
+  labels: ['Principal', 'Interest'],
+  datasets: [{
+    data: [loanAmount, totalInterest],
+    backgroundColor: ['#36A2EB', '#FF6384'],
+  }],
+};
+
+useEffect(() => {
+  // Cleanup chart on component unmount or when the data changes
+  return () => {
+    ChartJS.getChart('loan-chart')?.destroy();
+  };
+}, [loanAmount, interestRate, loanTenure, tenureType]);
   console.log(amenities)
   return (
     <div className="mb-20 overflow-hidden">
@@ -736,7 +768,60 @@ const DetailProperty = () => {
           </form>
         </div>
       </div>
-    </div>
+
+       {/* Loan Calculator Section */}
+      <div className="loan-calculator">
+        <div className="left-section">
+          <h2>Loan Details</h2>
+          <div>
+            <label>Loan Amount (INR):</label>
+            <input
+              type="number"
+              value={loanAmount}
+              onChange={(e) => setLoanAmount(Number(e.target.value))}
+            />
+          </div>
+          <div>
+            <label>Interest Rate (%):</label>
+            <input
+              type="number"
+              value={interestRate}
+              onChange={(e) => setInterestRate(Number(e.target.value))}
+            />
+          </div>
+          <div>
+            <label>Loan Tenure:</label>
+            <input
+              type="number"
+              value={loanTenure}
+              onChange={(e) => setLoanTenure(Number(e.target.value))}
+            />
+            <select
+              value={tenureType}
+              onChange={(e) => setTenureType(e.target.value)}
+            >
+              <option value="years">Years</option>
+              <option value="months">Months</option>
+            </select>
+          </div>
+        </div>
+
+        {/* Loan Summary Section */}
+        <div className="middle-section">
+          <h3>Loan Summary</h3>
+          <p>Loan EMI: {emi.toFixed(2)} INR</p>
+          <p>Total Interest Payable: {totalInterest.toFixed(2)} INR</p>
+          <p>Total Payment: {totalPayment.toFixed(2)} INR</p>
+        </div>
+
+        {/* Render Pie Chart only when data is valid */}
+        {loanAmount > 0 && totalInterest > 0 && (
+          <div className="right-section">
+            <Pie id="loan-chart" data={chartData} />
+          </div>
+        )}
+      </div>
+     </div>
   );
 };
 
