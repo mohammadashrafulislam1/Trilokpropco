@@ -31,7 +31,7 @@ const DetailProperty = () => {
   const [isInFav, setIsInFav] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState(null);
   const [amenities, setAmenities] = useState([]);
-  console.log(property, status);
+  console.log(property, property?.specifications);
 
 
   useEffect(() => {
@@ -610,6 +610,30 @@ const DetailProperty = () => {
           Location Map
             </h2>
             <embed src={property?.locationMap} type="Trilokpropco Real Estate Property Location" className="w-full h-[500px] rounded-3xl"/>
+          </div>
+
+          {/* specifications description section*/}
+          <div>
+            <h2 className="text-3xl font-semibold text-black poppins mt-10 mb-6">
+            Specifications
+            </h2>
+            <p
+              className="text-[18px] text-black font-normal"
+              dangerouslySetInnerHTML={{ __html: property?.specifications
+              }}
+            />
+          </div>
+
+          {/* Bank Approve Images */}
+          <div>
+          <h2 className="text-3xl font-semibold text-black poppins mt-10 msb-6">
+          Bank Approval
+            </h2>
+            <div className="grid grid-cols-4 gap-3">
+              {
+                property?.bankImages?.map((bImg) =><img key={bImg._id} src={bImg} className="border w-[200px] h-[50px] cover rounded-xl"/>)
+              }
+            </div>
           </div>
 
         </div>
