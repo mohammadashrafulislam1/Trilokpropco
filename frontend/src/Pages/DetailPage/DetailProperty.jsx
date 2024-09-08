@@ -216,6 +216,8 @@ const DetailProperty = () => {
   const handlePlanClick = (plan) => {
     setSelectedPlan(plan);
   };
+
+  console.log(amenities)
   return (
     <div className="mb-20 overflow-hidden">
       <Header isDefault={false} />
@@ -573,24 +575,30 @@ const DetailProperty = () => {
           <h2 className="text-3xl font-semibold text-black poppins mt-10 mb-6">
           Amenities
             </h2>
-          <div>
+          <div className="grid grid-cols-4 gap-3">
             {
               amenities?.map((amenity) =>
-              (<div key={amenity._id}>
-                
-              </div>)
+              (
+                <div className="border text-center w-[200px] h-[200px] flex items-center justify-center flex-col relative overflow-hidden rounded-3xl gap-4" key={amenity._id}>
+        <img src={amenity?.logo} alt={amenity?.name} />
+        <img src={amenity?.logo} alt={amenity?.name}  className="absolute right-0 bottom-0 rotate-[-50deg] opacity-10"/>
+        <p className="text-[#000] text-[14px]">{amenity?.name}</p>
+    </div>   )
               )
             }
           </div>
+
+          <a href={property?.pdfDownload}><button className="bg-[#ec0000] text-white flex items-center px-8 py-6 relative gap-10 my-10 rounded-2xl">
+          <img src="https://i.ibb.co.com/w7HGyvB/Adobe-PDF.webp" alt="Download Brochure | Trilokpropco Real Estate Agent" className="w-[200px] absolute left-[-36px]"/><span className="ml-20 text-3xl font-light ">Download Brochure</span></button></a>
           </div>
           
         </div>
 
         {/* Form right side  */}
-        <div className="w-[35%] my-10">
+        <div className="w-[35%] my-10 relative">
           <form
             onSubmit={handleSubmit}
-            className="shadow-xl p-10 rounded-[30px] w-full"
+            className="shadow-xl p-10 rounded-[30px] w-full  bg-white "
           >
             <div className="label text-black">
               <img
