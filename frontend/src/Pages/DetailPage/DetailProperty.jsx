@@ -5,6 +5,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import Header from "../../Component/Navigation/Header";
+import Footer from "../../Component/Navigation/Footer";
 import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
 import { endPoint } from "../../Component/ForAll/ForAll";
 import {
@@ -21,6 +22,7 @@ import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Sector } from "recha
 import { MdOutlineCurrencyRupee } from "react-icons/md";
 import { LiaPercentSolid } from "react-icons/lia";
 import { IoMdTime } from "react-icons/io";
+
 // Custom active shape rendering for Pie chart
 const renderActiveShape = (props) => {
   const RADIAN = Math.PI / 180;
@@ -423,13 +425,13 @@ const DetailProperty = () => {
 
       <div className="lg:flex gap-5 mt-10 md:ml-10 md:mr-6">
         {/* Full left side details  */}
-        <div className="lg:w-[65%]">
-          <h2 className="text-4xl text-black font-semibold">
+        <div className="lg:w-[65%] md:mx-0 mx-6">
+          <h2 className="md:text-4xl text-3xl text-black font-semibold">
             {property?.name}
           </h2>
           <p className="text-[14px] text-black ml-5 mb-2">{location?.name}</p>
           <hr />
-          <div className="flex gap-3 my-2">
+          <div className="md:flex gap-3 my-2">
             <div className="text-xl text-black flex gap-4 items-center">
               <IoBedOutline className="text-2xl" />
               <p>{property?.configuration}</p>
@@ -451,7 +453,7 @@ const DetailProperty = () => {
           </div>
           <hr />
           {/* price, title and contact btn */}
-          <div className="flex items-center justify-between gap-3 my-8">
+          <div className="md:flex items-center justify-between gap-3 my-8">
             <div className="flex items-center gap-3 my-8">
               <button className="bg-black text-white px-20 py-3 rounded-xl">
                 Contact
@@ -475,7 +477,7 @@ const DetailProperty = () => {
             <h2 className="text-3xl font-semibold text-black poppins">
               Project Overview
             </h2>
-            <div className="grid grid-cols-3 gap-3 mt-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mt-6">
               <div className="text-center border py-6 px-3 rounded-2xl">
                 <h3 className="text-2xl text-black font-medium uppercase">
                   POSSESSION DATE
@@ -548,7 +550,7 @@ const DetailProperty = () => {
                 </p>
               </div>
 
-              <div className="text-center border py-6 px-3 rounded-2xl">
+ <div className="text-center border py-6 px-3 rounded-2xl">
                 <h3 className="text-2xl text-black font-medium uppercase">
                   RERA Reg No.
                 </h3>
@@ -565,7 +567,7 @@ const DetailProperty = () => {
               Description
             </h2>
             <p
-              className="text-[18px] text-black font-normal"
+              className="text-[16px] md:text-[18px] text-black font-normal"
               dangerouslySetInnerHTML={{ __html: property?.description }}
             />
           </div>
@@ -577,10 +579,9 @@ const DetailProperty = () => {
             </h2>
             <iframe
               width="100%"
-              height="450"
               src={property?.video}
               title={property?.title}
-              className="rounded-2xl"
+              className="rounded-2xl md:h-[450px] h-[250px]"
               allowfullscreen
             ></iframe>
           </div>
@@ -649,7 +650,7 @@ const DetailProperty = () => {
           <h2 className="text-3xl font-semibold text-black poppins mt-10 mb-6">
           Amenities
             </h2>
-          <div className="grid grid-cols-4 gap-3">
+          <div className="grid md:grid-cols-3 grid-cols-2 lg:grid-cols-4 gap-3 justify-center">
             {
               amenities?.map((amenity) =>
               (
@@ -662,8 +663,8 @@ const DetailProperty = () => {
             }
           </div>
 
-          <a href={property?.pdfDownload}><button className="bg-[#ec0000] text-white flex items-center px-8 py-6 relative gap-10 my-10 rounded-2xl">
-          <img src="https://i.ibb.co.com/w7HGyvB/Adobe-PDF.webp" alt="Download Brochure | Trilokpropco Real Estate Agent" className="w-[200px] absolute left-[-36px]"/><span className="ml-20 text-3xl font-light ">Download Brochure</span></button></a>
+          <a href={property?.pdfDownload}><button className="bg-[#ec0000] text-white flex items-center md:px-8 md:py-6 relative md:gap-10 my-10 rounded-2xl px-6 py-4">
+          <img src="https://i.ibb.co.com/w7HGyvB/Adobe-PDF.webp" alt="Download Brochure | Trilokpropco Real Estate Agent" className="md:w-[200px] w-[160px] absolute left-[-26px]"/><span className="md:ml-20 ml-10 text-3xl font-light ">Download Brochure</span></button></a>
           </div>
 
           {/* Nearby description section*/}
@@ -672,7 +673,7 @@ const DetailProperty = () => {
             What s Nearby
             </h2>
             <p
-              className="text-[18px] text-black font-normal"
+              className="md:text-[18px] text-[16px] text-black font-normal"
               dangerouslySetInnerHTML={{ __html: property?.nearbyFacilities
               }}
             />
@@ -686,7 +687,7 @@ const DetailProperty = () => {
             <iframe
   src={property?.locationMap}
   title="Location Map"
-  className="w-full h-[500px] rounded-3xl"
+  className="w-full md:h-[500px] h-[200px] rounded-3xl"
   frameBorder="0"
   allowFullScreen
 />
@@ -699,7 +700,7 @@ const DetailProperty = () => {
             Specifications
             </h2>
             <p
-              className="text-[18px] text-black font-normal"
+              className="md:text-[18px] text-[16px] text-black font-normal"
               dangerouslySetInnerHTML={{ __html: property?.specifications
               }}
             />
@@ -710,7 +711,7 @@ const DetailProperty = () => {
           <h2 className="text-3xl font-semibold text-black poppins mt-10 msb-6">
           Bank Approval
             </h2>
-            <div className="grid grid-cols-4 gap-3">
+            <div className="grid lg:grid-cols-4 grid-cols-2 md:grid-cols-3 gap-3">
               {
                 property?.bankImages?.map((bImg) =><img key={bImg._id} src={bImg} className="border w-full h-[80px] rounded-xl"
                 style={{
@@ -723,7 +724,7 @@ const DetailProperty = () => {
         </div>
 
         {/* Form right side  */}
-        <div className="lg:w-[35%] my-10 relative">
+        <div className="lg:w-[35%] my-10 relative mx-10 lg:mx-0">
           <form
             onSubmit={handleSubmit}
             className="shadow-xl p-10 rounded-[30px] w-full  bg-white "
@@ -812,10 +813,10 @@ const DetailProperty = () => {
       </div>
 
       {/* Loan Calculator Section */}
-      <div className="loan-calculator flex items-center mx-10 my-20 gap-8">
+      <div className="loan-calculator grid lg:w-full md:w-1/2 md:mx-auto lg:grid-cols-3 grid-cols-1 items-center justify-center my-20 lg:mx-5">
         <div className="left-section bg-[#dadada91] rounded-3xl pb-4">
           <h2 className="bg-black text-white text-4xl text-medium text-center p-2 rounded-t-3xl">EMI Calculator</h2>
-          <div className="p-3 px-12 pt-12">
+          <div className="p-3 px-12 pt-12 mb-4">
             <label>Loan Amount</label>
             <div className="relative flex items-center justify-center">
             <MdOutlineCurrencyRupee className="p-[6px] text-5xl rounded-l-lg bg-[#bdbdbd]" />
@@ -841,18 +842,18 @@ const DetailProperty = () => {
             </div>
           </div>
           <div className="p-3 px-12">
-            <label>Loan Tenure:</label>
+            <label>Loan Tenure</label>
              <div className="relative flex items-center justify-center">
             <IoMdTime  className="p-[6px] text-5xl rounded-l-lg bg-[#bdbdbd]" />
             <input
               type="number"
               value={loanTenure}
               onChange={(e) => setLoanTenure(Number(e.target.value))}
-              className="input !rounded-l-none"
+              className="input !rounded-l-none w-full"
             />
             <select
               value={tenureType}
-              onChange={(e) => setTenureType(e.target.value)}className="select ml-2 bg-[#046307] text-white text-xl"
+              onChange={(e) => setTenureType(e.target.value)}className="select md:ml-2 bg-[#046307] text-white md:text-xl text-[12px]"
             >
               <option value="years">Years</option>
               <option value="months">Months</option>
@@ -860,20 +861,21 @@ const DetailProperty = () => {
           </div>
         </div>
 
-        <div className="middle-section text-center">
-          <div>
+        <div className="middle-section text-center border-r-[1px] mt-10">
+          <div className="p-6 border-t-[1px]">
           <p className="text-xl text-[#818181]">Loan EMI</p>
           <h3 className="text-5xl text-black flex font-bold justify-center"><MdOutlineCurrencyRupee />{emi.toFixed(2)}</h3>
           </div>
-          <div>
+          <div className="p-6 border-t-[1px]">
           <p className="text-xl text-[#818181]">Total Interest Payable</p>
           <h3 className="text-5xl text-black flex font-bold justify-center"><MdOutlineCurrencyRupee />{totalInterest.toFixed(2)} </h3>
           </div>
+          <div className="p-6 border-t-[1px]">
           <p className="text-xl text-[#818181]">Total of Payments (Principal + Interest)</p>
-          <h3 className="text-5xl text-black flex font-bold justify-center"><MdOutlineCurrencyRupee />{totalPayment.toFixed(2)}</h3>
+          <h3 className="text-5xl text-black flex font-bold justify-center"><MdOutlineCurrencyRupee />{totalPayment.toFixed(2)}</h3></div>
         </div>
 
-        <div className="right-section">
+        <div className="right-section ">
           <ResponsiveContainer width="100%" height={300}>
             <PieChart>
               <Pie
@@ -897,6 +899,8 @@ const DetailProperty = () => {
           </ResponsiveContainer>
         </div>
       </div>
+
+      <Footer />
      </div>
   );
 };
