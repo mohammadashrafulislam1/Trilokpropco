@@ -591,7 +591,27 @@ const DetailProperty = () => {
           <a href={property?.pdfDownload}><button className="bg-[#ec0000] text-white flex items-center px-8 py-6 relative gap-10 my-10 rounded-2xl">
           <img src="https://i.ibb.co.com/w7HGyvB/Adobe-PDF.webp" alt="Download Brochure | Trilokpropco Real Estate Agent" className="w-[200px] absolute left-[-36px]"/><span className="ml-20 text-3xl font-light ">Download Brochure</span></button></a>
           </div>
-          
+
+          {/* Nearby description section*/}
+          <div>
+            <h2 className="text-3xl font-semibold text-black poppins mt-10 mb-6">
+            What s Nearby
+            </h2>
+            <p
+              className="text-[18px] text-black font-normal"
+              dangerouslySetInnerHTML={{ __html: property?.nearbyFacilities
+              }}
+            />
+          </div>
+
+          {/* Location Map section */}
+          <div>
+          <h2 className="text-3xl font-semibold text-black poppins mt-10 mb-6">
+          Location Map
+            </h2>
+            <embed src={property?.locationMap} type="Trilokpropco Real Estate Property Location" className="w-full h-[500px] rounded-3xl"/>
+          </div>
+
         </div>
 
         {/* Form right side  */}
