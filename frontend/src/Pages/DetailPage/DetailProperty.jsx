@@ -17,8 +17,57 @@ import {
 import { IoBedOutline, IoResize, IoShareSocial } from "react-icons/io5";
 import { toast, ToastContainer } from "react-toastify";
 import { BsThreeDots } from "react-icons/bs";
-import { Pie } from 'react-chartjs-2';
-import { Chart as ChartJS } from 'chart.js/auto';
+import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Sector } from "recharts";
+import { MdOutlineCurrencyRupee } from "react-icons/md";
+import { LiaPercentSolid } from "react-icons/lia";
+import { IoMdTime } from "react-icons/io";
+// Custom active shape rendering for Pie chart
+const renderActiveShape = (props) => {
+  const RADIAN = Math.PI / 180;
+  const { cx, cy, midAngle, innerRadius, outerRadius, startAngle, endAngle, fill, payload, percent, value } = props;
+  const sin = Math.sin(-RADIAN * midAngle);
+  const cos = Math.cos(-RADIAN * midAngle);
+  const sx = cx + (outerRadius + 10) * cos;
+  const sy = cy + (outerRadius + 10) * sin;
+  const mx = cx + (outerRadius + 30) * cos;
+  const my = cy + (outerRadius + 30) * sin;
+  const ex = mx + (cos >= 0 ? 1 : -1) * 22;
+  const ey = my;
+  const textAnchor = cos >= 0 ? 'start' : 'end';
+
+  return (
+    <g>
+      <text x={cx} y={cy} dy={8} textAnchor="middle" fill={fill}>
+        {payload.name}
+      </text>
+      <Sector
+        cx={cx}
+        cy={cy}
+        innerRadius={innerRadius}
+        outerRadius={outerRadius}
+        startAngle={startAngle}
+        endAngle={endAngle}
+        fill={fill}
+      />
+      <Sector
+        cx={cx}
+        cy={cy}
+        startAngle={startAngle}
+        endAngle={endAngle}
+        innerRadius={outerRadius + 6}
+        outerRadius={outerRadius + 10}
+        fill={fill}
+      />
+      <path d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`} stroke={fill} fill="none" />
+      <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none" />
+      <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} textAnchor={textAnchor} fill="#333">{`PV ${value}`}</text>
+      <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} dy={18} textAnchor={textAnchor} fill="#999">
+        {`(Rate ${(percent * 100).toFixed(2)}%)`}
+      </text>
+    </g>
+  );
+};
+
 const DetailProperty = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const { id } = useParams();
@@ -36,7 +85,7 @@ const DetailProperty = () => {
   const [loanAmount, setLoanAmount] = useState(5000000);
   const [interestRate, setInterestRate] = useState(9);
   const [loanTenure, setLoanTenure] = useState(20); // in years
-  const [tenureType, setTenureType] = useState('years'); // 'years' or 'months'
+  const [tenureType, setTenureType] = useState("years"); // 'years' or 'months'
   
   useEffect(() => {
     const fetchProperty = async () => {
@@ -220,36 +269,29 @@ const DetailProperty = () => {
   const handlePlanClick = (plan) => {
     setSelectedPlan(plan);
   };
-// Helper function to calculate EMI
-const calculateEMI = (amount, rate, tenure, tenureType) => {
-  const monthlyRate = rate / 12 / 100;
-  const months = tenureType === 'years' ? tenure * 12 : tenure;
-  const emi = (amount * monthlyRate * Math.pow(1 + monthlyRate, months)) /
-              (Math.pow(1 + monthlyRate, months) - 1);
-  return emi;
-};
 
-// Calculate EMI, interest, and total payment
-const emi = calculateEMI(loanAmount, interestRate, loanTenure, tenureType);
-const totalInterest = emi * (loanTenure * (tenureType === 'years' ? 12 : 1)) - loanAmount;
-const totalPayment = loanAmount + totalInterest;
-
-// Pie chart data
-const chartData = {
-  labels: ['Principal', 'Interest'],
-  datasets: [{
-    data: [loanAmount, totalInterest],
-    backgroundColor: ['#36A2EB', '#FF6384'],
-  }],
-};
-
-useEffect(() => {
-  // Cleanup chart on component unmount or when the data changes
-  return () => {
-    ChartJS.getChart('loan-chart')?.destroy();
+  // Helper function to calculate EMI
+  const calculateEMI = (amount, rate, tenure, tenureType) => {
+    const monthlyRate = rate / 12 / 100;
+    const months = tenureType === 'years' ? tenure * 12 : tenure;
+    const emi = (amount * monthlyRate * Math.pow(1 + monthlyRate, months)) /
+                (Math.pow(1 + monthlyRate, months) - 1);
+    return emi;
   };
-}, [loanAmount, interestRate, loanTenure, tenureType]);
-  console.log(amenities)
+
+  // Calculate EMI, Total Interest, and Total Payment
+  const emi = calculateEMI(loanAmount, interestRate, loanTenure, tenureType);
+  const totalMonths = tenureType === 'years' ? loanTenure * 12 : loanTenure;
+  const totalInterest = emi * totalMonths - loanAmount;
+  const totalPayment = loanAmount + totalInterest;
+
+  // Pie chart data
+  const chartData = [
+    { name: 'Principal', value: loanAmount },
+    { name: 'Interest', value: totalInterest }
+  ];
+
+
   return (
     <div className="mb-20 overflow-hidden">
       <Header isDefault={false} />
@@ -769,57 +811,91 @@ useEffect(() => {
         </div>
       </div>
 
-       {/* Loan Calculator Section */}
-      <div className="loan-calculator">
-        <div className="left-section">
-          <h2>Loan Details</h2>
-          <div>
-            <label>Loan Amount (INR):</label>
+      {/* Loan Calculator Section */}
+      <div className="loan-calculator flex items-center mx-10 my-20 gap-8">
+        <div className="left-section bg-[#dadada91] rounded-3xl pb-4">
+          <h2 className="bg-black text-white text-4xl text-medium text-center p-2 rounded-t-3xl">EMI Calculator</h2>
+          <div className="p-3 px-12 pt-12">
+            <label>Loan Amount</label>
+            <div className="relative flex items-center justify-center">
+            <MdOutlineCurrencyRupee className="p-[6px] text-5xl rounded-l-lg bg-[#bdbdbd]" />
             <input
               type="number"
               value={loanAmount}
               onChange={(e) => setLoanAmount(Number(e.target.value))}
+              className="input !rounded-l-none w-full"
             />
+            </div>
+
           </div>
-          <div>
-            <label>Interest Rate (%):</label>
+          <div className="p-3 px-12">
+            <label>Interest Rate</label>
+            <div className="relative flex items-center justify-center">
+            <LiaPercentSolid className="p-[6px] text-5xl rounded-l-lg bg-[#bdbdbd]" />
             <input
               type="number"
               value={interestRate}
               onChange={(e) => setInterestRate(Number(e.target.value))}
+              className="input !rounded-l-none w-full"
             />
+            </div>
           </div>
-          <div>
+          <div className="p-3 px-12">
             <label>Loan Tenure:</label>
+             <div className="relative flex items-center justify-center">
+            <IoMdTime  className="p-[6px] text-5xl rounded-l-lg bg-[#bdbdbd]" />
             <input
               type="number"
               value={loanTenure}
               onChange={(e) => setLoanTenure(Number(e.target.value))}
+              className="input !rounded-l-none"
             />
             <select
               value={tenureType}
-              onChange={(e) => setTenureType(e.target.value)}
+              onChange={(e) => setTenureType(e.target.value)}className="select ml-2 bg-[#046307] text-white text-xl"
             >
               <option value="years">Years</option>
               <option value="months">Months</option>
-            </select>
+            </select></div>
           </div>
         </div>
 
-        {/* Loan Summary Section */}
-        <div className="middle-section">
-          <h3>Loan Summary</h3>
-          <p>Loan EMI: {emi.toFixed(2)} INR</p>
-          <p>Total Interest Payable: {totalInterest.toFixed(2)} INR</p>
-          <p>Total Payment: {totalPayment.toFixed(2)} INR</p>
+        <div className="middle-section text-center">
+          <div>
+          <p className="text-xl text-[#818181]">Loan EMI</p>
+          <h3 className="text-5xl text-black flex font-bold justify-center"><MdOutlineCurrencyRupee />{emi.toFixed(2)}</h3>
+          </div>
+          <div>
+          <p className="text-xl text-[#818181]">Total Interest Payable</p>
+          <h3 className="text-5xl text-black flex font-bold justify-center"><MdOutlineCurrencyRupee />{totalInterest.toFixed(2)} </h3>
+          </div>
+          <p className="text-xl text-[#818181]">Total of Payments (Principal + Interest)</p>
+          <h3 className="text-5xl text-black flex font-bold justify-center"><MdOutlineCurrencyRupee />{totalPayment.toFixed(2)}</h3>
         </div>
 
-        {/* Render Pie Chart only when data is valid */}
-        {loanAmount > 0 && totalInterest > 0 && (
-          <div className="right-section">
-            <Pie id="loan-chart" data={chartData} />
-          </div>
-        )}
+        <div className="right-section">
+          <ResponsiveContainer width="100%" height={300}>
+            <PieChart>
+              <Pie
+                activeIndex={activeIndex}
+                activeShape={renderActiveShape}
+                data={chartData}
+                cx="50%"
+                cy="50%"
+                innerRadius={60}
+                outerRadius={80}
+                fill="#8884d8"
+                dataKey="value"
+                onMouseEnter={(e, index) => setActiveIndex(index)}
+              >
+                {chartData.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={index % 2 === 0 ? '#36A2EB' : '#FF6384'} />
+                ))}
+              </Pie>
+              <Tooltip />
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
       </div>
      </div>
   );
