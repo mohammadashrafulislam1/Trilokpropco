@@ -30,6 +30,7 @@ const DetailProperty = () => {
   const [isHovering, setIsHovering] = useState(false);
   const [isInFav, setIsInFav] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState(null);
+  const [amenities, setAmenities] = useState([]);
   console.log(property, status);
 
 
@@ -68,6 +69,16 @@ const DetailProperty = () => {
         );
         setStatus(foundStatus);
       }
+      if(propertyData.amenities){
+        const amenityResponse = await fetch(`${endPoint}/amenity`);
+        const amenityData = await amenityResponse.json();
+        // Map through the propertyData amenities and match with fetched amenityData
+      const matchedAmenities = propertyData.amenities.map((amenityId) => {
+        // Find the amenity in amenityData by matching the ID
+        return amenityData.find((amenity) => amenity._id === amenityId);
+      });
+      setAmenities(matchedAmenities)
+      }
     };
     fetchProperty();
   }, [id, property]);
@@ -78,7 +89,15 @@ const DetailProperty = () => {
     }
     
   }, [activeIndex, swiperInstance]);
-
+  useEffect(() => {
+    if (property?.plans?.length > 0) {
+      // Only set the selectedPlan when it's null (initial load)
+      if (!selectedPlan) {
+        setSelectedPlan(property.plans[0]);
+      }
+    }
+  }, [property, selectedPlan]);
+  
 
   const handlePrev = () => {
     if (swiperInstance) {
@@ -547,6 +566,22 @@ const DetailProperty = () => {
       )}
 
 
+          </div>
+
+          {/* Amenities section*/}
+          <div>
+          <h2 className="text-3xl font-semibold text-black poppins mt-10 mb-6">
+          Amenities
+            </h2>
+          <div>
+            {
+              amenities?.map((amenity) =>
+              (<div key={amenity._id}>
+                
+              </div>)
+              )
+            }
+          </div>
           </div>
           
         </div>
