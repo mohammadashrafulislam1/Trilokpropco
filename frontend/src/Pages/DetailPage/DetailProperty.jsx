@@ -347,9 +347,9 @@ const DetailProperty = () => {
         </div>
       </div>
 
-      <div className="flex gap-5 mt-10 md:ml-10 md:mr-6">
+      <div className="lg:flex gap-5 mt-10 md:ml-10 md:mr-6">
         {/* Full left side details  */}
-        <div className="w-[65%]">
+        <div className="lg:w-[65%]">
           <h2 className="text-4xl text-black font-semibold">
             {property?.name}
           </h2>
@@ -609,7 +609,14 @@ const DetailProperty = () => {
           <h2 className="text-3xl font-semibold text-black poppins mt-10 mb-6">
           Location Map
             </h2>
-            <embed src={property?.locationMap} type="Trilokpropco Real Estate Property Location" className="w-full h-[500px] rounded-3xl"/>
+            <iframe
+  src={property?.locationMap}
+  title="Location Map"
+  className="w-full h-[500px] rounded-3xl"
+  frameBorder="0"
+  allowFullScreen
+/>
+
           </div>
 
           {/* specifications description section*/}
@@ -631,7 +638,10 @@ const DetailProperty = () => {
             </h2>
             <div className="grid grid-cols-4 gap-3">
               {
-                property?.bankImages?.map((bImg) =><img key={bImg._id} src={bImg} className="border w-[200px] h-[50px] cover rounded-xl"/>)
+                property?.bankImages?.map((bImg) =><img key={bImg._id} src={bImg} className="border w-full h-[80px] rounded-xl"
+                style={{
+                  objectFit:'cover'
+                }}/>)
               }
             </div>
           </div>
@@ -639,7 +649,7 @@ const DetailProperty = () => {
         </div>
 
         {/* Form right side  */}
-        <div className="w-[35%] my-10 relative">
+        <div className="lg:w-[35%] my-10 relative">
           <form
             onSubmit={handleSubmit}
             className="shadow-xl p-10 rounded-[30px] w-full  bg-white "
