@@ -38,17 +38,17 @@ const AllProperties = () => {
                     <title>Explore Properties Lists - Trilokpropco</title>
                 </Helmet>
                 <SectionTitle value="Explore Properties" color="white" /></div>
-                <div>
+                <div >
                     <Filter />
                 </div>
-            <div className="flex items-center">
-                <div>
+            <div className="flex items-center mx-10 m-6">
+                <div className='grid grid-cols-1 gap-5 mt-5'>
                 {
-                properties?.map(property =>(<PropertyListCard key={property?._id} property={property} />) )
+                properties?.map(property =>(<PropertyListCard key={property?._id} property={property}/>) )
             }
                 </div>
                 <div>
-                    
+
                 </div>
             </div>
         </div>
