@@ -18,7 +18,7 @@ const Header = ({ isDefault = true }) => {
       } rounded-box z-[1] mt-3 w-52 p-2 shadow ml-10`}
     >
       <li>
-        <a>Property</a>
+        <a href="/properties">Property</a>
       </li>
       <li>
         <a>Services</a>
@@ -35,7 +35,7 @@ const Header = ({ isDefault = true }) => {
   const menuLiLarge = (
     <ul className={`menu menu-horizontal px-1 ${isDefault ? "text-white" : "text-black"}`}>
       <li>
-        <a>Property</a>
+        <a href="/properties">Property</a>
       </li>
       <li>
         <a>Services</a>
