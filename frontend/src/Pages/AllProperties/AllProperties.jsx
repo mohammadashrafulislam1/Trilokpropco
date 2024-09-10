@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { endPoint } from '../../Component/ForAll/ForAll';
 import PropertyListCard from '../../Component/ForAll/PropertyListCard';
 import Filter from '../../Component/Filter/Filter';
+import Map from '../../Component/Map/Map';
 
 const AllProperties = () => {
     const [properties, setProperties]= useState();
@@ -41,14 +42,14 @@ const AllProperties = () => {
                 <div >
                     <Filter />
                 </div>
-            <div className="flex items-center mx-10 m-6">
-                <div className='grid grid-cols-1 gap-5 mt-5'>
+            <div className="grid grid-cols-3 gap-4 mx-10">
+                <div className='col-span-1 grid grid-cols-1 gap-5 mt-5'>
                 {
                 properties?.map(property =>(<PropertyListCard key={property?._id} property={property}/>) )
             }
                 </div>
-                <div>
-
+                <div className='h-full relative col-span-2 rounded-xl'>
+                <Map properties={properties}/>
                 </div>
             </div>
         </div>
