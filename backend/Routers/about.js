@@ -4,8 +4,8 @@ import { upload } from "../MiddleWare/multer.js";
 
 export const aboutRouter = express.Router();
 
-aboutRouter.post('/', upload.single('image'), addAbout);
+aboutRouter.post('/', upload.single('founderLogo'), addAbout);
 
 aboutRouter.get('/', getAbout);
 
-aboutRouter.put('/:id', upload.single('image'), updateAbout);
+aboutRouter.put('/:id', upload.single('founderLogo'), updateAbout);

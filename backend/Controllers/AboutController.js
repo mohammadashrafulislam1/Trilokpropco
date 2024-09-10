@@ -9,10 +9,11 @@ export const addAbout = async (req, res) => {
             mission: req.body.mission,
             vision: req.body.vision,
             founder: req.body.founder,
-            founderLogo: req.body.founderLogo,
+            founderLogo: imageResult.secure_url,
             locationMap: req.body.locationMap,
             imagePublicId: imageResult.public_id,
         };
+        console.log(aboutData)
         const about = new AboutModel(aboutData);
         const savedAbout = await about.save();
         res.status(200).json(savedAbout);
@@ -48,7 +49,6 @@ export const updateAbout = async (req, res) => {
             mission: req.body.mission || existingAbout.mission,
             vision: req.body.vision || existingAbout.vision,
             founder: req.body.founder || existingAbout.founder,
-            founderLogo: req.body.founderLogo || existingAbout.founderLogo,
             locationMap: req.body.locationMap || existingAbout.locationMap,
         };
 
@@ -58,7 +58,7 @@ export const updateAbout = async (req, res) => {
             
             // Upload the new image
             const imageResult = await cloudinary.uploader.upload(req.file.path);
-            updatedData.imagePublicId = imageResult.public_id;
+            updatedData.founderLogo = imageResult.secure_url;
         } else {
             updatedData.imagePublicId = existingAbout.imagePublicId;
         }
