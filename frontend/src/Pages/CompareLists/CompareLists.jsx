@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Header from "../../Component/Navigation/Header";
 import { endPoint } from "../../Component/ForAll/ForAll";
 import { Helmet } from "react-helmet";
+import SectionTitle from "../../Component/ForAll/SectionTitle";
 
 const CompareLists = () => {
   const [compareLists, setCompareLists] = useState([]);
@@ -54,14 +55,25 @@ const CompareLists = () => {
 
   return (
     <div>
-      <Header />
-      <Helmet>
+     <div
+                className="pt-5 lg:h-96 h-40 md:h-56"
+                style={{
+                    backgroundImage: `url(https://i.ibb.co/NT6PZjt/16406692-rm378-02c.webp)`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    backgroundRepeat: 'no-repeat',
+                }}
+            >
+                <Header />
+                <Helmet>
                 <meta charSet="utf-8" />
-                <title>Compare Lists - Trilokpropco</title>
+                <title>Compare Properties - Trilokpropco</title>
       </Helmet>
-      <div className="overflow-x-auto mx-4 lg:mx-20 !rounded-[25px] mb-12">
+                <SectionTitle value="Compare Properties" color="white" />
+            </div>
+     
+      <div className="overflow-x-auto mx-4 lg:mx-20 !rounded-[25px] mb-12 mt-10">
         <table className="table-auto border w-full !rounded-[25px]">
-            <caption className="text-3xl mb-5 font-semibold">Compare Properties</caption>
           <tbody className="!rounded-[25px]">
             <tr className="border">
               <td className="p-4 font-bold"></td>

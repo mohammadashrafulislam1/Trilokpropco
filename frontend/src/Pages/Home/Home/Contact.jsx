@@ -37,8 +37,10 @@ const Contact = () => {
 
   const handleCountrySelect = (country) => {
     setSelectedCountry(country);
+    setSelectedCountryCode(country.code); // Update the country code
     setIsCountryListVisible(false); // Hide the list after selection
   };
+  
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value); // Update search query

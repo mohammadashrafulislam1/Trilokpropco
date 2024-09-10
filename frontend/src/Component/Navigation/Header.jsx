@@ -80,7 +80,8 @@ const Header = ({ isDefault = true }) => {
   };
 
   return (
-    <div className={`nav-section navbar`}
+    <div>
+      <div className={`nav-section navbar`}
     style={isDefault? {
       background: 'rgba( 255, 255, 255, 0.25 )',
       boxShadow: '0 8px 32px 0 rgba( 31, 38, 135, 0.37 )',
@@ -138,8 +139,9 @@ const Header = ({ isDefault = true }) => {
           </div>
         </Link>
       </div>
+    </div>
 
-      <CompareDrawer isVisible={isDrawerVisible} onClose={toggleDrawer} />
+<CompareDrawer isVisible={isDrawerVisible} onClose={toggleDrawer} />
     </div>
   );
 };
