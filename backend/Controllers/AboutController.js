@@ -22,6 +22,19 @@ export const addAbout = async (req, res) => {
     }
 };
 
+export const getAbout = async (req, res) => {
+    try {
+        const about = await AboutModel.findOne();
+        if (!about) {
+            return res.status(404).json({ message: "About section not found" });
+        }
+        res.status(200).json(about);
+    } catch (e) {
+        console.log(e.message);
+        res.status(500).json({ message: "Internal Server Error." });
+    }
+}
+
 export const updateAbout = async (req, res) => {
     try {
         const { id } = req.params;
