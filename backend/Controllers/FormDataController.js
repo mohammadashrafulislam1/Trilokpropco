@@ -10,8 +10,8 @@ const transporter = nodemailer.createTransport({
 })
 
 export const addFormData = async(req, res) =>{
-    const {option, name, email, message} = req.body;
-    const newFormData = new FormDataModel({option, name, email, message});
+    const {option, name, email, message, phone, project} = req.body;
+    const newFormData = new FormDataModel({option, name, email, message, phone, project});
     try{
     await newFormData.save();
     const mailOptions = {
@@ -21,6 +21,8 @@ export const addFormData = async(req, res) =>{
         text: `Option: ${option},
         Name: ${name},
         Email: ${email},
+        Phone: ${phone},
+        Project: ${project},
         Message: 
         ${message}`
       };

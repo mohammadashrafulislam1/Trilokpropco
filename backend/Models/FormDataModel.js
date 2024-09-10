@@ -1,10 +1,12 @@
 import mongoose from 'mongoose';
 
 const formDataSchema = new mongoose.Schema({
-    option:{ type: String, required: true},
+    option:{ type: String},
     name:{ type: String, required: true},
-    email:{ type: String, required: true},
-    message:{ type: String, required: true},    
+    email:{ type: String},
+    phone:{ type: String},    
+    project:{ type: String},    
+    message:{ type: String},    
     created_at:{ type: Date, default: Date.now},
 })
 
