@@ -9,7 +9,13 @@ const Contact = () => {
   const [selectedOption, setSelectedOption] = useState("sale");
   const [loading, setLoading] = useState(false);
   const [countryCodes, setCountryCodes] = useState([]);
-  const [selectedCountryCode, setSelectedCountryCode] = useState("+1"); // Default to US code
+  const [selectedCountryCode, setSelectedCountryCode] = useState("+91"); 
+  const [selectedCountry, setSelectedCountry] = useState({
+    code: "+91",
+    flag: "https://flagcdn.com/in.svg", // Default to US flag
+  });
+  const [isCountryListVisible, setIsCountryListVisible] = useState(false); // Manage dropdown visibility
+  const [searchQuery, setSearchQuery] = useState(""); // State for search query
 
   useEffect(() => {
     fetch("https://restcountries.com/v3.1/all")
@@ -18,6 +24,7 @@ const Contact = () => {
         const codes = data.map((country) => ({
           name: country.name.common,
           code: country.idd.root + (country.idd.suffixes ? country.idd.suffixes[0] : ""),
+          flag: country.flags.svg, // Add flag URL from API data
         })).filter(c => c.code); // Filter out countries without a code
         setCountryCodes(codes);
       })
@@ -27,6 +34,19 @@ const Contact = () => {
   const handleOptionClick = (option) => {
     setSelectedOption(option);
   };
+
+  const handleCountrySelect = (country) => {
+    setSelectedCountry(country);
+    setIsCountryListVisible(false); // Hide the list after selection
+  };
+
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value); // Update search query
+  };
+
+  const filteredCountries = countryCodes.filter((country) =>
+    country.name.toLowerCase().includes(searchQuery.toLowerCase())
+  ); // Filter countries based on search
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -51,7 +71,7 @@ const Contact = () => {
       .then((response) => response.json())
       .then((data) => {
         if (data) {
-          toast.success("Successfully sent email to owner.");
+          toast.success("Successfully sent. We will contact you shortly.");
         }
       })
       .catch((error) => {
@@ -158,44 +178,68 @@ const Contact = () => {
             />
           </div>
 
-          <div>
-            <div className="label mt-4">
-              <span className="label-text text-white border-b-[1px] w-full border-[#ffffff68]">
-                Your phone
-              </span>
-            </div>
-            <div className="flex w-full">
-              <select
-                onChange={(e) => setSelectedCountryCode(e.target.value)}
-                value={selectedCountryCode}
-                className="bg-black border-b-[3px] border-[#ffffff68] w-1/4 focus:border-[#046307] p-3 text-white"
+          {/* Country and Phone field */}
+          <div className="label mt-4">
+            <span className="label-text text-white border-b-[1px] w-full border-[#ffffff68]">
+              Your phone
+            </span>
+          </div>
+          <div className="flex w-full">
+            {/* Custom Country Code Dropdown */}
+            <div className="relative w-1/4">
+              <button
+                type="button"
+                onClick={() => setIsCountryListVisible(!isCountryListVisible)} // Toggle list visibility
+                className="flex items-center bg-black border-b-[3px] border-[#ffffff68] w-full focus:border-[#046307] p-3 text-white"
               >
-                {countryCodes.map((country, index) => (
-                  <option key={index} value={country.code}>
-                    {country.name} ({country.code})
-                  </option>
-                ))}
-              </select>
-              <input
-                type="text"
-                name="phone"
-                required
-                placeholder="Type phone number"
-                className="border-b-[3px] bg-black p-3 focus:border-[#046307] border-[#ffffff68] focus:text-white w-3/4"
-              />
+                <img src={selectedCountry.flag} alt="flag" className="w-6 h-6 mr-2" />
+                {selectedCountry.code}
+              </button>
+              
+              {isCountryListVisible && ( // Show country list only when visible
+                <div className="absolute top-full left-0 bg-black w-full max-h-60 overflow-y-auto z-10">
+                  {/* Search Input */}
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={handleSearchChange}
+                    placeholder="Search country"
+                    className="w-full p-2 bg-gray-800 text-white focus:outline-none"
+                  />
+
+                  {filteredCountries.map((country, index) => (
+                    <div
+                      key={index}
+                      onClick={() => handleCountrySelect(country)}
+                      className="flex items-center p-2 hover:bg-[#046307] cursor-pointer text-white"
+                    >
+                      <img src={country.flag} alt={country.name} className="w-6 h-6 mr-2" />
+                      <span>{country.name} ({country.code})</span>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
+
+            {/* Phone input */}
+            <input
+              type="text"
+              name="phone"
+              placeholder="Your phone number"
+              className="border-b-[3px] bg-black p-3 focus:border-[#046307] border-[#ffffff68] w-3/4 focus:text-white"
+            />
           </div>
 
           <div>
             <div className="label mt-4">
               <span className="label-text text-white border-b-[1px] w-full border-[#ffffff68]">
-                Your project
+                Project (Optional)
               </span>
             </div>
             <input
               type="text"
               name="project"
-              placeholder="Type project name here"
+              placeholder="Type project here"
               className="border-b-[3px] bg-black p-3 focus:border-[#046307] border-[#ffffff68] w-full focus:text-white"
             />
           </div>
@@ -207,20 +251,22 @@ const Contact = () => {
               </span>
             </div>
             <textarea
-              className="border-[3px] bg-black p-3 focus:border-[#046307] border-[#ffffff68] text-area w-full mt-4 rounded-3xl focus:text-white"
-              placeholder="What is in your mind?"
-              rows={4}
+              required
               name="message"
+              placeholder="Type message here"
+              className="border-b-[3px] bg-black p-3 focus:border-[#046307] border-[#ffffff68] w-full focus:text-white h-20"
             ></textarea>
           </div>
 
-          <button
-            type="submit"
-            className="btn bg-[#046307] border-0 text-white w-full rounded-full mt-6"
-            disabled={loading}
-          >
-            {loading ? "Sending..." : "Send message"}
-          </button>
+          <div className="text-center mt-6">
+            <button
+              type="submit"
+              className="bg-[#046307] text-white py-3 px-6 rounded-full w-full"
+              disabled={loading}
+            >
+              {loading ? "Sending..." : "Send message"}
+            </button>
+          </div>
         </form>
       </div>
     </div>

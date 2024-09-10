@@ -213,26 +213,41 @@ const DetailProperty = () => {
 
   const [loading, setLoading] = useState(false);
   const [countryCodes, setCountryCodes] = useState([]);
-  const [selectedCountryCode, setSelectedCountryCode] = useState("+1"); // Default to US code
+  const [selectedCountryCode, setSelectedCountryCode] = useState("+91"); // Default to US code
+  const [selectedCountry, setSelectedCountry] = useState({
+    code: "+91",
+    flag: "https://flagcdn.com/in.svg", // Default to US flag
+  });
+  const [isCountryListVisible, setIsCountryListVisible] = useState(false); // Manage dropdown visibility
+  const [searchQuery, setSearchQuery] = useState(""); // State for search query
 
   useEffect(() => {
     fetch("https://restcountries.com/v3.1/all")
       .then((response) => response.json())
       .then((data) => {
-        const codes = data
-          .map((country) => ({
-            name: country.name.common,
-            code:
-              country.idd.root +
-              (country.idd.suffixes ? country.idd.suffixes[0] : ""),
-          }))
-          .filter((c) => c.code); // Filter out countries without a code
+        const codes = data.map((country) => ({
+          name: country.name.common,
+          code: country.idd.root + (country.idd.suffixes ? country.idd.suffixes[0] : ""),
+          flag: country.flags.svg, // Add flag URL from API data
+        })).filter(c => c.code); // Filter out countries without a code
         setCountryCodes(codes);
       })
       .catch((error) => console.error("Error fetching country codes:", error));
   }, []);
 
+  const handleCountrySelect = (country) => {
+    setSelectedCountry(country);
+    setIsCountryListVisible(false); // Hide the list after selection
+  };
 
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value); // Update search query
+  };
+
+  const filteredCountries = countryCodes.filter((country) =>
+    country.name.toLowerCase().includes(searchQuery.toLowerCase())
+  ); // Filter countries based on search
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
@@ -256,7 +271,7 @@ const DetailProperty = () => {
       .then((response) => response.json())
       .then((data) => {
         if (data) {
-          toast.success("Successfully sent email to owner.");
+          toast.success("Successfully sent. We will contact you shortly.");
         }
       })
       .catch((error) => {
@@ -763,31 +778,51 @@ const DetailProperty = () => {
               />
             </div>
 
-            <div>
-              <div className="label mt-4">
-                <span className="label-text text-black ">Your phone</span>
-              </div>
-              <div className="flex w-full">
-                <select
-                  onChange={(e) => setSelectedCountryCode(e.target.value)}
-                  value={selectedCountryCode}
-                  className=" border-b-[2px] border-[#b4b4b468] w-1/4 focus:border-[#046307] p-3 text-black"
-                >
-                  {countryCodes.map((country, index) => (
-                    <option key={index} value={country.code}>
-                      {country.name} ({country.code})
-                    </option>
+            <div className="flex w-full">
+            {/* Custom Country Code Dropdown */}
+            <div className="relative w-1/4">
+              <button
+                type="button"
+                onClick={() => setIsCountryListVisible(!isCountryListVisible)} // Toggle list visibility
+                className="flex items-center bg-white border-b-[3px] border-[#ffffff68] w-full focus:border-[#046307] p-3 text-black"
+              >
+                <img src={selectedCountry.flag} alt="flag" className="w-6 h-6 mr-2" />
+                {selectedCountry.code}
+              </button>
+              
+              {isCountryListVisible && ( // Show country list only when visible
+                <div className="absolute top-full left-0 text-black bg-white w-full max-h-60 overflow-y-auto z-10">
+                  {/* Search Input */}
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={handleSearchChange}
+                    placeholder="Search country"
+                    className="w-full p-2 text-black focus:outline-none"
+                  />
+
+                  {filteredCountries.map((country, index) => (
+                    <div
+                      key={index}
+                      onClick={() => handleCountrySelect(country)}
+                      className="flex items-center p-2 hover:bg-[#046307] bg-white cursor-pointer text-black"
+                    >
+                      <img src={country.flag} alt={country.name} className="w-6 h-6 mr-2" />
+                      <span>{country.name} ({country.code})</span>
+                    </div>
                   ))}
-                </select>
-                <input
-                  type="text"
-                  name="phone"
-                  required
-                  placeholder="Type phone number"
-                  className="border-b-[2px]  p-3 focus:border-[#046307] border-[#b4b4b468] focus:text-black w-3/4"
-                />
-              </div>
+                </div>
+              )}
             </div>
+
+            {/* Phone input */}
+            <input
+              type="text"
+              name="phone"
+              placeholder="Your phone number"
+              className="border-b-[3px] p-3 focus:border-[#046307] border-[#ffffff68] w-3/4 focus:text-black"
+            />
+          </div>
 
             <div>
               <div className="label mt-4">
