@@ -7,7 +7,8 @@ import { endPoint } from "../../Component/ForAll/ForAll";
 const About = () => {
     const [about, setAbout] = useState();
     const [footer, setFooter] = useState();
-    console.log(about)
+    const [why, setWhy] = useState();
+    console.log(why)
     useEffect(()=>{
         const fetchAbout = async()=>{
             try {
@@ -30,9 +31,19 @@ const About = () => {
             }
         }
         fetchFooter()
+
+        const fetchWhy = async()=>{
+            try {
+                const response = await fetch(`${endPoint}/why`);
+                const data = await response.json();
+                setWhy(data);
+            } catch (error) {
+                console.error('Error fetching properties:', error);
+            }
+        }
+        fetchWhy()
     },[])
 
-    console.log(footer)
     return (
     <div>
           <div
@@ -52,16 +63,16 @@ const About = () => {
                 <SectionTitle value="About Us" color="white" />
           </div> 
 
-        <div className="flex gap-5 mx-14 rounded-lg shadow-2xl mt-20 mb-10 p-14 text-black items-center bg-[#04630742]">
+        <div className="flex gap-5 mx-14 rounded-lg shadow-md mt-20 mb-10 p-14 text-black items-center bg-[#04630742]">
             <div>
            <h2 className="text-3xl font-semibold mb-2">Company History</h2>
             <p>{about?.history}</p>
             </div>
-            <img src={footer[0]?.image} alt="Trilokpropco - Real Estate Agency." className="w-[300px] h-[180px]" />
+            <img src={footer ? footer[0]?.image :""} alt="Trilokpropco - Real Estate Agency." className="w-[300px] h-[180px]" />
         </div> 
 
         <div className="mx-14 mt-10 mb-14 md:flex items-center gap-5">
-            <div className="flex gap-5 items-center bg-[#04630742] p-8 rounded-lg shadow-2xl w-1/2 md:h-[350px]">
+            <div className="flex gap-5 items-center bg-[#04630742] p-8 rounded-lg shadow-md w-1/2 md:h-[350px]">
                 <div>
                 <h2 className="text-3xl font-semibold mb-2">Our Mission</h2>
                 <p>{about?.mission}</p>
@@ -69,7 +80,7 @@ const About = () => {
                 <img src="https://i.ibb.co.com/NynhxyC/pngegg-2.webp" alt="Trilokpropco - Our Mission" className="w-[300px] h-[180px]" />
             </div>
 
-            <div className="flex gap-5 items-center bg-[#04630742] p-8 rounded-lg shadow-2xl w-1/2 md:h-[350px]">
+            <div className="flex gap-5 items-center bg-[#04630742] p-8 rounded-lg shadow-md w-1/2 md:h-[350px]">
                 <div>
                 <h2 className="text-3xl font-semibold mb-2">Our Vision</h2>
                 <p>{about?.vision}</p>
@@ -78,7 +89,7 @@ const About = () => {
             </div>
         </div>
 
-        <div className="flex gap-5 mx-14 rounded-lg shadow-2xl mt-20 mb-10 p-14 text-black items-center bg-[#ffffff1d] border">
+        <div className="flex gap-5 mx-14 rounded-lg shadow-md mt-20 mb-10 p-14 text-black items-center bg-[#ffffff1d] border">
             <img src={about?.founderLogo} alt="Mr. Anirban Manna - Trilok Propco" className="w-[400px] rounded-lg"/>
             <div>
             <h2 className="text-3xl font-semibold mb-2">Founder</h2>
@@ -86,8 +97,19 @@ const About = () => {
             </div>
         </div>
 
-        <div>
-            <SectionTitle value="why choose us" className="mt-5"/>
+        <div className="mt-32 mx-10">
+            <SectionTitle value="why choose us"/>
+            <div className="my-5 grid md:grid-cols-3 gap-8">
+            {
+                why?.map(item =>
+                    <div key={item._id} className="flex flex-col items-center justify-center rounded-lg border gap-5 p-4">
+                        <h2 className="text-2xl text-center font-semibold text-[#BDAC0F]">{item?.title}</h2>
+                        <img src={item?.logo} alt={item?.title} className="w-3/4"/>
+                        <p className="text-[18px] text-black mt-2 text-center">{item?.description}</p>
+                    </div>
+                )
+            }
+            </div>
         </div>
     </div>
     );
