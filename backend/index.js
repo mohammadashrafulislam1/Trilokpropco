@@ -15,6 +15,7 @@ import { partnerRouter } from "./Routers/partner.js";
 import { footerRouter } from "./Routers/footer.js";
 import { formRouter } from "./Routers/formData.js";
 import { aboutRouter } from "./Routers/about.js";
+import { whyRouter } from "./Routers/why.js";
 
 const app = express();
 const PORT = 5000;
@@ -33,6 +34,7 @@ app.use('/testimonial', testimonialRouter)
 app.use('/partner', partnerRouter)
 app.use('/footer', footerRouter)
 app.use('/about', aboutRouter)
+app.use('/why', whyRouter)
 app.use('/inquire', formRouter)
 
 

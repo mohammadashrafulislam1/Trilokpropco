@@ -1,5 +1,6 @@
 import { Helmet } from 'react-helmet';
 import Header from '../../Component/Navigation/Header';
+import Footer from '../../Component/Navigation/Footer';
 import SectionTitle from '../../Component/ForAll/SectionTitle';
 import { useEffect, useState } from 'react';
 import { endPoint } from '../../Component/ForAll/ForAll';
@@ -79,16 +80,17 @@ const AllProperties = () => {
             <div className='md:mx-0 mx-2'>
                 <Filter onFilterChange={handleFilterChange} />
             </div>
-            <div className="grid md:grid-cols-5 gap-8 lg:mx-20 mx-5">
+            <div className="grid md:grid-cols-5 gap-8 lg:mx-20 mx-5 mb-3">
                 <div className='md:col-span-2 grid grid-cols-1 gap-5 mt-5'>
                     {filteredProperties.slice(0, 8).map(property => (
                         <PropertyListCard key={property?._id} property={property} />
                     ))}
                 </div>
-                <div className="md:col-span-3 sticky top-0 h-[calc(100vh-120px)]">
+                <div className="md:col-span-3 sticky top-0 h-[calc(160vh-160px)]">
                     <Map properties={filteredProperties} />
                 </div>
             </div>
+            <Footer />
         </div>
     );
 };

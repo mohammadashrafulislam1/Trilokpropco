@@ -27,6 +27,9 @@ const Header = ({ isDefault = true }) => {
         <a>Blog</a>
       </li>
       <li>
+        <a href="/about">About</a>
+      </li>
+      <li>
         <a>Contact</a>
       </li>
     </ul>
@@ -42,6 +45,9 @@ const Header = ({ isDefault = true }) => {
       </li>
       <li>
         <a>Blog</a>
+      </li>
+      <li>
+        <a href="/about">About</a>
       </li>
       <li>
         <a>Contact</a>

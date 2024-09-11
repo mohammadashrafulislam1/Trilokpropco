@@ -6,6 +6,7 @@ import FavLists from "../Pages/FavLists/FavLists";
 import { endPoint } from "../Component/ForAll/ForAll";
 import DetailProperty from "../Pages/DetailPage/DetailProperty";
 import AllProperties from "../Pages/AllProperties/AllProperties";
+import About from "../Pages/About/About";
 
 
 export const router = createBrowserRouter([
@@ -36,6 +37,10 @@ export const router = createBrowserRouter([
     {
         path:'/properties',
         element: <AllProperties/>,
+    },
+    {
+        path:'/about',
+        element: <About/>,
     },
     {
         path: '/property/:id',

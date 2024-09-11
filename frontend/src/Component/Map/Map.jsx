@@ -25,7 +25,7 @@ const Map = ({ properties }) => {
       center={[23.4933742, 88.3990239]} // Fallback center position
       zoom={7}
       scrollWheelZoom={false}
-      className="h-[800px] rounded-xl"
+      className="h-full rounded-xl"
     >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
