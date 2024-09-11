@@ -76,34 +76,34 @@ const About = () => {
                 <SectionTitle value="About Us" color="white" />
           </div> 
 
-        <div className="flex gap-5 mx-14 rounded-lg shadow-md mt-20 mb-10 p-14 text-black items-center bg-[#04630742]">
+        <div className="md:flex gap-5 mx-5 md:mx-5 md:mx-14 rounded-lg shadow-md md:mt-20 mt-4 mb-10 lg:p-14 text-black items-center bg-[#04630742] p-5">
             <div>
            <h2 className="text-3xl font-semibold mb-2">Company History</h2>
             <p>{about?.history}</p>
             </div>
-            <img src={footer ? footer[0]?.image :""} alt="Trilokpropco - Real Estate Agency." className="w-[300px] h-[180px]" />
+            <img src={footer ? footer[0]?.image :""} alt="Trilokpropco - Real Estate Agency." className="lg:w-[300px] w-[200px] h-[120px] lg:h-[180px]" />
         </div> 
 
-        <div className="mx-14 mt-10 mb-14 md:flex items-center gap-5">
-            <div className="flex gap-5 items-center bg-[#04630742] p-8 rounded-lg shadow-md w-1/2 md:h-[350px]">
+        <div className="mx-5 md:mx-14 mt-10 mb-14 lg:flex items-center gap-5">
+            <div className="md:flex gap-5 items-center bg-[#04630742] p-8 rounded-lg shadow-md lg:w-1/2 lg:h-[350px] mb-4 lg:mb-0">
                 <div>
                 <h2 className="text-3xl font-semibold mb-2">Our Mission</h2>
                 <p>{about?.mission}</p>
                 </div>
-                <img src="https://i.ibb.co.com/NynhxyC/pngegg-2.webp" alt="Trilokpropco - Our Mission" className="w-[300px] h-[180px]" />
+                <img src="https://i.ibb.co.com/NynhxyC/pngegg-2.webp" alt="Trilokpropco - Our Mission" className="md:w-[300px] md:h-[180px]" />
             </div>
 
-            <div className="flex gap-5 items-center bg-[#04630742] p-8 rounded-lg shadow-md w-1/2 md:h-[350px]">
+            <div className="md:flex gap-5 items-center bg-[#04630742] p-8 rounded-lg shadow-md lg:w-1/2 lg:h-[350px]">
                 <div>
                 <h2 className="text-3xl font-semibold mb-2">Our Vision</h2>
                 <p>{about?.vision}</p>
                 </div>
-                <img src="https://i.ibb.co.com/hFqyrJL/pngwing-com-3.webp" alt="Trilokpropco - Our Vision" className="w-[300px] h-[180px]" />
+                <img src="https://i.ibb.co.com/hFqyrJL/pngwing-com-3.webp" alt="Trilokpropco - Our Vision" className="md:w-[300px] md:h-[180px]" />
             </div>
         </div>
 
-        <div className="flex gap-5 mx-14 rounded-lg shadow-md mt-20 mb-10 p-14 text-black items-center bg-[#ffffff1d] border">
-            <img src={about?.founderLogo} alt="Mr. Anirban Manna - Trilok Propco" className="w-[400px] rounded-lg"/>
+        <div className="md:flex gap-5 mx-5 md:mx-14 rounded-lg shadow-md mt-20 mb-10 lg:p-14 p-6 text-black items-center bg-[#ffffff1d] border">
+            <img src={about?.founderLogo} alt="Mr. Anirban Manna - Trilok Propco" className="md:w-[200px] lg:w-[400px] rounded-lg md:mb-0 mb-4"/>
             <div>
             <h2 className="text-3xl font-semibold mb-2">Founder</h2>
             <p>{about?.founder}</p>
@@ -128,7 +128,7 @@ const About = () => {
         <div className="mt-32 mx-10">
         <SectionTitle value="Partners"/>
          
-         <div className="grid grid-cols-4 items-center justify-center gap-6 mt-10 w-3/4 mx-auto">
+         <div className="grid grid-cols-2 md:grid-cols-4 items-center justify-center gap-6 mt-10 w-1/2 md:w-3/4 mx-auto">
             {
                 partners?.map(partner => <div className="rounded-lg border flex items-center justify-center w-full" key={partner._id}>
                     <img src={partner?.images[0]?.url} alt={partner.name} />
@@ -139,15 +139,15 @@ const About = () => {
          </div>
          <div className="bg-[#046307] mt-16 p-10 flex justify-center flex-col items-center">
          <SectionTitle value="Contact Us" color="white"/>
-         <div className=" mt-8 flex items-center justify-between gap-10">
-         <div className="text-white">
+         <div className=" mt-8 md:flex items-center justify-between gap-10">
+         <div className="text-white md:mb-0 mb-6">
         <p>Email: <span className="font-light">{footer? footer[0]?.email :""}</span></p>
         <p>Address: <span className="font-light">{footer? footer[0]?.location :""}</span></p>
         <p>Phone: <span className="font-light">{footer? footer[0]?.contact :""}</span></p>
-         <Link to='/contact'><button className="bg-white text-[#046307] font-semibold p-2 text-2xl px-5 rounded-lg mt-8">Contact Us</button></Link>
+         <Link to='/contact'><button className="bg-white text-[#046307] font-semibold p-2 md:text-2xl px-5 rounded-lg mt-8">Contact Us</button></Link>
          </div>
          <div>
-         <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d235850.66939636858!2d88.347353!3d22.535427!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f882db4908f667%3A0x43e330e68f6c2cbc!2sKolkata%2C%20West%20Bengal%2C%20India!5e0!3m2!1sen!2sbd!4v1726049472622!5m2!1sen!2sbd" className="w-[500px] h-[500px] rounded-lg"></iframe>
+         <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d235850.66939636858!2d88.347353!3d22.535427!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f882db4908f667%3A0x43e330e68f6c2cbc!2sKolkata%2C%20West%20Bengal%2C%20India!5e0!3m2!1sen!2sbd!4v1726049472622!5m2!1sen!2sbd" className="md:w-[500px] md:h-[500px] rounded-lg"></iframe>
          </div>
          </div>
         </div>
