@@ -6,6 +6,7 @@ import { endPoint } from "../../Component/ForAll/ForAll";
 
 const About = () => {
     const [about, setAbout] = useState();
+    const [footer, setFooter] = useState();
     console.log(about)
     useEffect(()=>{
         const fetchAbout = async()=>{
@@ -18,7 +19,20 @@ const About = () => {
             }
         }
         fetchAbout()
+
+        const fetchFooter = async()=>{
+            try {
+                const response = await fetch(`${endPoint}/footer`);
+                const data = await response.json();
+                setFooter(data);
+            } catch (error) {
+                console.error('Error fetching properties:', error);
+            }
+        }
+        fetchFooter()
     },[])
+
+    console.log(footer)
     return (
     <div>
           <div
@@ -38,13 +52,43 @@ const About = () => {
                 <SectionTitle value="About Us" color="white" />
           </div> 
 
-        <div>
+        <div className="flex gap-5 mx-14 rounded-lg shadow-2xl mt-20 mb-10 p-14 text-black items-center bg-[#04630742]">
             <div>
-            <SectionTitle value="Company History" color="black" />
+           <h2 className="text-3xl font-semibold mb-2">Company History</h2>
             <p>{about?.history}</p>
             </div>
-            <img src={} alt="" />
+            <img src={footer[0]?.image} alt="Trilokpropco - Real Estate Agency." className="w-[300px] h-[180px]" />
         </div> 
+
+        <div className="mx-14 mt-10 mb-14 md:flex items-center gap-5">
+            <div className="flex gap-5 items-center bg-[#04630742] p-8 rounded-lg shadow-2xl w-1/2 md:h-[350px]">
+                <div>
+                <h2 className="text-3xl font-semibold mb-2">Our Mission</h2>
+                <p>{about?.mission}</p>
+                </div>
+                <img src="https://i.ibb.co.com/NynhxyC/pngegg-2.webp" alt="Trilokpropco - Our Mission" className="w-[300px] h-[180px]" />
+            </div>
+
+            <div className="flex gap-5 items-center bg-[#04630742] p-8 rounded-lg shadow-2xl w-1/2 md:h-[350px]">
+                <div>
+                <h2 className="text-3xl font-semibold mb-2">Our Vision</h2>
+                <p>{about?.vision}</p>
+                </div>
+                <img src="https://i.ibb.co.com/hFqyrJL/pngwing-com-3.webp" alt="Trilokpropco - Our Vision" className="w-[300px] h-[180px]" />
+            </div>
+        </div>
+
+        <div className="flex gap-5 mx-14 rounded-lg shadow-2xl mt-20 mb-10 p-14 text-black items-center bg-[#ffffff1d] border">
+            <img src={about?.founderLogo} alt="Mr. Anirban Manna - Trilok Propco" className="w-[400px] rounded-lg"/>
+            <div>
+            <h2 className="text-3xl font-semibold mb-2">Founder</h2>
+            <p>{about?.founder}</p>
+            </div>
+        </div>
+
+        <div>
+            <SectionTitle value="why choose us" className="mt-5"/>
+        </div>
     </div>
     );
 };
