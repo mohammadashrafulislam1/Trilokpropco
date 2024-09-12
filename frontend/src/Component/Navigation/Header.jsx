@@ -30,7 +30,7 @@ const Header = ({ isDefault = true }) => {
         <a href="/about">About</a>
       </li>
       <li>
-        <a>Contact</a>
+        <a href="/contact">Contact</a>
       </li>
     </ul>
   );
@@ -50,7 +50,7 @@ const Header = ({ isDefault = true }) => {
         <a href="/about">About</a>
       </li>
       <li>
-        <a>Contact</a>
+        <a href="/contact">Contact</a>
       </li>
     </ul>
   );

@@ -7,6 +7,7 @@ import { endPoint } from "../Component/ForAll/ForAll";
 import DetailProperty from "../Pages/DetailPage/DetailProperty";
 import AllProperties from "../Pages/AllProperties/AllProperties";
 import About from "../Pages/About/About";
+import ContactUs from "../Pages/Contact/ContactUs";
 
 
 export const router = createBrowserRouter([
@@ -41,6 +42,10 @@ export const router = createBrowserRouter([
     {
         path:'/about',
         element: <About/>,
+    },
+    {
+        path:'/contact',
+        element: <ContactUs/>,
     },
     {
         path: '/property/:id',

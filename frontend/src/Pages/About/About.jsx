@@ -76,7 +76,7 @@ const About = () => {
                 <SectionTitle value="About Us" color="white" />
           </div> 
 
-        <div className="md:flex gap-5 mx-5 md:mx-5 md:mx-14 rounded-lg shadow-md md:mt-20 mt-4 mb-10 lg:p-14 text-black items-center bg-[#04630742] p-5">
+        <div className="md:flex gap-5 mx-5 md:mx-5 lg:mx-14 md:mx-8 rounded-lg shadow-md md:mt-20 mt-4 mb-10 lg:p-14 text-black items-center bg-[#04630742] p-5">
             <div>
            <h2 className="text-3xl font-semibold mb-2">Company History</h2>
             <p>{about?.history}</p>
@@ -84,7 +84,7 @@ const About = () => {
             <img src={footer ? footer[0]?.image :""} alt="Trilokpropco - Real Estate Agency." className="lg:w-[300px] w-[200px] h-[120px] lg:h-[180px]" />
         </div> 
 
-        <div className="mx-5 md:mx-14 mt-10 mb-14 lg:flex items-center gap-5">
+        <div className="mx-5 lg:mx-14 md:mx-8 mt-10 mb-14 lg:flex items-center gap-5">
             <div className="md:flex gap-5 items-center bg-[#04630742] p-8 rounded-lg shadow-md lg:w-1/2 lg:h-[350px] mb-4 lg:mb-0">
                 <div>
                 <h2 className="text-3xl font-semibold mb-2">Our Mission</h2>
@@ -102,8 +102,25 @@ const About = () => {
             </div>
         </div>
 
-        <div className="md:flex gap-5 mx-5 md:mx-14 rounded-lg shadow-md mt-20 mb-10 lg:p-14 p-6 text-black items-center bg-[#ffffff1d] border">
-            <img src={about?.founderLogo} alt="Mr. Anirban Manna - Trilok Propco" className="md:w-[200px] lg:w-[400px] rounded-lg md:mb-0 mb-4"/>
+        <div className="md:flex gap-10 mx-5 lg:mx-14 md:mx-8 rounded-lg shadow-md mt-20 mb-10 lg:p-14 p-6 text-black items-center bg-[#ffffff1d] border">
+            
+            <div style={{
+                backgroundImage:'url(https://i.ibb.co.com/BzrdmR3/pngegg-3.webp)',
+                backgroundSize:'contain',
+                backgroundPosition:'center',
+                padding:'30px',
+                backgroundRepeat:'no-repeat'
+            }} className="lg:w-[2000px] md:w-[3000px] relative">
+            <img src={about?.founderLogo} alt="Mr. Anirban Manna - Trilok Propco" className="rounded-tr-[30px] rounded-bl-[30px] md:mb-0 mb-4"/>
+            <div className="bg-white p-3 rounded-tr-[30px] rounded-bl-[30px] absolute lg:top-[60%] lg:left-[-50px] shadow-lg md:top-[-30px] top-0 left-0 md:text-[15px] text-[12px]">
+                <h5>8 years of experience</h5>
+                <p>Business Development</p>
+            </div>
+            <div className="bg-white p-3 rounded-tr-[30px] rounded-bl-[30px] absolute lg:bottom-0 lg:right-[-30px] shadow-lg bottom-5 right-1  md:text-[15px] text-[12px]">
+                <p>5 years of cross</p>
+                <p>country experience</p>
+            </div>
+            </div>
             <div>
             <h2 className="text-3xl font-semibold mb-2">Founder</h2>
             <p>{about?.founder}</p>
@@ -111,19 +128,52 @@ const About = () => {
         </div>
 
         <div className="mt-32 mx-10">
-            <SectionTitle value="why choose us"/>
-            <div className="my-5 grid md:grid-cols-3 gap-8">
-            {
-                why?.map(item =>
-                    <div key={item._id} className="flex flex-col items-center justify-center rounded-lg border gap-5 p-4">
-                        <h2 className="text-2xl text-center font-semibold text-[#BDAC0F]">{item?.title}</h2>
-                        <img src={item?.logo} alt={item?.title} className="w-3/4"/>
-                        <p className="text-[18px] text-black mt-2 text-center">{item?.description}</p>
-                    </div>
-                )
-            }
-            </div>
+  <SectionTitle value="why choose us" />
+  <div className="my-5 grid md:grid-cols-3 gap-8">
+    {why?.map(item => (
+      <div
+  key={item._id}
+  className="relative flex flex-col items-center justify-center rounded-lg border border-transparent bg-white gap-5 p-6 transition-all duration-300 ease-in-out hover:shadow-xl hover:scale-105"
+  style={{
+    borderImage: "linear-gradient(45deg, #C19554, #E7C578) 1",
+  }}
+>
+        {/* Logo */}
+        <img
+          src={item?.logo}
+          alt={item?.title}
+          className="w-1/3 transition-transform duration-300 ease-in-out hover:scale-110"
+        />
+
+         {/* Title with gradient text */}
+  <h2
+    className="text-2xl text-center font-semibold mt-4"
+    style={{
+      background: "linear-gradient(45deg, #C19554, #E7C578)",
+      WebkitBackgroundClip: "text",
+      WebkitTextFillColor: "transparent",
+    }}
+  >
+    {item?.title}
+  </h2>
+
+        {/* Description (initially hidden) */}
+        <p className="text-[18px] text-gray-700 text-center leading-relaxed mt-2 opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100 absolute top-full bg-white p-4 rounded-lg shadow-lg">
+          {item?.description}
+        </p>
+
+        {/* Hover overlay for description */}
+        <div className="absolute inset-0 flex items-center justify-center bg-transparent opacity-0 hover:bg-white/80 transition-opacity duration-300 ease-in-out hover:opacity-100 rounded-lg">
+          <p className="text-[18px] text-black text-center leading-relaxed">
+            {item?.description}
+          </p>
         </div>
+      </div>
+    ))}
+  </div>
+</div>
+
+
 
         <div className="mt-32 mx-10">
         <SectionTitle value="Partners"/>
