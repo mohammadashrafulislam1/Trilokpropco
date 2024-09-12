@@ -9,6 +9,7 @@ import AllProperties from "../Pages/AllProperties/AllProperties";
 import About from "../Pages/About/About";
 import ContactUs from "../Pages/Contact/ContactUs";
 import Blogs from "../Pages/Blogs/Blogs";
+import DetailBlog from "../Pages/DetailPage/DetailBlog";
 
 
 export const router = createBrowserRouter([
@@ -56,5 +57,10 @@ export const router = createBrowserRouter([
         path: '/property/:id',
         element: <DetailProperty />,
         loader: ({ params }) => fetch(`${endPoint}/property/${params._id}`)
+      },
+      {
+        path: '/blog/:id',
+        element: <DetailBlog />,
+        loader: ({ params }) => fetch(`${endPoint}/blog/${params._id}`)
       }
 ])
