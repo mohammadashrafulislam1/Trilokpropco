@@ -19,7 +19,7 @@ const ContactUs = () => {
                 <Header />
                 <Helmet>
                 <meta charSet="utf-8" />
-                <title>About Us - Trilokpropco</title>
+                <title>Contact Us - Trilokpropco</title>
                 </Helmet>
                 <SectionTitle value="Contact Us" color="white" />
           </div>
