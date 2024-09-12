@@ -1,4 +1,5 @@
 import { FiArrowRight } from "react-icons/fi";
+import { Link } from "react-router-dom";
 
 const BlogCard = (blog) => {
   console.log(blog?.blog);
@@ -42,9 +43,10 @@ const BlogCard = (blog) => {
         <h3 className="md:text-2xl text-[20px] font-medium text-black mb-2">{blog?.blog?.title}</h3>
             <p>{truncateText(stripHtmlTags(blog?.blog?.description), 10)}</p>
       </div>
-      <div className="text-3xl bg-black text-white w-12 h-12 flex justify-center items-center rounded-full mt-8 ml-auto">
+      <Link to={`/blog/${blog?.blog?._id}`} > <div className="text-3xl bg-black text-white w-12 h-12 flex justify-center items-center rounded-full mt-8 ml-auto">
       <FiArrowRight />
-      </div></div>
+      </div></Link>
+      </div>
     </div>
   );
 };
