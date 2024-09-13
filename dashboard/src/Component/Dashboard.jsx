@@ -4,10 +4,10 @@ import { CiMenuFries } from "react-icons/ci";
 import { RxCross1 } from "react-icons/rx";
 import { FaBell, FaCity, FaDashcube, FaDev, FaHome, FaLocationArrow } from "react-icons/fa";
 import { Link, Outlet } from "react-router-dom";
-import { MdOutlineHandshake, MdOutlineLibraryAdd, MdOutlineRealEstateAgent, MdReviews } from "react-icons/md";
+import { MdMiscellaneousServices, MdOutlineHandshake, MdOutlineLibraryAdd, MdOutlineRealEstateAgent, MdReviews } from "react-icons/md";
 import { LuTableProperties } from "react-icons/lu";
 import { GiConvergenceTarget } from "react-icons/gi";
-import { RiBloggerLine, RiContactsLine, RiGridLine } from "react-icons/ri";
+import { RiBloggerLine, RiContactsLine, RiErrorWarningLine, RiGridLine, RiQuestionLine } from "react-icons/ri";
 import { IoAddCircleOutline } from "react-icons/io5";
 import { BiCategory } from "react-icons/bi";
 import { TbLayoutBottombar, TbLayoutNavbar } from "react-icons/tb";
@@ -244,6 +244,34 @@ const Dashboard = () => {
           </ul>
         )}
       </li>
+      <li>
+        <Link
+          to={"/about"}
+          className="p-3 bg-[#7e7e7e1a] rounded flex items-center gap-2 side-li "
+        >
+          <RiErrorWarningLine />
+          <span className="sidebar-text">About</span>
+        </Link>
+      </li>
+      <li>
+      <Link
+        to={"/services"}
+        className="p-3 bg-[#7e7e7e1a] rounded flex items-center gap-2 side-li "
+      >
+       <MdMiscellaneousServices />
+        <span className="sidebar-text">Services</span>
+      </Link>
+    </li>
+      <li>
+      <Link
+        to={"/why"}
+        className="p-3 bg-[#7e7e7e1a] rounded flex items-center gap-2 side-li "
+      >
+        <RiQuestionLine />
+        <span className="sidebar-text">Why Us</span>
+      </Link>
+    </li>
+      
     </ul>
   );
   return (

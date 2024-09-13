@@ -15,6 +15,9 @@ import Testimonials from "../Pages/Testimonials";
 import Partners from "../Pages/Partners";
 import Footer from "../Pages/Footer";
 import Inquiries from "../Pages/Inquiries";
+import About from "../Pages/About";
+import WhyUs from "../Pages/WhyUs";
+import Services from "../Pages/Services";
 
 
 export const router = createBrowserRouter([
@@ -55,6 +58,21 @@ export const router = createBrowserRouter([
             {
                 path:'cities',
                 element:<Cities />
+            },
+            
+            {
+                path:'about',
+                element:<About />
+            },
+            
+            {
+                path:'why',
+                element:<WhyUs />
+            },
+            
+            {
+                path:'services',
+                element:<Services />
             },
             {
                 path:'addBlog',

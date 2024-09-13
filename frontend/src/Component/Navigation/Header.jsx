@@ -14,7 +14,7 @@ const Header = ({ isDefault = true }) => {
     <ul
       tabIndex={0}
       className={`menu menu-sm dropdown-content ${
-        isDefault ? "bg-base-100 text-white" : "bg-white text-black border"
+        isDefault ? "bg-base-100 text-black" : "bg-white text-black border"
       } rounded-box z-[1] mt-3 w-52 p-2 shadow ml-10`}
     >
       <li>
