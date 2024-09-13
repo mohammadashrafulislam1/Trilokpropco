@@ -20,6 +20,7 @@ import WhyUs from "../Pages/WhyUs";
 import Services from "../Pages/Services";
 import SignUp from "../Pages/SignUp";
 import LogIn from "../Pages/LogIn";
+import PrivateRoute from "./privateRoute";
 
 
 export const router = createBrowserRouter([
@@ -31,77 +32,77 @@ export const router = createBrowserRouter([
         children:[
             {
                 path:'/',
-                element:<Root />
+                element:<PrivateRoute><Root /></PrivateRoute>
             },
             {
                 path:'add',
-                element:<AddProperty />
+                element:<PrivateRoute><AddProperty /></PrivateRoute>
             },
             {
                 path:'properties',
-                element:<Properties />
+                element:<PrivateRoute><Properties /></PrivateRoute>
             },
             {
                 path:'developer',
-                element:<Developer />
+                element:<PrivateRoute><Developer /></PrivateRoute>
             },
             {
                 path:'type',
-                element:<Type />
+                element:<PrivateRoute><Type /></PrivateRoute>
             },
             {
                 path:'status',
-                element:<Status />
+                element:<PrivateRoute><Status /></PrivateRoute>
             },
             {
                 path:'amenities',
-                element:<Amenities />
+                element:<PrivateRoute><Amenities /></PrivateRoute>
             },
             {
                 path:'cities',
-                element:<Cities />
+                element:<PrivateRoute><Cities /></PrivateRoute>
             },
             
             {
                 path:'about',
-                element:<About />
+                element:<PrivateRoute><About /></PrivateRoute>
             },
             
             {
                 path:'why',
-                element:<WhyUs />
+                element:<PrivateRoute><WhyUs /></PrivateRoute>
             },
             {
                 path:'services',
-                element:<Services />
+                element:<PrivateRoute><Services /></PrivateRoute>
             },
             {
                 path:'addBlog',
-                element:<AddBlog />
+                element:<PrivateRoute><AddBlog /></PrivateRoute>
             },
             {
                 path:'blogs',
-                element:<BlogsLists />
+                element:<PrivateRoute><BlogsLists /></PrivateRoute>
             },
             {
                 path:'blogCategories',
-                element:<BlogCategories />
+                element:<PrivateRoute><BlogCategories /></PrivateRoute>
             },
             {
                 path:'testimonials',
-                element:<Testimonials />
+                element:<PrivateRoute><Testimonials /></PrivateRoute>
             },
             {
                 path:'partners',
-                element:<Partners />
+                element:<PrivateRoute><Partners /></PrivateRoute>
             },
             {
                 path:'inquiries',
-                element:<Inquiries />
+                element:<PrivateRoute><Inquiries /></PrivateRoute>
             },
             {
                 path:'footer',
-                element:<Footer />
+                element:<PrivateRoute><Footer /></PrivateRoute>
             },
         ]
     },

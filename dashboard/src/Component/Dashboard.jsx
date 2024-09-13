@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import "./Dashboard.css";
 import { CiMenuFries } from "react-icons/ci";
 import { RxCross1 } from "react-icons/rx";
-import { FaBell, FaCity, FaDashcube, FaDev, FaHome, FaLocationArrow } from "react-icons/fa";
+import { FaBell, FaCity, FaDashcube, FaDev, FaHome, FaLocationArrow, FaUserCircle } from "react-icons/fa";
 import { Link, Outlet } from "react-router-dom";
 import { MdMiscellaneousServices, MdOutlineHandshake, MdOutlineLibraryAdd, MdOutlineRealEstateAgent, MdReviews } from "react-icons/md";
 import { LuTableProperties } from "react-icons/lu";
@@ -11,12 +11,14 @@ import { RiBloggerLine, RiContactsLine, RiErrorWarningLine, RiGridLine, RiQuesti
 import { IoAddCircleOutline } from "react-icons/io5";
 import { BiCategory } from "react-icons/bi";
 import { TbLayoutBottombar, TbLayoutNavbar } from "react-icons/tb";
+import { AuthContext } from "./AuthContext/AuthContext";
 
 const Dashboard = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isPropertiesSubMenuOpen, setIsPropertiesSubMenuOpen] = useState(false);
   const [isBlogsSubMenuOpen, setIsBlogsSubMenuOpen] = useState(false);
   const [isHomeSubMenuOpen, setIsHomeSubMenuOpen] = useState(false);
+  const { logout } = useContext(AuthContext);
 
   const handleDrawerToggle = () => {
     setIsDrawerOpen(!isDrawerOpen);
@@ -274,6 +276,9 @@ const Dashboard = () => {
       
     </ul>
   );
+  const handleLogOut =()=>{
+    logout()
+  }
   return (
     <div className="drawer bg-slate-100">
       <input
@@ -304,13 +309,10 @@ const Dashboard = () => {
               <div
                 tabIndex={0}
                 role="button"
-                className="btn btn-ghost btn-circle avatar"
+                className="click avatar  flex items-center justify-center"
               >
-                <div className="w-10 rounded-full">
-                  <img
-                    alt="Tailwind CSS Navbar component"
-                    src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-                  />
+                <div className="w-full text-center">
+                <FaUserCircle className="text-4xl" />
                 </div>
               </div>
               <ul
@@ -326,7 +328,7 @@ const Dashboard = () => {
                 <li>
                   <a>Settings</a>
                 </li>
-                <li>
+                <li onClick={handleLogOut}>
                   <a>Logout</a>
                 </li>
               </ul>
