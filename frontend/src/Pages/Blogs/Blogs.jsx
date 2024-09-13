@@ -16,7 +16,7 @@ const Blogs = () => {
       try {
         const response = await fetch(`${endPoint}/blog`);
         const data = await response.json();
-        setBlogs(data);
+        setBlogs((data).sort((a, b) => new Date(b.created_at) - new Date(a.created_at)));
       } catch (error) {
         console.error('Error fetching blogs:', error);
       }

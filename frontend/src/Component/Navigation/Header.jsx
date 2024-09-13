@@ -18,19 +18,19 @@ const Header = ({ isDefault = true }) => {
       } rounded-box z-[1] mt-3 w-52 p-2 shadow ml-10`}
     >
       <li>
-        <a href="/properties">Property</a>
+        <Link to="/properties">Property</Link>
       </li>
       <li>
-        <a>Services</a>
+        <Link>Services</Link>
       </li>
       <li>
-        <a href="/blog">Blog</a>
+        <Link to="/blog">Blog</Link>
       </li>
       <li>
-        <a href="/about">About</a>
+        <Link to="/about">About</Link>
       </li>
       <li>
-        <a href="/contact">Contact</a>
+        <Link to="/contact">Contact</Link>
       </li>
     </ul>
   );
@@ -38,19 +38,19 @@ const Header = ({ isDefault = true }) => {
   const menuLiLarge = (
     <ul className={`menu menu-horizontal px-1 ${isDefault ? "text-white" : "text-black"}`}>
       <li>
-        <a href="/properties">Property</a>
+        <Link to="/properties">Property</Link>
       </li>
       <li>
-        <a>Services</a>
+        <Link>Services</Link>
       </li>
       <li>
-        <a href="/blog">Blog</a>
+        <Link to="/blog">Blog</Link>
       </li>
       <li>
-        <a href="/about">About</a>
+        <Link to="/about">About</Link>
       </li>
       <li>
-        <a href="/contact">Contact</a>
+        <Link to="/contact">Contact</Link>
       </li>
     </ul>
   );
@@ -111,7 +111,7 @@ const Header = ({ isDefault = true }) => {
         </div>
 
         <a href="/">
-          <div className="md:w-[104px] lg:h-[50px] navbar-start">
+          <div className="md:w-[104px] lg:h-[50px] w-full navbar-start">
             <img
               src={isDefault ? "https://i.ibb.co/stKQtrJ/1000278004-1.webp" : "https://i.ibb.co/f1L99L9/18a006575c097b8b99494b75da063caf-removebg-preview-2.webp"}
               alt=""
@@ -125,10 +125,10 @@ const Header = ({ isDefault = true }) => {
         <div className="hidden lg:flex">{menuLiLarge}</div>
       </nav>
 
-      <div className="flex items-center gap-4 navbar-end">
+      <div className="flex items-center md:gap-4 gap-3 navbar-end">
         <div
           onClick={toggleDrawer}
-          className={`indicator border rounded-full p-1 lg:p-2 mr-3 cursor-pointer ${isDefault ? "text-white border-white" : "text-black border-black"}`}
+          className={`indicator border rounded-full p-1 lg:p-2 md:mr-3 cursor-pointer ${isDefault ? "text-white border-white" : "text-black border-black"} text-xl`}
         >
           <span className="indicator-item badge bg-[#046307] text-white border-0">
             {compareCount || 0}
@@ -137,7 +137,7 @@ const Header = ({ isDefault = true }) => {
         </div>
 
         <Link to="/favourite">
-          <div className={`indicator border rounded-full p-1 lg:p-2 ${isDefault ? "text-white border-white" : "text-black border-black"}`}>
+          <div className={`indicator border rounded-full p-1 lg:p-2 ${isDefault ? "text-white border-white" : "text-black border-black"} text-xl lg:mr-0 mr-5`}>
             <span className="indicator-item badge bg-[#046307] text-white border-0">
               {favCount || 0}
             </span>
