@@ -4,6 +4,7 @@ import { FaFacebook, FaInstagram, FaLinkedin, FaPhone, FaRegEnvelope, FaWhatsapp
 import { AiFillCaretRight } from "react-icons/ai";
 import { GoDotFill } from "react-icons/go";
 import { CiLocationOn } from "react-icons/ci";
+import { Link } from "react-router-dom";
 
 // https://i.ibb.co/dkBPKPz/footer-bg.webp
 const Footer = () => {
@@ -47,14 +48,14 @@ youtube}><div className="text-[#5B687C] bg-[#2a323c34] w-[32px] h-[32px] flex ju
         <div className="md:w-[20%] w-full">
         <h6 className="text-xl font-semibold mt-4 text-black mb-6">About Us</h6>
         <div className="flex gap-3 flex-col">
-        <a href="">
+        <Link to="#">
         <p className="text-[#1B5638] font-[400] flex items-center mb-4"><span className="flex gap-[-10px]"><GoDotFill /><AiFillCaretRight /></span> How It Work</p>
-        </a>
+        </Link>
 
-        <a href=""><p>Our Story</p></a>
-        <a href=""><p>Career</p></a>
-        <a href=""><p>Contact Us</p></a>
-        <a href=""><p>FAQ's</p></a>
+        <Link to="/about"><p>About</p></Link>
+        <Link to="#"><p>Career</p></Link>
+        <Link to="/contact"><p>Contact Us</p></Link>
+        <Link to="#"><p>FAQ's</p></Link>
         
         </div>
         </div>
@@ -63,11 +64,11 @@ youtube}><div className="text-[#5B687C] bg-[#2a323c34] w-[32px] h-[32px] flex ju
         <h6 className="text-xl font-semibold text-black mb-6">Support & Summary</h6>
 
         <div className="flex gap-3 flex-col">
-        <a href=""><p>Helping Center</p></a>
-        <a href=""><p>Privacy & Policy</p></a>
-        <a href=""><p>Buy or Rent</p></a>
-        <a href=""><p>Properties</p></a>
-        <a href=""><p>Blogs</p></a>
+        <Link to="#"><p>Helping Center</p></Link>
+        <Link to="#"><p>Privacy & Policy</p></Link>
+        <Link to="#"><p>Buy or Rent</p></Link>
+        <Link to="/properties"><p>Properties</p></Link>
+        <Link to="/blog"><p>Blogs</p></Link>
         </div>
         </div>
 
@@ -109,7 +110,7 @@ youtube}><div className="text-[#5B687C] bg-[#2a323c34] w-[32px] h-[32px] flex ju
       <hr className="md:px-5"/>
        <div className="md:flex md:gap-3 md:px-5 justify-between pb-5 md:py-0 py-3 px-10 items-center text-[16px]">
         <a href=""><p>Copyright © 2022 Trilok. </p></a>
-        <a href="policy" className="mt-2"><p>Term Condition & Policy</p></a>
+        <a href="https://github.com/mohammadashrafulislam1" className="mt-2" target="_blank"><p>Developed By Md Ashraful Islam</p></a>
        </div>
     </div>
     );

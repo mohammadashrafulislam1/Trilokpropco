@@ -10,6 +10,7 @@ import About from "../Pages/About/About";
 import ContactUs from "../Pages/Contact/ContactUs";
 import Blogs from "../Pages/Blogs/Blogs";
 import DetailBlog from "../Pages/DetailPage/DetailBlog";
+import Services from "../Pages/Services/Services";
 
 
 export const router = createBrowserRouter([
@@ -52,6 +53,10 @@ export const router = createBrowserRouter([
     {
         path:'/blog',
         element: <Blogs/>,
+    },
+    {
+        path:'/services',
+        element: <Services/>,
     },
     {
         path: '/property/:id',
