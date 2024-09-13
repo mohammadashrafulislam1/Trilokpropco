@@ -18,6 +18,8 @@ import Inquiries from "../Pages/Inquiries";
 import About from "../Pages/About";
 import WhyUs from "../Pages/WhyUs";
 import Services from "../Pages/Services";
+import SignUp from "../Pages/SignUp";
+import LogIn from "../Pages/LogIn";
 
 
 export const router = createBrowserRouter([
@@ -69,7 +71,6 @@ export const router = createBrowserRouter([
                 path:'why',
                 element:<WhyUs />
             },
-            
             {
                 path:'services',
                 element:<Services />
@@ -103,5 +104,13 @@ export const router = createBrowserRouter([
                 element:<Footer />
             },
         ]
-    }
+    },
+    {
+        path:'signup',
+        element:<SignUp />
+    },
+    {
+        path:'login',
+        element:<LogIn />
+    },
 ])
