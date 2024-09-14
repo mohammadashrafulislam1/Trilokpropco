@@ -1,5 +1,6 @@
 import express from "express";
 import { addProperty, deleteProperty, getProperty, updateProperty, deleteGalleryImage, getSingleProperty, deleteBankImage, searchProperty } from "../Controllers/PropertyController.js";
+import { verifyToken } from "../MiddleWare/jwt.js";
 
 export const propertyRouter = express.Router();
 
@@ -8,16 +9,16 @@ export const propertyRouter = express.Router();
 propertyRouter.get('/search', searchProperty);
 
 // POST Property:
-propertyRouter.post('/', addProperty);
+propertyRouter.post('/', verifyToken, addProperty);
 // GET Property:
 propertyRouter.get('/', getProperty)
 // GET sing Property:
 propertyRouter.get('/:id', getSingleProperty)
 // update Property:
-propertyRouter.put('/:id', updateProperty)
+propertyRouter.put('/:id', verifyToken, updateProperty)
 // delete Property:
-propertyRouter.delete('/:id', deleteProperty)
+propertyRouter.delete('/:id', verifyToken, deleteProperty)
 // delete Gallery Image:
-propertyRouter.delete('/:id/galleryImage', deleteGalleryImage)
+propertyRouter.delete('/:id/galleryImage', verifyToken, deleteGalleryImage)
 // delete Bank Image:
-propertyRouter.delete('/:id/bankImage', deleteBankImage)
+propertyRouter.delete('/:id/bankImage', verifyToken, deleteBankImage)
