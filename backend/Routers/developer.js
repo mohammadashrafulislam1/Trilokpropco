@@ -1,14 +1,14 @@
 import express from "express";
 import { upload } from "../MiddleWare/multer.js";
 import { addDeveloper, deleteDeveloper, getDeveloper } from "../Controllers/DeveloperController.js";
-import { verifyToken } from "../MiddleWare/jwt.js";
+import { verifyAdmin, verifyEditor } from "../MiddleWare/jwt.js";
 
 export const developerRouter = express.Router();
 
 // POST developer API:
-developerRouter.post('/', verifyToken, upload.single('image'), addDeveloper)
+developerRouter.post('/', verifyEditor, verifyAdmin, upload.single('image'), addDeveloper)
 
 // GET developer API:
 developerRouter.get('/', getDeveloper)
 // delete developer API:
-developerRouter.delete('/:id', verifyToken, deleteDeveloper)
+developerRouter.delete('/:id', verifyEditor, verifyAdmin, deleteDeveloper)

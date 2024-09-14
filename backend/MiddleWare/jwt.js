@@ -30,14 +30,26 @@ export const verifyToken = (req, res, next) => {
   }
 };
 
-// Verify Admin Role
+// Verify Admin Middleware
 export const verifyAdmin = (req, res, next) => {
   verifyToken(req, res, () => {
-    if (req.user.role === 'admin') {
+    console.log(req.decoded.role)
+    if (req.decoded.role === 'admin') { // Use req.decoded instead of req.user
       next();
     } else {
-      res.status(403).json({ message: 'Admins Only' });
+      res.status(403).json({ message: 'Unauthorized: Admins Only' });
     }
   });
 };
 
+// Verify Editor Middleware
+export const verifyEditor = (req, res, next) => {
+  verifyToken(req, res, () => {
+    console.log(req.decoded.role)
+    if (req.decoded.role === 'editor') { // Use req.decoded instead of req.user
+      next();
+    } else {
+      res.status(403).json({ message: 'Unauthorized: Only Admin & Editor have access.' });
+    }
+  });
+};

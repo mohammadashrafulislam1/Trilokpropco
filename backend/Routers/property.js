@@ -1,6 +1,6 @@
 import express from "express";
 import { addProperty, deleteProperty, getProperty, updateProperty, deleteGalleryImage, getSingleProperty, deleteBankImage, searchProperty } from "../Controllers/PropertyController.js";
-import { verifyToken } from "../MiddleWare/jwt.js";
+import { verifyAdmin, verifyEditor } from "../MiddleWare/jwt.js";
 
 export const propertyRouter = express.Router();
 
@@ -9,16 +9,16 @@ export const propertyRouter = express.Router();
 propertyRouter.get('/search', searchProperty);
 
 // POST Property:
-propertyRouter.post('/', verifyToken, addProperty);
+propertyRouter.post('/', verifyEditor, verifyAdmin, addProperty);
 // GET Property:
 propertyRouter.get('/', getProperty)
 // GET sing Property:
 propertyRouter.get('/:id', getSingleProperty)
 // update Property:
-propertyRouter.put('/:id', verifyToken, updateProperty)
+propertyRouter.put('/:id', verifyEditor, verifyAdmin, updateProperty)
 // delete Property:
-propertyRouter.delete('/:id', verifyToken, deleteProperty)
+propertyRouter.delete('/:id', verifyAdmin, deleteProperty)
 // delete Gallery Image:
-propertyRouter.delete('/:id/galleryImage', verifyToken, deleteGalleryImage)
+propertyRouter.delete('/:id/galleryImage', verifyAdmin, deleteGalleryImage)
 // delete Bank Image:
-propertyRouter.delete('/:id/bankImage', verifyToken, deleteBankImage)
+propertyRouter.delete('/:id/bankImage', verifyAdmin, deleteBankImage)

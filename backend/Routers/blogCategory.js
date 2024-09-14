@@ -1,9 +1,9 @@
 import express from "express";
 import { addBlogCategory, deleteBlogCategory, getBlogCategories } from "../Controllers/blogCategory.js";
-import { verifyToken } from "../MiddleWare/jwt.js";
+import { verifyAdmin, verifyEditor } from "../MiddleWare/jwt.js";
 
 export const blogCategoryRouter = express.Router();
 
-blogCategoryRouter.post('/', verifyToken, addBlogCategory)
+blogCategoryRouter.post('/', verifyEditor, verifyAdmin, addBlogCategory)
 blogCategoryRouter.get('/', getBlogCategories)
-blogCategoryRouter.delete('/:id', verifyToken, deleteBlogCategory)
+blogCategoryRouter.delete('/:id', verifyEditor, verifyAdmin, deleteBlogCategory)
